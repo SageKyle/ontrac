@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 
 import Navbar from './components/Navbar';
+import AddItem from './pages/AddItem';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -21,6 +22,7 @@ function App() {
 						<main className="p-10">
 							<Routes>
 								<Route element={<Home />} path={'/'} />
+								<Route element={<AddItem />} path={'/new'} />
 								<Route element={<SignIn />} path={'/sign-in'} />
 								<Route element={<SignUp />} path={'/sign-up'} />
 							</Routes>
