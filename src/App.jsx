@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 
@@ -8,17 +9,25 @@ import SignUp from './pages/SignUp';
 import Welcome from './pages/Welcome';
 
 function App() {
-	return (
-		<div className="App">
-			<Router>
-				<Navbar />
+	const [notFirstTime, setNotFirstTime] = useState(false);
 
-				<Routes>
-					<Route element={<Welcome />} path={'/welcome'} />
-					<Route element={<Home />} path={'/'} />
-					<Route element={<SignIn />} path={'/sign-in'} />
-					<Route element={<SignUp />} path={'/sign-up'} />
-				</Routes>
+	return (
+		<div className="App relative bg-slate-600 text-gray-200">
+			<Router>
+				{!notFirstTime && <Welcome setNotFirstTime={setNotFirstTime} />}
+
+				{notFirstTime && (
+					<>
+						<main className="p-10">
+							<Routes>
+								<Route element={<Home />} path={'/'} />
+								<Route element={<SignIn />} path={'/sign-in'} />
+								<Route element={<SignUp />} path={'/sign-up'} />
+							</Routes>
+						</main>
+						<Navbar />
+					</>
+				)}
 			</Router>
 		</div>
 	);
