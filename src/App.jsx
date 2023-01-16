@@ -7,7 +7,7 @@ import AddItem from './pages/AddItem';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-import Welcome from './pages/Welcome';
+import Welcome from './utils/Welcome';
 
 function App() {
 	const [notFirstTime, setNotFirstTime] = useState(false);
