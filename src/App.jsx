@@ -19,7 +19,7 @@ function App() {
 
 				{notFirstTime && (
 					<>
-						<main className="p-10">
+						<main className="p-10 mb-[6rem]">
 							<Routes>
 								<Route element={<Home />} path={'/'} />
 								<Route element={<AddItem />} path={'/new'} />
