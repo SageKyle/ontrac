@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function Navbar() {
 	return (
-		<nav className="nav p-6 min-w-full bg-gray-900 text-white flex fixed bottom-0">
+		<nav className="p-4 min-w-full bg-slate-600 border-t-gray-900 border-2 text-white flex sticky z-50 bottom-0">
 			<ul className="flex justify-evenly align-middle w-[100%]">
 				{/* Home */}
 				<li

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import AuthWithGoogle from '../components/AuthWithGoogle';
 
 export default function SignIn() {
 	return (
@@ -91,6 +92,7 @@ export default function SignIn() {
 					Sign Up
 				</Link>
 			</p>
+			<AuthWithGoogle />
 		</form>
 	);
 }

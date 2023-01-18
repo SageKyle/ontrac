@@ -27,8 +27,14 @@ export default function AddItem() {
 	};
 
 	const handleSpeechToText = () => {
-		listening ? stopListening : listenContinuously;
-		listening ? console.log('on') : console.log('off');
+		if (!listening) {
+			listenContinuously();
+			setNote((prevValue) => prevValue + ' ' + transcript);
+			console.log('on');
+		} else if (listening) {
+			stopListening();
+			console.log('off');
+		}
 	};
 
 	return (
@@ -36,23 +42,23 @@ export default function AddItem() {
 			<nav className="flex justify-between items-center mb-6">
 				{/* arrow left */}
 				<Link to={'/'} className=" cursor-pointer" title="Home">
-					<BsFillArrowLeftCircleFill />
+					<BsFillArrowLeftCircleFill className="text-2xl" />
 				</Link>
 				<div className="flex mr-2">
 					{/* checkmark */}
 					<span onClick={handleSubmit} title="Save note" className="mr-8">
-						<BsCheck2 />
+						<BsCheck2 className="text-2xl" />
 					</span>
 					{/* notification */}
 					<span
 						className="inline-block mr-4 cursor-pointer"
 						title="Enable notification"
 					>
-						<MdOutlineNotificationAdd />
+						<MdOutlineNotificationAdd className="text-2xl" />
 					</span>
 					{/* bookmark */}
 					<span className=" cursor-pointer" title="Add to bookmark">
-						<BsFillBookmarkPlusFill />
+						<BsFillBookmarkPlusFill className="text-2xl" />
 					</span>
 				</div>
 			</nav>
@@ -72,7 +78,7 @@ export default function AddItem() {
 						className="bg-transparent resize-none mb-6 outline-0 w-full"
 						placeholder="Note"
 						title="Add Note"
-						value={listening ? transcript : note}
+						value={note}
 						onChange={(e) => setNote(e.target.value)}
 						required
 						autoFocus
@@ -82,7 +88,7 @@ export default function AddItem() {
 						title="Record Note"
 						onClick={handleSpeechToText}
 					>
-						<BsFillMicFill />
+						<BsFillMicFill className="text-2xl" />
 					</span>
 				</label>
 			</form>
