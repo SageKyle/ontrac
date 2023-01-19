@@ -6,7 +6,7 @@ import { BsBookmarksFill, BsFillPlusCircleFill } from 'react-icons/bs';
 
 export default function Navbar() {
 	return (
-		<nav className="py-2 px-4 min-w-full bg-slate-600 border-t-gray-900 border-2 text-white flex sticky z-50 bottom-0">
+		<nav className="py-2 px-4 min-w-full bg-slate-600 border-t-amber-300 border-2 text-white flex sticky z-50 bottom-0">
 			<ul className="flex justify-evenly align-middle w-[100%]">
 				{/* Home */}
 				<li

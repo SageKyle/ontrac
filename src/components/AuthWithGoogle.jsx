@@ -1,4 +1,4 @@
-import { AiFillGoogleCircle } from 'react-icons/ai';
+import { FcGoogle } from 'react-icons/fc';
 
 export default function AuthWithGoogle() {
 	return (
@@ -8,7 +8,7 @@ export default function AuthWithGoogle() {
 			</div>
 
 			<button className="w-full p-4 flex justify-center items-center border-2 border-white bg-white text-slate-600 rounded hover:bg-transparent hover:text-white transition ease-in-out">
-				<AiFillGoogleCircle className="inline-block mr-2 text-2xl" />
+				<FcGoogle className="inline-block mr-2 text-2xl" />
 				<span className="capitalize text-2xl">continue with google</span>
 			</button>
 		</section>

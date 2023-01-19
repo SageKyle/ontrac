@@ -1,39 +1,39 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import useSignUp from '../hooks/useSignUp';
+
 import AuthWithGoogle from '../components/AuthWithGoogle';
 
 export default function SignUp() {
+	// form states
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	const navigate = useNavigate();
+	const { signUp, isPending, error } = useSignUp();
+
+	// Signup user
+	function handleSubmit(e) {
+		e.preventDefault();
+		signUp(email, password);
+		console.log('Signup successful');
+		if (!error) {
+			setTimeout(() => {
+				navigate('/');
+			}, 3000);
+		}
+	}
+
 	return (
-		<form className="flex flex-col w-[100%] mb-[6rem] items-center justify-center h-[85vh]">
+		<form
+			className="flex flex-col w-[100%] mb-[6rem] items-center justify-center h-[85vh]"
+			onSubmit={handleSubmit}
+		>
 			<h1 className="capitalize text-3xl font-bold mb-10">Register</h1>
 			<h1 className="capitalize text-1xl font-bold mb-[4rem]">
 				welcome to OnTrac
 			</h1>
-			<label className="border-b-2 pb-2 flex w-3/4 border-slate-700 mb-10">
-				{' '}
-				<span className="uppercase inline-block mr-2">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						strokeWidth={1.5}
-						stroke="currentColor"
-						className="w-6 h-6"
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-						/>
-					</svg>
-				</span>
-				<input
-					type="text"
-					id="first-name"
-					title="Enter your first name"
-					placeholder="First Name"
-					className="bg-transparent outline-0 border-0 w-100"
-				/>
-			</label>
 
 			<label className="border-b-2 pb-2 flex w-3/4 border-slate-700 mb-10">
 				{' '}
@@ -55,9 +55,11 @@ export default function SignUp() {
 				</span>
 				<input
 					type="text"
-					id="last-name"
-					title="Enter your last name"
-					placeholder="Last Name"
+					id="name"
+					value={name}
+					onChange={(e) => setName(e.target.value)}
+					title="Enter your full name"
+					placeholder="Full Name"
 					className="bg-transparent outline-0 border-0 w-100"
 				/>
 			</label>
@@ -83,6 +85,8 @@ export default function SignUp() {
 				<input
 					type="email"
 					id="email"
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
 					title="Enter your email"
 					placeholder="Email"
 					className="bg-transparent outline-0 border-0 w-100"
@@ -109,6 +113,8 @@ export default function SignUp() {
 				<input
 					type="password"
 					id="password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
 					title="Enter your password"
 					placeholder="Password"
 					className="bg-transparent outline-0 border-0"
@@ -134,14 +140,17 @@ export default function SignUp() {
 					/>
 				</svg>
 			</Link>
-			<Link
-				className="px-6 py-3 my-4 rounded bg-emerald-500 text-white hover:bg-transparent border-2 border-emerald-500"
-				to={'/'}
-			>
-				<button className="capitalize text-2xl " type="submit">
-					get started
-				</button>
-			</Link>
+			{error && <p className="text-red">{error}</p>}
+			<div className="px-6 py-3 my-4 rounded bg-emerald-500 text-white hover:bg-transparent border-2 border-emerald-500">
+				{isPending && (
+					<button className="capitalize text-2xl " disabled>
+						Loading
+					</button>
+				)}
+				{!isPending && (
+					<button className="capitalize text-2xl ">get started</button>
+				)}
+			</div>
 			<p className="mt-4">
 				Already have an account?{' '}
 				<Link to={'/sign-in'} className="text-[#F9A826]">

@@ -20,10 +20,11 @@ export default function AddItem() {
 	// Form States
 	const [title, setTitle] = useState('');
 	const [note, setNote] = useState('');
+	const [bookmarked, setBookmarked] = useState(false);
 
 	// Form Actions
 	const handleSubmit = () => {
-		console.log({ title, note });
+		console.log({ title, note, bookmarked });
 	};
 
 	const handleSpeechToText = () => {
@@ -41,12 +42,16 @@ export default function AddItem() {
 		<section>
 			<nav className="flex justify-between items-center mb-6">
 				{/* arrow left */}
-				<Link to={'/'} className=" cursor-pointer" title="Home">
+				<Link to={'/'} className="cursor-pointer" title="Home">
 					<BsFillArrowLeftCircleFill className="text-2xl" />
 				</Link>
-				<div className="flex mr-2">
+				<div className="flex mr-2 ">
 					{/* checkmark */}
-					<span onClick={handleSubmit} title="Save note" className="mr-8">
+					<span
+						onClick={handleSubmit}
+						title="Save note"
+						className="mr-8 cursor-pointer"
+					>
 						<BsCheck2 className="text-2xl" />
 					</span>
 					{/* notification */}
@@ -57,7 +62,11 @@ export default function AddItem() {
 						<MdOutlineNotificationAdd className="text-2xl" />
 					</span>
 					{/* bookmark */}
-					<span className=" cursor-pointer" title="Add to bookmark">
+					<span
+						className=" cursor-pointer"
+						onClick={() => setBookmarked((prev) => !prev)}
+						title="Add to bookmark"
+					>
 						<BsFillBookmarkPlusFill className="text-2xl" />
 					</span>
 				</div>
