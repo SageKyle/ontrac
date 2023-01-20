@@ -4,15 +4,20 @@ import useSignUp from '../hooks/useSignUp';
 
 import AuthWithGoogle from '../components/AuthWithGoogle';
 // icons
-import { BsBoxArrowUpRight } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
-import { HiLockClosed, HiOutlineMail } from 'react-icons/hi';
+import {
+	HiLockClosed,
+	HiOutlineEye,
+	HiOutlineEyeOff,
+	HiOutlineMail,
+} from 'react-icons/hi';
 
 export default function SignUp() {
 	// form states
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [showPassword, setShowPassword] = useState(false);
 
 	const navigate = useNavigate();
 	const { signUp, isPending, error } = useSignUp();
@@ -31,7 +36,7 @@ export default function SignUp() {
 
 	return (
 		<form
-			className="flex flex-col w-[100%] mb-[6rem] items-center justify-center h-[85vh]"
+			className="flex flex-col w-[100%] items-center justify-center min-h-[85vh]"
 			onSubmit={handleSubmit}
 		>
 			<h1 className="capitalize text-3xl font-bold mb-10">Register</h1>
@@ -39,28 +44,31 @@ export default function SignUp() {
 				welcome to OnTrac
 			</h1>
 
-			<label className="border-b-2 pb-1 flex items-center w-3/4 border-slate-700 mb-10">
+			<label className="border-b-2 pb-1 flex items-center w-full border-slate-700 mb-10">
 				{' '}
 				<span className="uppercase inline-block mr-2 text-2xl">
 					<FaUserAlt />
 				</span>
 				<input
+					required
+					autoFocus
 					type="text"
 					id="name"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
 					title="Enter your full name"
 					placeholder="Full Name"
-					className="bg-transparent outline-0 border-0 w-100"
+					className="bg-transparent outline-0 border-0 w-[95%]"
 				/>
 			</label>
 
-			<label className="border-b-2 pb-1 flex items-center w-3/4 border-slate-700 mb-10">
+			<label className="border-b-2 pb-1 flex items-center w-full border-slate-700 mb-10">
 				{' '}
 				<span className="uppercase inline-block mr-2 text-2xl">
 					<HiOutlineMail />
 				</span>
 				<input
+					required
 					type="email"
 					id="email"
 					value={email}
@@ -70,39 +78,46 @@ export default function SignUp() {
 					className="bg-transparent outline-0 border-0 w-100"
 				/>
 			</label>
-			<label className="border-b-2 pb-1 flex items-center w-3/4 border-slate-700 mb-10">
+			<label className="border-b-2 pb-1 flex items-center w-full border-slate-700 mb-10">
 				{' '}
 				<span className="uppercase inline-block mr-2 text-2xl">
 					<HiLockClosed />
 				</span>
 				<input
-					type="password"
+					required
+					type={showPassword ? 'text' : 'password'}
 					id="password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 					title="Enter your password"
 					placeholder="Password"
-					className="bg-transparent outline-0 border-0"
+					className="bg-transparent w-[90%] outline-0 border-0"
 				/>
+				<div className="ml-auto mr-2 inline-block text-2xl">
+					{showPassword && (
+						<HiOutlineEye onClick={() => setShowPassword((prev) => !prev)} />
+					)}
+					{!showPassword && (
+						<HiOutlineEyeOff onClick={() => setShowPassword((prev) => !prev)} />
+					)}
+				</div>
 			</label>
-			<Link
-				to={'/'}
-				className="ml-auto w-3/4 capitalize mt-2 flex items-center  hover:text-white"
-			>
-				Forgot password?{'  '}
-				<BsBoxArrowUpRight className="text-2xl" />
-			</Link>
-			{error && <p className="text-red">{error}</p>}
-			<div className="px-6 py-3 my-4 rounded bg-emerald-500 text-white hover:bg-transparent border-2 border-emerald-500">
-				{isPending && (
-					<button className="capitalize text-2xl " disabled>
-						Loading
-					</button>
-				)}
-				{!isPending && (
-					<button className="capitalize text-2xl ">get started</button>
-				)}
-			</div>
+
+			{error && <p className="text-[red]">{error}</p>}
+
+			{isPending && (
+				<button
+					className="px-6 py-3 my-4 rounded text-gray-200 capitalize bg-gray-700 text-2xl"
+					disabled
+				>
+					Loading
+				</button>
+			)}
+			{!isPending && (
+				<button className="px-6 py-3 my-4 rounded bg-emerald-500 text-white hover:bg-transparent border-2 border-emerald-500 capitalize text-2xl ">
+					get started
+				</button>
+			)}
 			<p className="mt-4">
 				Already have an account?{' '}
 				<Link to={'/sign-in'} className="text-[#F9A826]">

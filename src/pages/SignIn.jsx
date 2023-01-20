@@ -2,11 +2,20 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthWithGoogle from '../components/AuthWithGoogle';
 import useSignIn from '../hooks/useSignIn';
+// icons
+import { BsBoxArrowUpRight } from 'react-icons/bs';
+import {
+	HiLockClosed,
+	HiOutlineEye,
+	HiOutlineEyeOff,
+	HiOutlineMail,
+} from 'react-icons/hi';
 
 export default function SignIn() {
 	// form states
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [showPassword, setShowPassword] = useState(false);
 
 	const navigate = useNavigate();
 	const { signIn, isPending, error } = useSignIn();
@@ -24,28 +33,15 @@ export default function SignIn() {
 
 	return (
 		<form
-			className="flex flex-col w-[100%] mb-[6rem] items-center justify-center h-[85vh]"
+			className="flex flex-col w-[100%] items-center justify-center min-h-[85vh]"
 			onSubmit={handleSubmit}
 		>
 			<h1 className="capitalize text-3xl font-bold mb-10">log in</h1>
 			<h1 className="capitalize text-1xl font-bold mb-[4rem]">welcome back!</h1>
-			<label className="border-b-2 pb-2 flex w-3/4 border-slate-700 mb-10">
+			<label className="border-b-2 pb-1 flex items-center w-full border-slate-700 mb-10">
 				{' '}
-				<span className="uppercase inline-block mr-2">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						strokeWidth={1.5}
-						stroke="currentColor"
-						className="w-6 h-6"
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
-						/>
-					</svg>
+				<span className="uppercase text-2xl inline-block mr-2">
+					<HiOutlineMail />
 				</span>
 				<input
 					type="email"
@@ -53,71 +49,58 @@ export default function SignIn() {
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
 					required
+					autoFocus
 					title="Enter your email"
 					placeholder="Email"
-					className="bg-transparent outline-0 border-0 w-100"
+					className="bg-transparent w-[95%] outline-0 border-0"
 				/>
 			</label>
-			<label className="border-b-2 flex pb-2 w-3/4 border-slate-700 mb-10">
+			<label className="border-b-2 flex items-center pb-1 w-full border-slate-700 mb-10">
 				{' '}
-				<span className="uppercase inline-block mr-2">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						strokeWidth={1.5}
-						stroke="currentColor"
-						className="w-6 h-6"
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
-						/>
-					</svg>
+				<span className="uppercase text-2xl inline-block mr-2">
+					<HiLockClosed />
 				</span>
 				<input
-					type="password"
+					type={showPassword ? 'text' : 'password'}
 					id="password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 					required
 					title="Enter your password"
 					placeholder="Password"
-					className="bg-transparent outline-0 border-0"
+					className="bg-transparent w-[90%] outline-0 border-0"
 				/>
+				<div className="ml-auto mr-2 inline-block text-2xl">
+					{showPassword && (
+						<HiOutlineEye onClick={() => setShowPassword((prev) => !prev)} />
+					)}
+					{!showPassword && (
+						<HiOutlineEyeOff onClick={() => setShowPassword((prev) => !prev)} />
+					)}
+				</div>
 			</label>
 			<Link
 				to={'/'}
-				className="ml-auto w-3/4 capitalize mt-2 flex  hover:text-white"
+				className="w-full justify-center capitalize mt-2 flex  hover:text-white"
 			>
-				Forgot password?{'  '}
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					strokeWidth={1.5}
-					stroke="currentColor"
-					className="w-6 h-6 ml-2"
-				>
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-					/>
-				</svg>
+				Forgot password?
+				<BsBoxArrowUpRight className="inline-block ml-2 text-2xl" />
 			</Link>
 			{error && <p className="text-[red]">{error}</p>}
-			<div className="px-6 py-3 my-4 rounded bg-emerald-500 text-white hover:bg-transparent border-2 border-emerald-500">
-				{isPending && (
-					<button className="capitalize text-2xl " disabled>
-						Loading
-					</button>
-				)}
-				{!isPending && (
-					<button className="capitalize text-2xl ">get started</button>
-				)}
-			</div>
+
+			{isPending && (
+				<button
+					className="px-6 py-3 my-4 rounded text-gray-200 capitalize bg-gray-700 text-2xl"
+					disabled
+				>
+					Loading
+				</button>
+			)}
+			{!isPending && (
+				<button className="px-6 py-3 my-4 rounded bg-emerald-500 text-white hover:bg-transparent border-2 border-emerald-500 capitalize text-2xl ">
+					get started
+				</button>
+			)}
 			<p className="mt-4">
 				Don't have an account yet?{' '}
 				<Link to={'/sign-up'} className="text-[#F9A826]">
