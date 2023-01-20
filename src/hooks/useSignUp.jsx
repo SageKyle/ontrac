@@ -1,9 +1,14 @@
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
-import { addDoc, collection } from 'firebase/firestore';
-import { useDebugValue, useState } from 'react';
+import {
+	createUserWithEmailAndPassword,
+	getAuth,
+	updateProfile,
+} from 'firebase/auth';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { useDebugValue, useEffect, useState } from 'react';
 import { db } from '../firebase.config';
 
 export default function useSignUp() {
+	const [isCancelled, setIsCancelled] = useState(false);
 	const [isPending, setIsPending] = useState(false);
 	const [error, setError] = useState(null);
 	const auth = getAuth();
@@ -18,30 +23,41 @@ export default function useSignUp() {
 				email,
 				password
 			);
+			// add a username
+			await updateProfile(auth.currentUser, { displayName: name });
 			const user = userCredential.user;
-			useDebugValue(`user: ${user}`);
 
-			await auth.updateCurrentUser({ displayName: name });
+			// debugging
+			useDebugValue(user, (user) => `user info: ${user}`);
 
 			// add user info to db
-			const docRef = await addDoc(collection(db, 'users'), {
+			await setDoc(doc(db, 'users', user.uid), {
 				name: user.displayName,
 				email: user.email,
+				timeStamp: serverTimestamp(),
 			});
-			console.log(docRef);
 
 			if (!user) {
 				throw new Error('Could not complete signup');
 			}
 
-			setIsPending(false);
-			setError(null);
+			//   update state
+			if (!isCancelled) {
+				setIsPending(false);
+				setError(null);
+			}
 		} catch (err) {
-			console.log(err.message);
-			setError(err.message);
-			setIsPending(false);
+			if (!isCancelled) {
+				console.log(err.message);
+				setError(err.message);
+				setIsPending(false);
+			}
 		}
 	}
+
+	useEffect(() => {
+		return () => setIsCancelled(true);
+	}, []);
 
 	return { signUp, isPending, error };
 }
