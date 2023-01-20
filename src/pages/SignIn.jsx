@@ -1,9 +1,32 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthWithGoogle from '../components/AuthWithGoogle';
+import useSignIn from '../hooks/useSignIn';
 
 export default function SignIn() {
+	// form states
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	const navigate = useNavigate();
+	const { signIn, isPending, error } = useSignIn();
+
+	// Sign in user
+	async function handleSubmit(e) {
+		e.preventDefault();
+		await signIn(email, password);
+		if (!error) {
+			setTimeout(() => {
+				navigate('/');
+			}, 3000);
+		}
+	}
+
 	return (
-		<form className="flex flex-col w-[100%] mb-[6rem] items-center justify-center h-[85vh]">
+		<form
+			className="flex flex-col w-[100%] mb-[6rem] items-center justify-center h-[85vh]"
+			onSubmit={handleSubmit}
+		>
 			<h1 className="capitalize text-3xl font-bold mb-10">log in</h1>
 			<h1 className="capitalize text-1xl font-bold mb-[4rem]">welcome back!</h1>
 			<label className="border-b-2 pb-2 flex w-3/4 border-slate-700 mb-10">
@@ -27,6 +50,9 @@ export default function SignIn() {
 				<input
 					type="email"
 					id="email"
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
+					required
 					title="Enter your email"
 					placeholder="Email"
 					className="bg-transparent outline-0 border-0 w-100"
@@ -53,6 +79,9 @@ export default function SignIn() {
 				<input
 					type="password"
 					id="password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					required
 					title="Enter your password"
 					placeholder="Password"
 					className="bg-transparent outline-0 border-0"
@@ -78,14 +107,17 @@ export default function SignIn() {
 					/>
 				</svg>
 			</Link>
-			<Link
-				className="px-6 py-3 my-4 rounded bg-emerald-500 text-white hover:bg-transparent border-2 border-emerald-500"
-				to={'/'}
-			>
-				<button className="capitalize text-2xl " type="submit">
-					get started
-				</button>
-			</Link>
+			{error && <p className="text-[red]">{error}</p>}
+			<div className="px-6 py-3 my-4 rounded bg-emerald-500 text-white hover:bg-transparent border-2 border-emerald-500">
+				{isPending && (
+					<button className="capitalize text-2xl " disabled>
+						Loading
+					</button>
+				)}
+				{!isPending && (
+					<button className="capitalize text-2xl ">get started</button>
+				)}
+			</div>
 			<p className="mt-4">
 				Don't have an account yet?{' '}
 				<Link to={'/sign-up'} className="text-[#F9A826]">
