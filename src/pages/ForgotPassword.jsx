@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import useSignUp from '../hooks/useSignUp';
+import useForgotPassword from '../hooks/useForgotPassword';
 
 import AuthWithGoogle from '../components/AuthWithGoogle';
 // icons
@@ -10,19 +10,12 @@ export default function SignUp() {
 	// form states
 	const [email, setEmail] = useState('');
 
-	const navigate = useNavigate();
-	const { signUp, isPending, error } = useSignUp();
+	const { resetPassword, isPending, error } = useForgotPassword();
 
 	// Signup user
-	function handleSubmit(e) {
+	async function handleSubmit(e) {
 		e.preventDefault();
-		// signUp(email, password, );
-		console.log('Signup successful');
-		if (!error) {
-			setTimeout(() => {
-				navigate('/');
-			}, 3000);
-		}
+		await resetPassword(email);
 	}
 
 	return (
