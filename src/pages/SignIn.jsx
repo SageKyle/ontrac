@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AuthWithGoogle from '../components/AuthWithGoogle';
 import useSignIn from '../hooks/useSignIn';
 // icons
@@ -17,18 +17,12 @@ export default function SignIn() {
 	const [password, setPassword] = useState('');
 	const [showPassword, setShowPassword] = useState(false);
 
-	const navigate = useNavigate();
 	const { signIn, isPending, error } = useSignIn();
 
 	// Sign in user
 	async function handleSubmit(e) {
 		e.preventDefault();
 		await signIn(email, password);
-		if (!error) {
-			setTimeout(() => {
-				navigate('/');
-			}, 3000);
-		}
 	}
 
 	return (

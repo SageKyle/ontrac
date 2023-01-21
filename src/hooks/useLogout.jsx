@@ -1,6 +1,7 @@
 import { getAuth, signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function useLogout() {
 	const [isCancelled, setIsCancelled] = useState(false);
@@ -15,7 +16,7 @@ export default function useLogout() {
 		try {
 			// sign out user
 			await signOut(auth);
-			setIsPending(false);
+			// setIsPending(false);
 
 			setTimeout(() => {
 				navigate('/sign-in');
@@ -23,6 +24,7 @@ export default function useLogout() {
 
 			//   update state
 			if (!isCancelled) {
+				toast.success('Logout successful');
 				setIsPending(false);
 				setError(null);
 			}
@@ -30,6 +32,7 @@ export default function useLogout() {
 		} catch (err) {
 			if (!isCancelled) {
 				console.log(err.message);
+				toast.error(err.message);
 				setError(err.message);
 				setIsPending(false);
 			}

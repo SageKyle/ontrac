@@ -1,10 +1,13 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useDebugValue, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function useSignIn() {
 	const [isCancelled, setIsCancelled] = useState(false);
 	const [isPending, setIsPending] = useState(false);
 	const [error, setError] = useState(null);
+	const navigate = useNavigate();
 	const auth = getAuth();
 
 	async function signIn(email, password) {
@@ -17,15 +20,18 @@ export default function useSignIn() {
 				email,
 				password
 			);
-
 			const user = userCredential.user;
-			console.log(user);
 
+			toast.success('Sign in successful');
 			// debugging
 			useDebugValue(user, (user) => `user info: ${user}`);
 
 			if (!user) {
 				throw new Error('Could not complete sign in');
+			} else {
+				setTimeout(() => {
+					navigate('/');
+				}, 3000);
 			}
 
 			//   update state
@@ -39,6 +45,7 @@ export default function useSignIn() {
 				console.log(err.message);
 				setError(err.message);
 				setIsPending(false);
+				toast.error(err.message);
 			}
 		}
 	}

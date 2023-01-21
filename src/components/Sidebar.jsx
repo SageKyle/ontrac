@@ -17,6 +17,9 @@ export default function Sidebar() {
 					<h4 className="mx-auto capitalize after:absolute after:inline-block after:w-full after:border-t-[1px] after:border-[#7B8FA1] after:left-0 after:bottom-6">
 						{user.displayName}
 					</h4>
+					<h4 className="mx-auto normal-case text-xs font-thin">
+						{user.email}
+					</h4>
 					{!isPending && (
 						<button onClick={logout} className="hover:underline text-xl mt-6 ">
 							<BiLogOut className="mr-2 inline-block" />
