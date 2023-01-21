@@ -20,7 +20,7 @@ export default function Welcome({ setNotFirstTime }) {
 			</p>
 			<Link
 				className="px-6 py-3 my-4 rounded bg-emerald-500 text-white"
-				to={'/'}
+				to={'/sign-in'}
 				onClick={() => setNotFirstTime((prevValue) => !prevValue)}
 			>
 				<button className="capitalize text-2xl " type="submit">
