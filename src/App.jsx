@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 
 import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
 import AddItem from './pages/AddItem';
 import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
@@ -12,6 +13,7 @@ import Welcome from './utils/Welcome';
 
 function App() {
 	const [notFirstTime, setNotFirstTime] = useState(false);
+	const [showSidebar, setShowSidebar] = useState(false);
 
 	return (
 		<div className="App relative bg-slate-600 text-gray-200">
@@ -20,7 +22,11 @@ function App() {
 
 				{notFirstTime && (
 					<>
-						<main className="p-10 mb-[6rem]">
+						<main
+							className="p-10 mb-[6rem]"
+							// hide sidebar when user clicks outside the area
+							onClick={() => setShowSidebar(false)}
+						>
 							<Routes>
 								<Route element={<Home />} path={'/'} />
 								<Route element={<AddItem />} path={'/new'} />
@@ -29,7 +35,8 @@ function App() {
 								<Route element={<ForgotPassword />} path={'/iforgot'} />
 							</Routes>
 						</main>
-						<Navbar />
+						{showSidebar && <Sidebar />}
+						<Navbar toggleSidebar={setShowSidebar} />
 					</>
 				)}
 			</Router>

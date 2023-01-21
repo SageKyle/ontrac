@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 import { BiHomeCircle, BiUserCircle } from 'react-icons/bi';
 import { BsBookmarksFill, BsFillPlusCircleFill } from 'react-icons/bs';
 
-export default function Navbar() {
+export default function Navbar({ toggleSidebar }) {
 	return (
-		<nav className="py-2 px-4 min-w-full bg-slate-600 border-t-amber-300 border-2 text-white flex sticky z-50 bottom-0">
+		<nav className="py-2 px-4 w-full bg-slate-600 border-t-amber-300 border-2 text-white flex sticky z-20 bottom-0">
 			<ul className="flex justify-evenly align-middle w-[100%]">
 				{/* Home */}
 				<li
@@ -52,13 +52,13 @@ export default function Navbar() {
 					className="mr-4 hover:cursor-pointer list-none hover:text-amber-300"
 					title="Login"
 				>
-					<NavLink
-						to={'/sign-in'}
+					<div
 						className="flex flex-col items-center justify-center"
+						onClick={() => toggleSidebar((prev) => !prev)}
 					>
 						<BiUserCircle className="text-2xl" />
-						<span>Login</span>
-					</NavLink>
+						<span>Dashboard</span>
+					</div>
 				</li>
 			</ul>
 		</nav>
