@@ -4,6 +4,7 @@ import './App.css';
 
 import Navbar from './components/Navbar';
 import AddItem from './pages/AddItem';
+import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -25,6 +26,7 @@ function App() {
 								<Route element={<AddItem />} path={'/new'} />
 								<Route element={<SignIn />} path={'/sign-in'} />
 								<Route element={<SignUp />} path={'/sign-up'} />
+								<Route element={<ForgotPassword />} path={'/iforgot'} />
 							</Routes>
 						</main>
 						<Navbar />

@@ -80,7 +80,7 @@ export default function SignIn() {
 				</div>
 			</label>
 			<Link
-				to={'/'}
+				to={'/iforgot'}
 				className="w-full justify-center capitalize mt-2 flex  hover:text-white"
 			>
 				Forgot password?
