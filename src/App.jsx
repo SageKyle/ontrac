@@ -4,7 +4,8 @@ import './App.css';
 
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
-import AddItem from './pages/AddItem';
+import AddNewNote from './pages/AddNewNote';
+import AddTodo from './pages/AddTodo';
 import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
@@ -39,7 +40,8 @@ function App() {
 								>
 									<Routes>
 										<Route element={<Home />} path={'/'} />
-										<Route element={<AddItem />} path={'/new'} />
+										<Route element={<AddNewNote />} path={'/new-note'} />
+										<Route element={<AddTodo />} path={'/new-todo'} />
 										<Route element={<SignIn />} path={'/sign-in'} />
 										<Route element={<SignUp />} path={'/sign-up'} />
 										<Route element={<ForgotPassword />} path={'/iforgot'} />

@@ -5,37 +5,19 @@ import {
 	BsCheck2,
 	BsFillArrowLeftCircleFill,
 	BsFillBookmarkPlusFill,
-	BsFillMicFill,
 } from 'react-icons/bs';
 import { MdOutlineNotificationAdd } from 'react-icons/md';
 
-// Custom hooks
-import useSpeechToText from '../hooks/useTextToSpeech';
-
-export default function AddItem() {
-	// Speech to Text
-	const { listenContinuously, listening, stopListening, transcript } =
-		useSpeechToText();
-
+export default function AddTodo() {
 	// Form States
-	const [title, setTitle] = useState('');
+	const [todo, setTodo] = useState('');
 	const [note, setNote] = useState('');
+	const [date, setDate] = useState('');
 	const [bookmarked, setBookmarked] = useState(false);
 
 	// Form Actions
 	const handleSubmit = () => {
-		console.log({ title, note, bookmarked });
-	};
-
-	const handleSpeechToText = () => {
-		if (!listening) {
-			listenContinuously();
-			setNote((prevValue) => prevValue + ' ' + transcript);
-			console.log('on');
-		} else if (listening) {
-			stopListening();
-			console.log('off');
-		}
+		console.log({ todo, note, date, bookmarked });
 	};
 
 	return (
@@ -75,30 +57,32 @@ export default function AddItem() {
 				<label className="flex p-1 w-full mb-4">
 					<input
 						type="text"
-						placeholder="Title"
-						value={title}
-						onChange={(e) => setTitle(e.target.value)}
+						placeholder="Todo..."
+						required
+						autoFocus
+						value={todo}
+						onChange={(e) => setTodo(e.target.value)}
 						className="bg-transparent w-full border-0 outline-0"
 					/>
 				</label>
-				<label className="flex p-2 w-full relative h-[20rem]">
+				<label className="flex p-2 w-full relative h-[6rem]">
 					<textarea
 						id="note"
 						className="bg-transparent resize-none mb-6 outline-0 w-full"
-						placeholder="Note"
-						title="Add Note"
+						placeholder="More info..."
+						title="Add a short description"
 						value={note}
 						onChange={(e) => setNote(e.target.value)}
-						required
-						autoFocus
 					></textarea>
-					<span
-						className="absolute bottom-[1rem] bg-slate-600 p-1 right-2 cursor-pointer inline-block m-2 hover:text-amber-300"
-						title="Record Note"
-						onClick={handleSpeechToText}
-					>
-						<BsFillMicFill className="text-2xl" />
-					</span>
+				</label>
+				<label className="flex p-1 w-full mb-4">
+					<input
+						type="date"
+						required
+						value={date}
+						onChange={(e) => setDate(e.target.value)}
+						className="bg-transparent w-full border-0 outline-0"
+					/>
 				</label>
 			</form>
 		</section>

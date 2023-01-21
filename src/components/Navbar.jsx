@@ -2,7 +2,8 @@ import { NavLink } from 'react-router-dom';
 
 // icons
 import { BiHomeCircle, BiUserCircle } from 'react-icons/bi';
-import { BsBookmarksFill, BsFillPlusCircleFill } from 'react-icons/bs';
+import { BsBookmarksFill, BsListCheck } from 'react-icons/bs';
+import { MdOutlineEditNote } from 'react-icons/md';
 
 export default function Navbar({ toggleSidebar }) {
 	return (
@@ -21,17 +22,30 @@ export default function Navbar({ toggleSidebar }) {
 						<span>Home</span>
 					</NavLink>
 				</li>
-				{/* Add item */}
+				{/* Add New Note */}
 				<li
 					className="mr-4 hover:cursor-pointer list-none hover:text-amber-300"
-					title="Add Item"
+					title="Add A  New Note"
 				>
 					<NavLink
-						to={'/new'}
+						to={'/new-note'}
 						className="flex flex-col items-center justify-center"
 					>
-						<BsFillPlusCircleFill className="text-2xl" />
-						<span>Add Item</span>
+						<MdOutlineEditNote className="text-2xl" />
+						<span>Add Note</span>
+					</NavLink>
+				</li>
+				{/* Add New task */}
+				<li
+					className="mr-4 hover:cursor-pointer list-none hover:text-amber-300"
+					title="Add A Todo"
+				>
+					<NavLink
+						to={'/new-todo'}
+						className="flex flex-col items-center justify-center"
+					>
+						<BsListCheck className="text-2xl" />
+						<span>Add Todo</span>
 					</NavLink>
 				</li>
 				{/* bookmark */}
