@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-// React icons
+import { Link, useNavigate } from 'react-router-dom';
+import useAddTodo from '../hooks/useAddTodo';
+// icons
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import {
 	BsCheck2,
 	BsFillArrowLeftCircleFill,
@@ -14,10 +16,17 @@ export default function AddTodo() {
 	const [note, setNote] = useState('');
 	const [date, setDate] = useState('');
 	const [bookmarked, setBookmarked] = useState(false);
+	const navigate = useNavigate();
+
+	const { addDocument, error, isPending } = useAddTodo();
 
 	// Form Actions
-	const handleSubmit = () => {
-		console.log({ todo, note, date, bookmarked });
+	const handleSubmit = async () => {
+		const doc = { todo, note, date, bookmarked };
+		await addDocument(doc);
+		setTimeout(() => {
+			navigate('/');
+		}, 3000);
 	};
 
 	return (
@@ -29,13 +38,24 @@ export default function AddTodo() {
 				</Link>
 				<div className="flex mr-2 ">
 					{/* checkmark */}
-					<span
-						onClick={handleSubmit}
-						title="Save note"
-						className="mr-8 cursor-pointer"
-					>
-						<BsCheck2 className="text-2xl" />
-					</span>
+					{!isPending && (
+						<span
+							onClick={handleSubmit}
+							title="Save note"
+							className="mr-8 cursor-pointer"
+						>
+							<BsCheck2 className="text-2xl" />
+						</span>
+					)}
+					{isPending && (
+						<span
+							aria-disabled
+							title="Save note"
+							className="mr-8 cursor-pointer"
+						>
+							<AiOutlineLoading3Quarters className="text-2xl" />
+						</span>
+					)}
 					{/* notification */}
 					<span
 						className="inline-block mr-4 cursor-pointer"
@@ -77,7 +97,7 @@ export default function AddTodo() {
 				</label>
 				<label className="flex p-1 w-full mb-4">
 					<input
-						type="date"
+						type="datetime-local"
 						required
 						value={date}
 						onChange={(e) => setDate(e.target.value)}
