@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useDebugValue, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function useAuthState() {
 	const [isPending, setIsPending] = useState(false);
@@ -15,14 +15,12 @@ export default function useAuthState() {
 			if (user) {
 				const currentUser = auth.currentUser;
 				setUser(currentUser);
-				setIsPending(false);
-				setError(null);
 			}
 			setAuthState(true);
+			setIsPending(false);
+			setError(null);
 		});
 	}, [auth]);
-
-	useDebugValue(user, (user) => `current user: ${user}`);
 
 	return { user, authState, isPending, error };
 }

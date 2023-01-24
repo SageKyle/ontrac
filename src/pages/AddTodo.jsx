@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAddTodo from '../hooks/useAddTodo';
 // icons
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import {
 	BsCheck2,
 	BsFillArrowLeftCircleFill,
 	BsFillBookmarkPlusFill,
 } from 'react-icons/bs';
 import { MdOutlineNotificationAdd } from 'react-icons/md';
+import LoadingIcon from '../assets/Rolling-spinner.svg';
 
 export default function AddTodo() {
 	// Form States
@@ -48,12 +48,8 @@ export default function AddTodo() {
 						</span>
 					)}
 					{isPending && (
-						<span
-							aria-disabled
-							title="Save note"
-							className="mr-8 cursor-pointer"
-						>
-							<AiOutlineLoading3Quarters className="text-2xl" />
+						<span aria-disabled disabled title="Save note" className="mr-8">
+							<img src={LoadingIcon} alt="loading" className="h-6 w-6" />
 						</span>
 					)}
 					{/* notification */}

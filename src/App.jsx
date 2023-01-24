@@ -17,6 +17,8 @@ import Welcome from './utils/Welcome';
 import useAuthState from './hooks/useAuthState';
 import LoginRoute from './utils/LoginRoute';
 import ProtectedRoute from './utils/ProtectedRoute';
+// loader
+import Loading from './utils/Loading';
 
 function App() {
 	// auth
@@ -26,13 +28,13 @@ function App() {
 	const [showSidebar, setShowSidebar] = useState(false);
 
 	return (
-		<div className="App relative bg-slate-600 text-gray-200 min-h-[100vh]">
+		<div className="App relative bg-[#567189] text-gray-200 min-h-[100vh]">
 			<Router>
 				{!notFirstTime && <Welcome setNotFirstTime={setNotFirstTime} />}
 
 				{notFirstTime && (
 					<>
-						{isPending && <h1>Loading...</h1>}
+						{isPending && <Loading />}
 						{error && <h1>{error}</h1>}
 
 						{authState && (
