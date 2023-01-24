@@ -15,10 +15,12 @@ import SignUp from './pages/SignUp';
 import Welcome from './utils/Welcome';
 // auth
 import useAuthState from './hooks/useAuthState';
+import LoginRoute from './utils/LoginRoute';
+import ProtectedRoute from './utils/ProtectedRoute';
 
 function App() {
 	// auth
-	const { authState, isPending, error } = useAuthState();
+	const { authState, user, isPending, error } = useAuthState();
 
 	const [notFirstTime, setNotFirstTime] = useState(false);
 	const [showSidebar, setShowSidebar] = useState(false);
@@ -41,12 +43,46 @@ function App() {
 									onClick={() => setShowSidebar(false)}
 								>
 									<Routes>
-										<Route element={<Home />} path={'/'} />
-										<Route element={<AddNewNote />} path={'/new-note'} />
-										<Route element={<AddTodo />} path={'/new-todo'} />
-										<Route element={<SignIn />} path={'/sign-in'} />
-										<Route element={<SignUp />} path={'/sign-up'} />
-										<Route element={<ForgotPassword />} path={'/iforgot'} />
+										{/* logged in user */}
+										<Route element={<ProtectedRoute user={user} />} path={'/'}>
+											<Route element={<Home />} path={'/'} />
+										</Route>
+
+										<Route
+											element={<ProtectedRoute user={user} />}
+											path={'/new-note'}
+										>
+											<Route element={<AddNewNote />} path={'/new-note'} />
+										</Route>
+
+										<Route
+											element={<ProtectedRoute user={user} />}
+											path={'/new-todo'}
+										>
+											<Route element={<AddTodo />} path={'/new-todo'} />
+										</Route>
+
+										{/* logged out user */}
+										<Route
+											element={<LoginRoute user={user} />}
+											path={'/sign-in'}
+										>
+											<Route element={<SignIn />} path={'/sign-in'} />
+										</Route>
+
+										<Route
+											element={<LoginRoute user={user} />}
+											path={'/sign-up'}
+										>
+											<Route element={<SignUp />} path={'/sign-up'} />
+										</Route>
+
+										<Route
+											element={<LoginRoute user={user} />}
+											path={'/iforgot'}
+										>
+											<Route element={<ForgotPassword />} path={'/iforgot'} />
+										</Route>
 									</Routes>
 								</main>
 								{showSidebar && <Sidebar />}

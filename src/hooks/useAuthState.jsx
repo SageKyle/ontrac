@@ -6,11 +6,11 @@ export default function useAuthState() {
 	const [authState, setAuthState] = useState(false);
 	const [user, setUser] = useState(null);
 	const [error, setError] = useState(null);
+	const auth = getAuth();
 
 	useEffect(() => {
 		setIsPending(true);
 		setError(null);
-		const auth = getAuth();
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
 				const currentUser = auth.currentUser;
@@ -20,7 +20,7 @@ export default function useAuthState() {
 			}
 			setAuthState(true);
 		});
-	}, []);
+	}, [auth]);
 
 	useDebugValue(user, (user) => `current user: ${user}`);
 
