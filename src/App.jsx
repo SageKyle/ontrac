@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import AddNewNote from './pages/AddNewNote';
 import AddTodo from './pages/AddTodo';
+import Bookmarks from './pages/Bookmarks';
 import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
@@ -48,6 +49,10 @@ function App() {
 										{/* logged in user */}
 										<Route element={<ProtectedRoute user={user} />} path={'/'}>
 											<Route element={<Home />} path={'/'} />
+										</Route>
+
+										<Route element={<ProtectedRoute user={user} />} path={'/'}>
+											<Route element={<Bookmarks />} path={'/bookmarks'} />
 										</Route>
 
 										<Route
