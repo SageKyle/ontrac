@@ -1,41 +1,41 @@
 import { getAuth } from 'firebase/auth';
-import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
-import { useEffect, useId, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase.config';
 
-export default function useAddTodo() {
+export default function useAddDoc(firestoreCollection) {
 	const [isCancelled, setIsCancelled] = useState(false);
 	const [isPending, setIsPending] = useState(false);
 	const [error, setError] = useState(null);
-	const docID = useId();
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
 	const auth = getAuth();
 
-	async function addDocument(newTodo) {
+	async function addDocument(newDoc) {
 		setIsPending(true);
 		setError(null);
 
 		try {
 			// get current user
 			const user = auth.currentUser;
-			// add doc
-			const todo = {
-				...newTodo,
-				completed: false,
+			// create doc
+			const doc = {
+				...newDoc,
+				id: user.uid,
 				createdAt: serverTimestamp(),
 			};
 
-			// const docRef = await setDoc(doc(db, 'todos', user.uid), {
-			// 	todo: [...oldDoc, todo],
-			// });
-
-			await setDoc(collection(db, user.displayName), {
-				todo,
+			// add doc
+			const docRef = await addDoc(collection(db, firestoreCollection), {
+				...doc,
 			});
 
 			if (!docRef) {
 				throw new Error('Something went wrong...');
+			} else {
+				setTimeout(() => {
+					navigate('/');
+				}, 3000);
 			}
 
 			//   update state

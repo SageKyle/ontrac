@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import useAddTodo from '../hooks/useAddTodo';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import useAddDoc from '../hooks/useAddDoc';
 // icons
 import {
 	BsCheck2,
@@ -16,17 +17,13 @@ export default function AddTodo() {
 	const [note, setNote] = useState('');
 	const [date, setDate] = useState('');
 	const [bookmarked, setBookmarked] = useState(false);
-	const navigate = useNavigate();
 
-	const { addDocument, error, isPending } = useAddTodo();
+	const { addDocument, error, isPending } = useAddDoc('todos');
 
 	// Form Actions
 	const handleSubmit = async () => {
-		const doc = { todo, note, date, bookmarked };
+		const doc = { todo, note, date, bookmarked, completed: false };
 		await addDocument(doc);
-		setTimeout(() => {
-			navigate('/');
-		}, 3000);
 	};
 
 	return (
@@ -65,11 +62,14 @@ export default function AddTodo() {
 						onClick={() => setBookmarked((prev) => !prev)}
 						title="Add to bookmark"
 					>
-						<BsFillBookmarkPlusFill className="text-2xl" />
+						<BsFillBookmarkPlusFill
+							className={bookmarked ? 'text-[#fad6a5] text-2xl' : 'text-2xl'}
+						/>
 					</span>
 				</div>
 			</nav>
 			<form className="h-screen pb-10 pt-4">
+				{error && toast.error(error)}
 				<label className="flex p-1 w-full mb-4">
 					<input
 						type="text"

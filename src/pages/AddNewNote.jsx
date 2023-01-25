@@ -39,7 +39,7 @@ export default function AddNewNote() {
 	};
 
 	return (
-		<section>
+		<section className="text-gray-200">
 			<nav className="flex justify-between items-center mb-6">
 				{/* arrow left */}
 				<Link to={'/'} className="cursor-pointer" title="Home">
@@ -67,7 +67,9 @@ export default function AddNewNote() {
 						onClick={() => setBookmarked((prev) => !prev)}
 						title="Add to bookmark"
 					>
-						<BsFillBookmarkPlusFill className="text-2xl" />
+						<BsFillBookmarkPlusFill
+							className={bookmarked ? 'text-[#fad6a5] text-2xl' : 'text-2xl'}
+						/>
 					</span>
 				</div>
 			</nav>
@@ -78,14 +80,14 @@ export default function AddNewNote() {
 						placeholder="Title"
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
-						className="bg-transparent w-full border-0 outline-0"
+						className="bg-transparent text-gray-200 w-full border-0 outline-0"
 					/>
 				</label>
 				<label className="flex p-2 w-full relative h-[20rem]">
 					<textarea
 						id="note"
-						className="bg-transparent resize-none mb-6 outline-0 w-full"
-						placeholder="Note"
+						className="bg-transparent text-gray-200 resize-none mb-6 outline-0 w-full"
+						placeholder="Note..."
 						title="Add Note"
 						value={note}
 						onChange={(e) => setNote(e.target.value)}
@@ -93,11 +95,15 @@ export default function AddNewNote() {
 						autoFocus
 					></textarea>
 					<span
-						className="absolute bottom-[1rem] bg-slate-600 p-1 right-2 cursor-pointer inline-block m-2 hover:text-amber-300"
+						className="absolute bottom-[1rem] bg-[#567189] p-1 right-2 cursor-pointer inline-block m-2 hover:scale-[1.1]"
 						title="Record Note"
 						onClick={handleSpeechToText}
 					>
-						<BsFillMicFill className="text-2xl" />
+						<BsFillMicFill
+							className={
+								listening ? 'text-[#fad6a5] text-2xl listening' : 'text-2xl'
+							}
+						/>
 					</span>
 				</label>
 			</form>

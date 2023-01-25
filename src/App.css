@@ -42,6 +42,18 @@
 
 .active {
 	color: #fad6a5;
-	/* padding-top: 2px; */
 	/* border-top: 4px solid #7b8fa1; */
+}
+
+@keyframes icon-scale {
+	from {
+		scale: 1;
+	}
+	to {
+		scale: 1.4;
+	}
+}
+
+.listening {
+	animation: icon-scale infinite 2s ease-in-out;
 }
