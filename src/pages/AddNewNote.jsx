@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 // React icons
 import {
 	BsCheck2,
@@ -8,11 +9,15 @@ import {
 	BsFillMicFill,
 } from 'react-icons/bs';
 import { MdOutlineNotificationAdd } from 'react-icons/md';
+import LoadingIcon from '../assets/Rolling-spinner.svg';
 
 // Custom hooks
+import useAddDoc from '../hooks/useAddDoc';
 import useSpeechToText from '../hooks/useTextToSpeech';
 
 export default function AddNewNote() {
+	const { addDocument, error, isPending } = useAddDoc('notes');
+
 	// Speech to Text
 	const { listenContinuously, listening, stopListening, transcript } =
 		useSpeechToText();
@@ -23,18 +28,19 @@ export default function AddNewNote() {
 	const [bookmarked, setBookmarked] = useState(false);
 
 	// Form Actions
-	const handleSubmit = () => {
-		console.log({ title, note, bookmarked });
+	const handleSubmit = async () => {
+		const doc = { title, note, bookmarked };
+		await addDocument(doc);
 	};
 
 	const handleSpeechToText = () => {
 		if (!listening) {
 			listenContinuously();
 			setNote((prevValue) => prevValue + ' ' + transcript);
-			console.log('on');
+			toast.info('mic is on');
 		} else if (listening) {
 			stopListening();
-			console.log('off');
+			toast.info('mic is off');
 		}
 	};
 
@@ -47,13 +53,20 @@ export default function AddNewNote() {
 				</Link>
 				<div className="flex mr-2 ">
 					{/* checkmark */}
-					<span
-						onClick={handleSubmit}
-						title="Save note"
-						className="mr-8 cursor-pointer"
-					>
-						<BsCheck2 className="text-2xl" />
-					</span>
+					{!isPending && (
+						<span
+							onClick={handleSubmit}
+							title="Save note"
+							className="mr-8 cursor-pointer"
+						>
+							<BsCheck2 className="text-2xl" />
+						</span>
+					)}
+					{isPending && (
+						<span aria-disabled disabled title="Save note" className="mr-8">
+							<img src={LoadingIcon} alt="loading" className="h-6 w-6" />
+						</span>
+					)}
 					{/* notification */}
 					<span
 						className="inline-block mr-4 cursor-pointer"
@@ -74,6 +87,7 @@ export default function AddNewNote() {
 				</div>
 			</nav>
 			<form className="h-screen pb-10 pt-4">
+				{error && toast.error(error)}
 				<label className="flex p-1 w-full mb-4">
 					<input
 						type="text"
