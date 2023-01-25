@@ -1,7 +1,20 @@
+import useFetchDoc from '../hooks/useFetchDoc';
+
 export default function Home() {
+	const { docs, isPending, error } = useFetchDoc('todos');
+
 	return (
 		<section>
 			<h1 className="text-amber-400">This is the Page</h1>
+			{docs &&
+				docs.map((todo) => (
+					<div key={Math.random()} className="mb-4 border-b-2 border-slate-100">
+						<h1>{todo.todo}</h1>
+						<p>{todo.note}</p>
+						<p>{todo.createdAt.toDate().toDateString()}</p>
+						<span>{todo.completed}</span>
+					</div>
+				))}
 			<p className="my-6">
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non alias
 				molestias sit maiores debitis nisi saepe illum velit eaque possimus
