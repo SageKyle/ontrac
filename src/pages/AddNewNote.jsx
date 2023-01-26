@@ -29,6 +29,10 @@ export default function AddNewNote() {
 
 	// Form Actions
 	const handleSubmit = async () => {
+		if (note === '') {
+			toast.error('Oops! Your note is empty...');
+			return null;
+		}
 		const doc = { title, note, bookmarked };
 		await addDocument(doc);
 	};
@@ -91,16 +95,16 @@ export default function AddNewNote() {
 				<label className="flex p-1 w-full mb-4">
 					<input
 						type="text"
-						placeholder="Title"
+						placeholder="Title (optional)"
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
-						className="bg-transparent text-gray-200 w-full border-0 outline-0"
+						className="bg-transparent text-gray-200 w-full caret-[#fad6a5] placeholder:text-slate-300 border-0 border-b-2 border-slate-400 focus:border-slate-300 focus:outline-0 outline-0"
 					/>
 				</label>
 				<label className="flex p-2 w-full relative h-[20rem]">
 					<textarea
 						id="note"
-						className="bg-transparent text-gray-200 resize-none mb-6 outline-0 w-full"
+						className="bg-transparent text-gray-200 resize-none mb-6 outline-0 w-full placeholder:text-[#fad6a5] caret-[#fad6a5] border-2 border-slate-400 focus:border-slate-300 focus:outline-0"
 						placeholder="Note..."
 						title="Add Note"
 						value={note}
