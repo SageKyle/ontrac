@@ -14,7 +14,6 @@ import LoadingIcon from '../assets/Rolling-spinner.svg';
 export default function AddTodo() {
 	// Form States
 	const [todo, setTodo] = useState('');
-	const [note, setNote] = useState('');
 	const [date, setDate] = useState('');
 	const [bookmarked, setBookmarked] = useState(false);
 
@@ -22,7 +21,15 @@ export default function AddTodo() {
 
 	// Form Actions
 	const handleSubmit = async () => {
-		const doc = { todo, note, date, bookmarked, completed: false };
+		if (todo === '') {
+			toast.error('Oops! You forgot to add a todo...');
+			return null;
+		}
+		if (date === '') {
+			toast.error('Oops! You forgot to add a date...');
+			return null;
+		}
+		const doc = { todo, date, bookmarked, completed: false };
 		await addDocument(doc);
 	};
 
@@ -70,7 +77,10 @@ export default function AddTodo() {
 			</nav>
 			<form className="h-screen pb-10 pt-4">
 				{error && toast.error(error)}
-				<label className="flex p-1 w-full mb-4">
+				<label className="flex flex-col p-1 w-full mb-6">
+					<span className="inline-block my-2 pl-4 text-[#fad6a5] font-bold">
+						Todo:
+					</span>
 					<input
 						type="text"
 						placeholder="Todo..."
@@ -78,20 +88,14 @@ export default function AddTodo() {
 						autoFocus
 						value={todo}
 						onChange={(e) => setTodo(e.target.value)}
-						className="bg-transparent w-full border-0 outline-0"
+						className="bg-transparent w-full placeholder:text-slate-300 border-2 border-slate-400 focus:border-slate-300 focus:outline-0 outline-0"
 					/>
 				</label>
-				<label className="flex p-2 w-full relative h-[6rem]">
-					<textarea
-						id="note"
-						className="bg-transparent resize-none mb-6 outline-0 w-full"
-						placeholder="More info..."
-						title="Add a short description"
-						value={note}
-						onChange={(e) => setNote(e.target.value)}
-					></textarea>
-				</label>
-				<label className="flex p-1 w-full mb-4">
+
+				<label className="flex flex-col py-1 w-full mb-4">
+					<span className="inline-block my-2 pl-4 text-[#fad6a5] font-bold">
+						Due date
+					</span>
 					<input
 						type="datetime-local"
 						required
