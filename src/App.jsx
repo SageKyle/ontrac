@@ -3,9 +3,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
-
+// components/utils
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import Welcome from './utils/Welcome';
+// pages/routes
 import AddNewNote from './pages/AddNewNote';
 import AddTodo from './pages/AddTodo';
 import Bookmarks from './pages/Bookmarks';
@@ -13,7 +15,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-import Welcome from './utils/Welcome';
+import FallbackRoute from './utils/FallbackRoute';
 // auth
 import useAuthState from './hooks/useAuthState';
 import LoginRoute from './utils/LoginRoute';
@@ -98,6 +100,8 @@ function App() {
 										>
 											<Route element={<ForgotPassword />} path={'/iforgot'} />
 										</Route>
+										{/* fallback */}
+										<Route element={<FallbackRoute />} path={'*'} />
 									</Routes>
 								</main>
 								<div ref={sidebarRef} className="hidden">
