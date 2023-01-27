@@ -48,19 +48,7 @@ export default function Navbar({ toggleSidebar }) {
 						<span>Add Todo</span>
 					</NavLink>
 				</li>
-				{/* bookmark */}
-				<li
-					className="mr-4 hover:cursor-pointer list-none hover:text-amber-300"
-					title="Bookmarks"
-				>
-					<NavLink
-						to={'/bookmarks'}
-						className="flex flex-col items-center justify-center"
-					>
-						<BsBookmarksFill className="text-2xl" />
-						<span>Bookmarks</span>
-					</NavLink>
-				</li>
+
 				{/* Login */}
 				<li
 					className="mr-4 hover:cursor-pointer list-none hover:text-amber-300"

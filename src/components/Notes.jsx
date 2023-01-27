@@ -4,12 +4,12 @@ import Loading from '../utils/Loading';
 
 export default function Notes() {
 	const { docs: notes, isPending, error } = useFetchDoc('notes');
-	console.log(notes);
 
 	return (
 		<section className="mb-4 flex items-start justify-start flex-wrap">
 			{isPending && <Loading />}
 			{error && toast.error(error)}
+			{!notes && <p>You have not added any notes yet.</p>}
 			{notes &&
 				notes.map((note) => (
 					<div

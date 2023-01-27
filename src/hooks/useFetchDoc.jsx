@@ -6,7 +6,7 @@ import { db } from '../firebase.config';
 export default function useFetchDoc(firestoreCollection) {
 	const [isPending, setIsPending] = useState(false);
 	const [error, setError] = useState(null);
-	const [docs, setDocs] = useState([]);
+	const [docs, setDocs] = useState(null);
 	const auth = getAuth();
 
 	useEffect(() => {
@@ -20,12 +20,14 @@ export default function useFetchDoc(firestoreCollection) {
 
 				// get docs
 				const docRef = await getDocs(collection(db, firestoreCollection));
-				// set docs
+
+				let result = [];
+
 				docRef?.forEach((doc) => {
 					let singleDoc = doc.data();
 					// check if the doc was created by the current user
 					if (singleDoc.id === user.uid) {
-						setDocs((prevDocs) => [...prevDocs, singleDoc]);
+						result.push(singleDoc);
 					}
 				});
 
@@ -34,6 +36,7 @@ export default function useFetchDoc(firestoreCollection) {
 				}
 
 				//   update state
+				setDocs(result);
 				setIsPending(false);
 				setError(null);
 			} catch (err) {
