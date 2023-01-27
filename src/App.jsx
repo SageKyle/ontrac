@@ -11,6 +11,7 @@ import Welcome from './utils/Welcome';
 import AddNewNote from './pages/AddNewNote';
 import AddTodo from './pages/AddTodo';
 import Bookmarks from './pages/Bookmarks';
+import Docs from './pages/Docs';
 import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
@@ -100,6 +101,8 @@ function App() {
 										>
 											<Route element={<ForgotPassword />} path={'/iforgot'} />
 										</Route>
+										{/* documentation */}
+										<Route element={<Docs />} path={'docs'} />
 										{/* fallback */}
 										<Route element={<FallbackRoute />} path={'*'} />
 									</Routes>

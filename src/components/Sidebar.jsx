@@ -1,4 +1,4 @@
-import { BiLogOut } from 'react-icons/bi';
+import { BiDockLeft, BiLogOut } from 'react-icons/bi';
 import { BsBookmarksFill } from 'react-icons/bs';
 import { Link, NavLink } from 'react-router-dom';
 import useAuthState from '../hooks/useAuthState';
@@ -9,7 +9,7 @@ export default function Sidebar() {
 	const { user } = useAuthState();
 
 	return (
-		<aside className="fixed flex capitalize p-4 flex-col right-0 top-0 bg-[#567189] w-[50%] md:w-[30%] h-[100vh] z-10">
+		<aside className="fixed flex capitalize p-4 flex-col shadow right-0 top-0 bg-[#567189] w-[50%] md:w-[30%] h-[100vh] z-10">
 			{user && (
 				<section className="flex flex-col relative items-start my-4 h-4/5">
 					<div className="flex items-center mx-auto justify-center w-[4rem] h-[4rem] bg-[#7B8FA1] mb-2 rounded-full">
@@ -24,10 +24,19 @@ export default function Sidebar() {
 					<NavLink
 						to={'/bookmarks'}
 						title="Bookmarks"
-						className="flex items-center justify-start mt-8 py-2 hover:cursor-pointer hover:text-[#fad6a5]"
+						className="flex items-center justify-start mt-8 hover:cursor-pointer lg:hover:text-[#fad6a5]"
 					>
 						<BsBookmarksFill className="inline-block mr-2" />
 						<span>Bookmarks</span>
+					</NavLink>
+					{/* documentation */}
+					<NavLink
+						to={'/docs'}
+						title="Documentation"
+						className="flex items-center justify-start mt-2 hover:cursor-pointer lg:hover:text-[#fad6a5]"
+					>
+						<BiDockLeft className="inline-block mr-2" />
+						<span>Documentation</span>
 					</NavLink>
 
 					{!isPending && (
@@ -48,14 +57,24 @@ export default function Sidebar() {
 					{error && <p className="my-2 text-[red]">{error}</p>}
 				</section>
 			)}
+			{/* no logged in user */}
 			{!user && (
-				<section className=" flex flex-col mb-2">
+				<section className=" flex flex-col mb-2 h-4/5">
 					<Link to={'/sign-in'} className="hover:underline text-xl mb-2">
 						login
 					</Link>
 					<Link to={'/sign-up'} className="hover:underline text-xl">
 						sign up
 					</Link>
+					{/* documentation */}
+					<NavLink
+						to={'/docs'}
+						title="Documentation"
+						className="flex items-center justify-start mt-auto mb-2 hover:cursor-pointer lg:hover:text-[#fad6a5]"
+					>
+						<BiDockLeft className="inline-block mr-2" />
+						<span>About OnTrac</span>
+					</NavLink>
 				</section>
 			)}
 		</aside>
