@@ -23,20 +23,19 @@ export default function SignUp() {
 	const { signUp, isPending, error } = useSignUp();
 
 	// Signup user
-	function handleSubmit(e) {
+	async function handleSubmit(e) {
 		e.preventDefault();
-		signUp(email, password, name);
-		console.log('Signup successful');
-		if (!error) {
-			setTimeout(() => {
-				navigate('/');
-			}, 3000);
-		}
+		await signUp(email, password, name);
+		// if (!error) {
+		setTimeout(() => {
+			navigate('/');
+		}, 3000);
+		// }
 	}
 
 	return (
 		<form
-			className="flex flex-col w-[100%] items-center justify-center min-h-[85vh]"
+			className="flex flex-col w-[100%] md:w-4/5 lg:w-2/4 mx-auto items-center justify-center min-h-[85vh]"
 			onSubmit={handleSubmit}
 		>
 			<h1 className="capitalize text-3xl font-bold mb-10">Register</h1>

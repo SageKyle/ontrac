@@ -20,13 +20,13 @@ export default function SignUp() {
 
 	return (
 		<form
-			className="flex flex-col w-[100%] items-center justify-center min-h-[85vh]"
+			className="flex flex-col w-[100%] md:w-4/5 lg:w-2/4 mx-auto items-center justify-center min-h-[85vh]"
 			onSubmit={handleSubmit}
 		>
 			<h1 className="capitalize text-3xl font-bold mb-10">OnTrac</h1>
-			<h1 className="capitalize text-1xl font-bold mb-[4rem]">
+			<h3 className="capitalize text-1xl font-bold mb-[4rem]">
 				reset password
-			</h1>
+			</h3>
 			<p className="my-4">Enter your Email to receive a password reset link</p>
 
 			<label className="border-b-2 pb-1 flex items-center w-full border-slate-700 mb-10">

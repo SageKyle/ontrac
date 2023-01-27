@@ -21,7 +21,7 @@ export default function Welcome({ setNotFirstTime }) {
 			<Link
 				className="px-6 py-3 my-4 rounded bg-emerald-500 text-white"
 				to={'/'}
-				onClick={() => setNotFirstTime((prevValue) => !prevValue)}
+				onClick={setNotFirstTime}
 			>
 				<button className="capitalize text-2xl " type="submit">
 					get started

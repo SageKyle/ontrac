@@ -49,7 +49,7 @@ export default function AddNewNote() {
 	};
 
 	return (
-		<section className="text-gray-200">
+		<section className="text-gray-200 h-4/5 max-h-[80vh] md:w-4/5 lg:w-2/4 mx-auto">
 			<nav className="flex justify-between items-center mb-6">
 				{/* arrow left */}
 				<Link to={'/'} className="cursor-pointer" title="Home">
@@ -90,7 +90,7 @@ export default function AddNewNote() {
 					</span>
 				</div>
 			</nav>
-			<form className="h-screen pb-10 pt-4">
+			<form className="pt-4">
 				{error && toast.error(error)}
 				<label className="flex p-1 w-full mb-4">
 					<input

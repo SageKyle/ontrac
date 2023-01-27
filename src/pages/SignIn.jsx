@@ -27,11 +27,11 @@ export default function SignIn() {
 
 	return (
 		<form
-			className="flex flex-col w-[100%] items-center justify-center min-h-[85vh]"
+			className="flex flex-col w-[100%] md:w-4/5 lg:w-2/4 mx-auto items-center justify-center min-h-[85vh]"
 			onSubmit={handleSubmit}
 		>
 			<h1 className="capitalize text-3xl font-bold mb-10">log in</h1>
-			<h1 className="capitalize text-1xl font-bold mb-[4rem]">welcome back!</h1>
+			<h3 className="capitalize text-1xl font-bold mb-[4rem]">welcome back!</h3>
 			<label className="border-b-2 pb-1 flex items-center w-full border-slate-700 mb-10">
 				{' '}
 				<span className="uppercase text-2xl inline-block mr-2">

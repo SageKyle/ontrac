@@ -6,6 +6,7 @@ import './App.css';
 // components/utils
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import CheckIfNotFirstTime from './utils/CheckIfNotFirstTime';
 import Welcome from './utils/Welcome';
 // pages/routes
 import AddNewNote from './pages/AddNewNote';
@@ -28,13 +29,13 @@ function App() {
 	// auth
 	const { authState, user, isPending, error } = useAuthState();
 
-	const [notFirstTime, setNotFirstTime] = useState(false);
+	// const [notFirstTime, setNotFirstTime] = useState(false);
+	const { notFirstTime, setNotFirstTime } = CheckIfNotFirstTime();
 	const sidebarRef = useRef();
 
 	function toggleSidebar() {
 		sidebarRef.current.classList.toggle('hidden');
 	}
-
 	function hideSidebar() {
 		sidebarRef.current.classList.add('hidden');
 	}
@@ -52,7 +53,7 @@ function App() {
 						{authState && (
 							<>
 								<main
-									className="p-10 mb-[6rem]"
+									className="p-10 pb-[4rem]"
 									// hide sidebar when user clicks outside the area
 									onClick={hideSidebar}
 								>

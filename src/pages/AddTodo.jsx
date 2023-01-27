@@ -34,7 +34,7 @@ export default function AddTodo() {
 	};
 
 	return (
-		<section>
+		<section className="max-h-4/5 md:w-4/5 lg:w-2/4 mx-auto">
 			<nav className="flex justify-between items-center mb-6">
 				{/* arrow left */}
 				<Link to={'/'} className="cursor-pointer" title="Home">
@@ -75,7 +75,7 @@ export default function AddTodo() {
 					</span>
 				</div>
 			</nav>
-			<form className="h-screen pb-10 pt-4">
+			<form className="pt-4">
 				{error && toast.error(error)}
 				<label className="flex flex-col p-1 w-full mb-6">
 					<span className="inline-block my-2 pl-4 text-[#fad6a5] font-bold">
