@@ -2,7 +2,7 @@ import { getAuth } from 'firebase/auth';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../firebase/firebase.config';
+import { db } from '../../firebase/firebase.config';
 
 export default function useAddDoc(firestoreCollection) {
 	const [isCancelled, setIsCancelled] = useState(false);

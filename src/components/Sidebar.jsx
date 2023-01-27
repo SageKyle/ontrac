@@ -1,8 +1,8 @@
 import { BiDockLeft, BiLogOut } from 'react-icons/bi';
 import { BsBookmarksFill } from 'react-icons/bs';
 import { Link, NavLink } from 'react-router-dom';
-import useAuthState from '../hooks/useAuthState';
-import useLogout from '../hooks/useLogout';
+import useAuthState from '../hooks/auth/useAuthState';
+import useLogout from '../hooks/auth/useLogout';
 
 export default function Sidebar() {
 	const { logout, isPending, error } = useLogout();

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import useForgotPassword from '../hooks/useForgotPassword';
+import useForgotPassword from '../../hooks/auth/useForgotPassword';
 
-import AuthWithGoogle from '../components/AuthWithGoogle';
+import AuthWithGoogle from '../../components/AuthWithGoogle';
 // icons
 import { HiOutlineMail } from 'react-icons/hi';
 

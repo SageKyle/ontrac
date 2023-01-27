@@ -25,7 +25,7 @@ export default function Navbar({ toggleSidebar }) {
 				{/* Add New Note */}
 				<li
 					className="mr-4 hover:cursor-pointer list-none lg:hover:text-amber-300"
-					title="Add A  New Note"
+					title="Add A New Note"
 				>
 					<NavLink
 						to={'/new-note'}
@@ -52,7 +52,7 @@ export default function Navbar({ toggleSidebar }) {
 				{/* Login */}
 				<li
 					className="mr-4 lg:hover:cursor-pointer list-none hover:text-amber-300"
-					title="Login"
+					title="Dashboard"
 				>
 					<div
 						className="flex flex-col items-center justify-center"

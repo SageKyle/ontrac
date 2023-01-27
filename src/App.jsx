@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,17 +11,17 @@ import Welcome from './utils/Welcome';
 // pages/routes
 import AddNewNote from './pages/AddNewNote';
 import AddTodo from './pages/AddTodo';
+import ForgotPassword from './pages/auth/ForgotPassword';
+import SignIn from './pages/auth/SignIn';
+import SignUp from './pages/auth/SignUp';
 import Bookmarks from './pages/Bookmarks';
 import Docs from './pages/Docs';
-import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import FallbackRoute from './utils/FallbackRoute';
+import FallbackRoute from './utils/routes/FallbackRoute';
 // auth
-import useAuthState from './hooks/useAuthState';
-import LoginRoute from './utils/LoginRoute';
-import ProtectedRoute from './utils/ProtectedRoute';
+import useAuthState from './hooks/auth/useAuthState';
+import LoginRoute from './utils/routes/LoginRoute';
+import ProtectedRoute from './utils/routes/ProtectedRoute';
 // loader
 import Loading from './utils/Loading';
 
@@ -29,8 +29,8 @@ function App() {
 	// auth
 	const { authState, user, isPending, error } = useAuthState();
 
-	// const [notFirstTime, setNotFirstTime] = useState(false);
 	const { notFirstTime, setNotFirstTime } = CheckIfNotFirstTime();
+	// sidebar
 	const sidebarRef = useRef();
 
 	function toggleSidebar() {
@@ -43,12 +43,19 @@ function App() {
 	return (
 		<div className="App relative bg-[#567189] text-gray-200 min-h-[100vh]">
 			<Router>
+				{/* welcome page */}
 				{!notFirstTime && <Welcome setNotFirstTime={setNotFirstTime} />}
 
 				{notFirstTime && (
 					<>
+						{/* show loader */}
 						{isPending && <Loading />}
-						{error && <h1>{error}</h1>}
+						{/* handle error */}
+						{error && (
+							<h1 className="text-2xl p-6">
+								Something went wrong... please reload the page
+							</h1>
+						)}
 
 						{authState && (
 							<>
@@ -59,21 +66,25 @@ function App() {
 								>
 									<Routes>
 										{/* logged in user */}
+										{/* home */}
 										<Route element={<ProtectedRoute user={user} />} path={'/'}>
 											<Route element={<Home />} path={'/'} />
 										</Route>
-
-										<Route element={<ProtectedRoute user={user} />} path={'/'}>
+										{/* bookmark */}
+										<Route
+											element={<ProtectedRoute user={user} />}
+											path={'/bookmarks'}
+										>
 											<Route element={<Bookmarks />} path={'/bookmarks'} />
 										</Route>
-
+										{/* add note */}
 										<Route
 											element={<ProtectedRoute user={user} />}
 											path={'/new-note'}
 										>
 											<Route element={<AddNewNote />} path={'/new-note'} />
 										</Route>
-
+										{/* new todo */}
 										<Route
 											element={<ProtectedRoute user={user} />}
 											path={'/new-todo'}
@@ -82,20 +93,21 @@ function App() {
 										</Route>
 
 										{/* logged out user */}
+										{/* login */}
 										<Route
 											element={<LoginRoute user={user} />}
 											path={'/sign-in'}
 										>
 											<Route element={<SignIn />} path={'/sign-in'} />
 										</Route>
-
+										{/* register */}
 										<Route
 											element={<LoginRoute user={user} />}
 											path={'/sign-up'}
 										>
 											<Route element={<SignUp />} path={'/sign-up'} />
 										</Route>
-
+										{/* forgot password */}
 										<Route
 											element={<LoginRoute user={user} />}
 											path={'/iforgot'}
@@ -108,9 +120,11 @@ function App() {
 										<Route element={<FallbackRoute />} path={'*'} />
 									</Routes>
 								</main>
+								{/* sidebar */}
 								<div ref={sidebarRef} className="hidden">
 									<Sidebar />
 								</div>
+								{/* navbar */}
 								<Navbar toggleSidebar={toggleSidebar} />
 							</>
 						)}

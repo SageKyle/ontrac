@@ -12,8 +12,8 @@ import { MdOutlineNotificationAdd } from 'react-icons/md';
 import LoadingIcon from '../assets/Rolling-spinner.svg';
 
 // Custom hooks
-import useAddDoc from '../hooks/useAddDoc';
-import useSpeechToText from '../hooks/useTextToSpeech';
+import useAddDoc from '../hooks/db/useAddDoc';
+import useSpeechToText from '../hooks/TTS/useTextToSpeech';
 
 export default function AddNewNote() {
 	const { addDocument, error, isPending } = useAddDoc('notes');

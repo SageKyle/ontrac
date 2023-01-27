@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import useFetchDoc from '../hooks/useFetchDoc';
+import useFetchDoc from '../hooks/db/useFetchDoc';
 import Loading from '../utils/Loading';
 
 export default function Todos() {

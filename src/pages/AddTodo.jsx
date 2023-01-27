@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import useAddDoc from '../hooks/useAddDoc';
+import useAddDoc from '../hooks/db/useAddDoc';
 // icons
 import {
 	BsCheck2,

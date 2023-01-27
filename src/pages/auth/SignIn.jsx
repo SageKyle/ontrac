@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import useSignUp from '../hooks/useSignUp';
-
-import AuthWithGoogle from '../components/AuthWithGoogle';
+import { Link } from 'react-router-dom';
+import AuthWithGoogle from '../../components/AuthWithGoogle';
+import useSignIn from '../../hooks/auth/useSignIn';
 // icons
-import { FaUserAlt } from 'react-icons/fa';
+import { BsBoxArrowUpRight } from 'react-icons/bs';
 import {
 	HiLockClosed,
 	HiOutlineEye,
@@ -12,25 +11,18 @@ import {
 	HiOutlineMail,
 } from 'react-icons/hi';
 
-export default function SignUp() {
+export default function SignIn() {
 	// form states
-	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [showPassword, setShowPassword] = useState(false);
 
-	const navigate = useNavigate();
-	const { signUp, isPending, error } = useSignUp();
+	const { signIn, isPending, error } = useSignIn();
 
-	// Signup user
+	// Sign in user
 	async function handleSubmit(e) {
 		e.preventDefault();
-		await signUp(email, password, name);
-		// if (!error) {
-		setTimeout(() => {
-			navigate('/');
-		}, 3000);
-		// }
+		await signIn(email, password);
 	}
 
 	return (
@@ -38,56 +30,36 @@ export default function SignUp() {
 			className="flex flex-col w-[100%] md:w-4/5 lg:w-2/4 mx-auto items-center justify-center min-h-[85vh]"
 			onSubmit={handleSubmit}
 		>
-			<h1 className="capitalize text-3xl font-bold mb-10">Register</h1>
-			<h1 className="capitalize text-1xl font-bold mb-[4rem]">
-				welcome to OnTrac
-			</h1>
-
+			<h1 className="capitalize text-3xl font-bold mb-10">log in</h1>
+			<h3 className="capitalize text-1xl font-bold mb-[4rem]">welcome back!</h3>
 			<label className="border-b-2 pb-1 flex items-center w-full border-slate-700 mb-10">
 				{' '}
-				<span className="uppercase inline-block mr-2 text-2xl">
-					<FaUserAlt />
-				</span>
-				<input
-					required
-					autoFocus
-					type="text"
-					id="name"
-					value={name}
-					onChange={(e) => setName(e.target.value)}
-					title="Enter your full name"
-					placeholder="Full Name"
-					className="bg-transparent outline-0 border-0 w-[95%]"
-				/>
-			</label>
-
-			<label className="border-b-2 pb-1 flex items-center w-full border-slate-700 mb-10">
-				{' '}
-				<span className="uppercase inline-block mr-2 text-2xl">
+				<span className="uppercase text-2xl inline-block mr-2">
 					<HiOutlineMail />
 				</span>
 				<input
-					required
 					type="email"
 					id="email"
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
+					required
+					autoFocus
 					title="Enter your email"
 					placeholder="Email"
-					className="bg-transparent outline-0 border-0 w-100"
+					className="bg-transparent w-[95%] outline-0 border-0"
 				/>
 			</label>
-			<label className="border-b-2 pb-1 flex items-center w-full border-slate-700 mb-10">
+			<label className="border-b-2 flex items-center pb-1 w-full border-slate-700 mb-10">
 				{' '}
-				<span className="uppercase inline-block mr-2 text-2xl">
+				<span className="uppercase text-2xl inline-block mr-2">
 					<HiLockClosed />
 				</span>
 				<input
-					required
 					type={showPassword ? 'text' : 'password'}
 					id="password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
+					required
 					title="Enter your password"
 					placeholder="Password"
 					className="bg-transparent w-[90%] outline-0 border-0"
@@ -101,7 +73,13 @@ export default function SignUp() {
 					)}
 				</div>
 			</label>
-
+			<Link
+				to={'/iforgot'}
+				className="w-full justify-center capitalize mt-2 flex  hover:text-white"
+			>
+				Forgot password?
+				<BsBoxArrowUpRight className="inline-block ml-2 text-2xl" />
+			</Link>
 			{error && <p className="text-[red]">{error}</p>}
 
 			{isPending && (
@@ -118,9 +96,9 @@ export default function SignUp() {
 				</button>
 			)}
 			<p className="mt-4">
-				Already have an account?{' '}
-				<Link to={'/sign-in'} className="text-[#F9A826]">
-					Sign in
+				Don't have an account yet?{' '}
+				<Link to={'/sign-up'} className="text-[#F9A826]">
+					Sign Up
 				</Link>
 			</p>
 			<AuthWithGoogle />

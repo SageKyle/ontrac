@@ -1,5 +1,5 @@
 import { FcGoogle } from 'react-icons/fc';
-import useSignInWithGoogle from '../hooks/useSignInWithGoogle';
+import useSignInWithGoogle from '../hooks/auth/useSignInWithGoogle';
 
 export default function AuthWithGoogle() {
 	const { signInWithGoogle, error } = useSignInWithGoogle();
