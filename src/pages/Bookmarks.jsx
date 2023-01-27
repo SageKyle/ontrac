@@ -1,4 +1,4 @@
-import { db } from '../firebase.config';
+import { db } from '../firebase/firebase.config';
 
 export default function Bookmarks() {
 	return (

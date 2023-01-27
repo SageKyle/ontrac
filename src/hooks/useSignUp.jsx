@@ -5,7 +5,7 @@ import {
 } from 'firebase/auth';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useDebugValue, useEffect, useState } from 'react';
-import { db } from '../firebase.config';
+import { db } from '../firebase/firebase.config';
 
 export default function useSignUp() {
 	const [isCancelled, setIsCancelled] = useState(false);

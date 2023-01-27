@@ -2,12 +2,12 @@
 import { getAnalytics } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { enableIndexedDbPersistence, getFirestore } from 'firebase/firestore';
+
+// toast
+import { toast } from 'react-toastify';
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
 	apiKey: 'AIzaSyBfjddvjRBPYE8TKJoukJRRTEoA1Xntkpg',
 	authDomain: 'ontrac-1.firebaseapp.com',
@@ -20,7 +20,22 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+getAnalytics(app);
 
 export const db = getFirestore();
 export const projectAuth = getAuth(app);
+
+// enable offline querrying
+enableIndexedDbPersistence(db).catch((err) => {
+	if (err.code == 'failed-precondition') {
+		// Multiple tabs open, persistence can only be enabled
+		// in one tab at a time.
+		// ...
+		toast.info('Multiple tabs not allowed in offline mode');
+	} else if (err.code == 'unimplemented') {
+		// The current browser does not support all of the
+		// features required to enable persistence
+		// ...
+		toast.info("Your browser doesn't support offline storage");
+	}
+});

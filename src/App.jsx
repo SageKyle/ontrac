@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,7 +26,15 @@ function App() {
 	const { authState, user, isPending, error } = useAuthState();
 
 	const [notFirstTime, setNotFirstTime] = useState(false);
-	const [showSidebar, setShowSidebar] = useState(false);
+	const sidebarRef = useRef();
+
+	function toggleSidebar() {
+		sidebarRef.current.classList.toggle('hidden');
+	}
+
+	function hideSidebar() {
+		sidebarRef.current.classList.add('hidden');
+	}
 
 	return (
 		<div className="App relative bg-[#567189] text-gray-200 min-h-[100vh]">
@@ -43,7 +51,7 @@ function App() {
 								<main
 									className="p-10 mb-[6rem]"
 									// hide sidebar when user clicks outside the area
-									onClick={() => setShowSidebar(false)}
+									onClick={hideSidebar}
 								>
 									<Routes>
 										{/* logged in user */}
@@ -92,8 +100,10 @@ function App() {
 										</Route>
 									</Routes>
 								</main>
-								{showSidebar && <Sidebar />}
-								<Navbar toggleSidebar={setShowSidebar} />
+								<div ref={sidebarRef} className="hidden">
+									<Sidebar />
+								</div>
+								<Navbar toggleSidebar={toggleSidebar} />
 							</>
 						)}
 					</>

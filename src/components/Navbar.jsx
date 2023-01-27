@@ -11,7 +11,7 @@ export default function Navbar({ toggleSidebar }) {
 			<ul className="flex justify-evenly align-middle w-[100%]">
 				{/* Home */}
 				<li
-					className="mr-4 hover:cursor-pointer  list-none hover:text-amber-300"
+					className="mr-4 hover:cursor-pointer  list-none lg:hover:text-amber-300"
 					title="Home"
 				>
 					<NavLink
@@ -24,7 +24,7 @@ export default function Navbar({ toggleSidebar }) {
 				</li>
 				{/* Add New Note */}
 				<li
-					className="mr-4 hover:cursor-pointer list-none hover:text-amber-300"
+					className="mr-4 hover:cursor-pointer list-none lg:hover:text-amber-300"
 					title="Add A  New Note"
 				>
 					<NavLink
@@ -37,7 +37,7 @@ export default function Navbar({ toggleSidebar }) {
 				</li>
 				{/* Add New task */}
 				<li
-					className="mr-4 hover:cursor-pointer list-none hover:text-amber-300"
+					className="mr-4 lg:hover:cursor-pointer list-none hover:text-amber-300"
 					title="Add A Todo"
 				>
 					<NavLink
@@ -51,12 +51,12 @@ export default function Navbar({ toggleSidebar }) {
 
 				{/* Login */}
 				<li
-					className="mr-4 hover:cursor-pointer list-none hover:text-amber-300"
+					className="mr-4 lg:hover:cursor-pointer list-none hover:text-amber-300"
 					title="Login"
 				>
 					<div
 						className="flex flex-col items-center justify-center"
-						onClick={() => toggleSidebar((prev) => !prev)}
+						onClick={toggleSidebar}
 					>
 						<BiUserCircle className="text-2xl" />
 						<span>Dashboard</span>

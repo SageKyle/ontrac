@@ -2,7 +2,7 @@ import { getAuth } from 'firebase/auth';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../firebase.config';
+import { db } from '../firebase/firebase.config';
 
 export default function useAddDoc(firestoreCollection) {
 	const [isCancelled, setIsCancelled] = useState(false);
@@ -32,11 +32,12 @@ export default function useAddDoc(firestoreCollection) {
 
 			if (!docRef) {
 				throw new Error('Something went wrong...');
-			} else {
-				setTimeout(() => {
-					navigate('/');
-				}, 3000);
 			}
+			//  else {
+			setTimeout(() => {
+				navigate('/');
+			}, 3000);
+			// }
 
 			//   update state
 			if (!isCancelled) {
