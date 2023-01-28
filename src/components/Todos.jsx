@@ -1,24 +1,26 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { toast } from 'react-toastify';
-import useFetchDoc from '../hooks/db/useFetchDoc';
+// import useFetchDoc from '../hooks/db/useFetchDoc';
 import Loading from '../utils/Loading';
+import FetchTodos from '../utils/todos/FetchTodos';
 
 export default function Todos() {
-	const { docs: todos, isPending, error } = useFetchDoc('todos');
-	const uncompletedTodos = todos
-		? todos.filter((todo) => todo.completed === false).length
-		: 0;
+	const { allTodos, numberOfUncompletedTodos, isPending, error } = FetchTodos();
+	// const { docs: todos, isPending, error } = useFetchDoc('todos');
+	// const uncompletedTodos = todos
+	// 	? todos.filter((todo) => todo.completed === false).length
+	// 	: 0;
 
 	return (
 		<>
 			<h2 className="text-2xl my-4">
-				You have {uncompletedTodos} uncompleted tasks
+				You have {numberOfUncompletedTodos} uncompleted tasks
 			</h2>
 			<section className="mb-4 flex items-start justify-start flex-wrap">
 				{isPending && <Loading />}
 				{error && toast.error(error)}
-				{todos &&
-					todos.map((todo) => (
+				{allTodos &&
+					allTodos.map((todo) => (
 						<div
 							key={Math.random()}
 							className="m-2 p-2 border-2 relative cursor-pointer rounded sm:w-full md:w-[20rem]"
