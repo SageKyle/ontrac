@@ -1,5 +1,5 @@
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { useDebugValue, useEffect, useState } from 'react';
+import { getAuth, GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
+import { useEffect, useState } from 'react';
 
 export default function useSignInWithGoogle() {
 	const [isCancelled, setIsCancelled] = useState(false);
@@ -13,13 +13,9 @@ export default function useSignInWithGoogle() {
 		setError(null);
 		try {
 			// sign in user
-			const userCredential = await signInWithPopup(auth, provider);
+			const userCredential = await signInWithRedirect(auth, provider);
 
 			const user = userCredential.user;
-			console.log(user);
-
-			// debugging
-			useDebugValue(user, (user) => `user info: ${user}`);
 
 			if (!user) {
 				throw new Error('Could not complete sign in');
@@ -33,7 +29,7 @@ export default function useSignInWithGoogle() {
 			// handle error
 		} catch (err) {
 			if (!isCancelled) {
-				console.log(err.message);
+				console.error(err.message);
 				setError(err.message);
 				setIsPending(false);
 			}

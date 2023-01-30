@@ -16,11 +16,9 @@ export default function useLogout() {
 		try {
 			// sign out user
 			await signOut(auth);
-			// setIsPending(false);
+			setIsPending(false);
 
-			setTimeout(() => {
-				navigate('/sign-in');
-			}, 3000);
+			navigate('/sign-in');
 
 			//   update state
 			if (!isCancelled) {
