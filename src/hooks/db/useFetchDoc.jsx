@@ -46,7 +46,7 @@ export default function useFetchDoc(firestoreCollection) {
 			}
 		}
 		return () => fetchDoc();
-	}, [firestoreCollection]);
+	}, []);
 
 	return { docs, isPending, error };
 }

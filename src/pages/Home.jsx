@@ -1,4 +1,4 @@
-import Notes from '../components/Notes';
+import AllNotes from './notes/AllNotes';
 import AllTodos from './todos/AllTodos';
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
 			<h3 className="capitalize my-4 text-2xl text-[#fad6a5] font-bold">
 				notes
 			</h3>
-			<Notes />
+			<AllNotes />
 		</section>
 	);
 }

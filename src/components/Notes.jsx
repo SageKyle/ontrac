@@ -1,25 +1,28 @@
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { toast } from 'react-toastify';
-import useFetchDoc from '../hooks/db/useFetchDoc';
 import Loading from '../utils/Loading';
 
-export default function Notes() {
-	const { docs: notes, isPending, error } = useFetchDoc('notes');
-
+export default function Notes({ notes, isPending, error }) {
 	return (
 		<section className="mb-4 flex items-start justify-start flex-wrap">
 			{isPending && <Loading />}
 			{error && toast.error(error)}
-			{!notes && <p>You have not added any notes yet.</p>}
+			{!notes && <p>There's nothing here!</p>}
 			{notes &&
 				notes.map((note) => (
 					<div
 						key={Math.random()}
 						className="m-2 p-2 border-2 relative cursor-pointer rounded sm:w-full md:w-[20rem]"
 					>
-						<h1 className="capitalize text-2xl">{note.title}</h1>
+						<h1 className="capitalize font-semibold">{note.title}</h1>
 
 						<p>{note.note}</p>
-						<p>{note.createdAt.toDate().toDateString()}</p>
+						<p className="text-xs mt-6">
+							Edited{' '}
+							{formatDistanceToNow(note.createdAt.toDate(), {
+								addSuffix: true,
+							})}
+						</p>
 					</div>
 				))}
 		</section>

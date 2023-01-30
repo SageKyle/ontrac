@@ -20,6 +20,9 @@ import FallbackRoute from './utils/routes/FallbackRoute';
 // todos
 import BookmarkedTodos from './pages/todos/BookmarkedTodos';
 import UncompletedTodos from './pages/todos/UncompletedTodos';
+// notes
+import AllNotes from './pages/notes/AllNotes';
+import BookmarkedNotes from './pages/notes/BookmarkedNotes';
 // auth
 import useAuthState from './hooks/auth/useAuthState';
 import LoginRoute from './utils/routes/LoginRoute';
@@ -105,6 +108,23 @@ function App() {
 											<Route
 												element={<BookmarkedTodos />}
 												path={'/bookmarked-todos'}
+											/>
+										</Route>
+										{/* all notes */}
+										<Route
+											element={<ProtectedRoute user={user} />}
+											path={'/notes'}
+										>
+											<Route element={<AllNotes />} path={'/notes'} />
+										</Route>
+										{/* bookmarked notes */}
+										<Route
+											element={<ProtectedRoute user={user} />}
+											path={'/bookmarked-notes'}
+										>
+											<Route
+												element={<BookmarkedNotes />}
+												path={'/bookmarked-notes'}
 											/>
 										</Route>
 

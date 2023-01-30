@@ -20,8 +20,8 @@ export default function Sidebar() {
 						{user.email}
 					</h5>
 					{/* todos */}
-					<div className="mb-4">
-						<h4 className="capitalize my-2 text-[#fad6a5] font-bold">todos</h4>
+					<div className="mb-2">
+						<h4 className="capitalize mb-2 font-semibold">todos</h4>
 						<NavLink
 							to={'/uncompleted-todos'}
 							title="Bookmarks"
@@ -32,10 +32,30 @@ export default function Sidebar() {
 						</NavLink>
 						<NavLink
 							to={'/bookmarked-todos'}
-							title="Bookmarks"
+							title="Bookmarked Todos"
 							className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
 						>
 							<BsBookmarksFill className="inline-block mr-2" />
+							<span className="text-sm">Bookmarked</span>
+						</NavLink>
+					</div>
+					{/* notes */}
+					<div className="mb-2">
+						<h4 className="capitalize mb-2 font-semibold">notes</h4>
+						<NavLink
+							to={'/notes'}
+							title="All Notes"
+							className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
+						>
+							{/* <BsListCheck className="inline-block mr-2" /> */}
+							<span className="text-sm">All</span>
+						</NavLink>
+						<NavLink
+							to={'/bookmarked-notes'}
+							title="Bookmarked Notes"
+							className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
+						>
+							{/* <BsBookmarksFill className="inline-block mr-2" /> */}
 							<span className="text-sm">Bookmarked</span>
 						</NavLink>
 					</div>
