@@ -1,7 +1,6 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { useDebugValue, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 export default function useSignIn() {
 	const [isCancelled, setIsCancelled] = useState(false);
@@ -22,10 +21,6 @@ export default function useSignIn() {
 			);
 			const user = userCredential.user;
 
-			toast.success('Sign in successful');
-			// debugging
-			useDebugValue(user, (user) => `user info: ${user}`);
-
 			if (!user) {
 				throw new Error('Could not complete sign in');
 			} else {
@@ -42,10 +37,9 @@ export default function useSignIn() {
 			// handle error
 		} catch (err) {
 			if (!isCancelled) {
-				console.log(err.message);
+				console.error(err.message);
 				setError(err.message);
 				setIsPending(false);
-				toast.error(err.message);
 			}
 		}
 	}

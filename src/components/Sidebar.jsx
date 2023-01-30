@@ -1,5 +1,9 @@
+// icons
 import { BiDockLeft, BiLogOut } from 'react-icons/bi';
 import { BsBookmarksFill, BsListCheck } from 'react-icons/bs';
+import { RxCaretDown } from 'react-icons/rx';
+
+import { useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import useAuthState from '../hooks/auth/useAuthState';
 import useLogout from '../hooks/auth/useLogout';
@@ -7,6 +11,12 @@ import useLogout from '../hooks/auth/useLogout';
 export default function Sidebar() {
 	const { logout, isPending, error } = useLogout();
 	const { user } = useAuthState();
+	const todoRef = useRef();
+	const noteRef = useRef();
+
+	function toggleRef(ref) {
+		ref.current.classList.toggle('hidden');
+	}
 
 	return (
 		<aside className="fixed flex capitalize p-4 flex-col shadow right-0 top-0 bg-[#567189] w-[50%] md:w-[30%] h-[100vh] z-10">
@@ -20,44 +30,68 @@ export default function Sidebar() {
 						{user.email}
 					</h5>
 					{/* todos */}
-					<div className="mb-2">
-						<h4 className="capitalize mb-2 font-semibold">todos</h4>
-						<NavLink
-							to={'/uncompleted-todos'}
-							title="Bookmarks"
-							className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
+					<div className="mb-2 w-full">
+						<h4
+							className="flex justify-start items-center capitalize mb-2 font-semibold cursor-pointer"
+							onClick={() => toggleRef(todoRef)}
 						>
-							<BsListCheck className="inline-block mr-2" />
-							<span className="text-sm">Uncompleted</span>
-						</NavLink>
-						<NavLink
-							to={'/bookmarked-todos'}
-							title="Bookmarked Todos"
-							className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
+							todos{' '}
+							<span>
+								<RxCaretDown className="ml-8" />
+							</span>
+						</h4>
+						<div
+							ref={todoRef}
+							className="hidden transition-all duration-300 ease-in-out"
 						>
-							<BsBookmarksFill className="inline-block mr-2" />
-							<span className="text-sm">Bookmarked</span>
-						</NavLink>
+							<NavLink
+								to={'/uncompleted-todos'}
+								title="Bookmarks"
+								className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
+							>
+								<BsListCheck className="inline-block mr-2" />
+								<span className="text-sm">Uncompleted</span>
+							</NavLink>
+							<NavLink
+								to={'/bookmarked-todos'}
+								title="Bookmarked Todos"
+								className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
+							>
+								<BsBookmarksFill className="inline-block mr-2" />
+								<span className="text-sm">Bookmarked</span>
+							</NavLink>
+						</div>
 					</div>
 					{/* notes */}
-					<div className="mb-2">
-						<h4 className="capitalize mb-2 font-semibold">notes</h4>
-						<NavLink
-							to={'/notes'}
-							title="All Notes"
-							className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
+					<div className="mb-2 w-full">
+						<h4
+							className="flex justify-start items-center capitalize mb-2 font-semibold cursor-pointer"
+							onClick={() => toggleRef(noteRef)}
 						>
-							{/* <BsListCheck className="inline-block mr-2" /> */}
-							<span className="text-sm">All</span>
-						</NavLink>
-						<NavLink
-							to={'/bookmarked-notes'}
-							title="Bookmarked Notes"
-							className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
+							note{' '}
+							<span>
+								<RxCaretDown className="ml-8" />
+							</span>
+						</h4>
+						<div
+							ref={noteRef}
+							className="hidden transition-all duration-300 ease-in-out"
 						>
-							{/* <BsBookmarksFill className="inline-block mr-2" /> */}
-							<span className="text-sm">Bookmarked</span>
-						</NavLink>
+							<NavLink
+								to={'/notes'}
+								title="All Notes"
+								className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
+							>
+								<span className="text-sm">All</span>
+							</NavLink>
+							<NavLink
+								to={'/bookmarked-notes'}
+								title="Bookmarked Notes"
+								className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
+							>
+								<span className="text-sm">Bookmarked</span>
+							</NavLink>
+						</div>
 					</div>
 
 					{/* documentation */}
