@@ -5,13 +5,13 @@ export default function FetchTodos() {
 
 	const uncompletedTodos = allTodos
 		? allTodos.filter((todo) => todo.completed === false)
-		: {};
+		: null;
 	const completedTodos = allTodos
 		? allTodos.filter((todo) => todo.completed === true)
-		: {};
+		: null;
 	const bookmarkedTodos = allTodos
 		? allTodos.filter((todo) => todo.bookmarked === true)
-		: {};
+		: null;
 	const numberOfUncompletedTodos = allTodos
 		? allTodos.filter((todo) => todo.completed === false).length
 		: 0;

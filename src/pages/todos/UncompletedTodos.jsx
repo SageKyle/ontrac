@@ -7,9 +7,14 @@ export default function UncompletedTodos() {
 	return (
 		<>
 			<h1 className="capitalize my-4 text-2xl text-[#fad6a5] font-bold">
-				uncompleted todos
+				uncompleted tasks
 			</h1>
-			<Todos todos={uncompletedTodos} isPending={isPending} error={error} />
+			<Todos
+				todos={uncompletedTodos}
+				isPending={isPending}
+				error={error}
+				isEmpty={'You have no uncompleted tasks'}
+			/>
 		</>
 	);
 }

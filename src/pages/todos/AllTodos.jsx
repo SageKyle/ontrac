@@ -9,7 +9,12 @@ export default function AllTodos() {
 			<h2 className="text-2xl my-4">
 				You have {numberOfUncompletedTodos} uncompleted tasks
 			</h2>
-			<Todos todos={allTodos} isPending={isPending} error={error} />
+			<Todos
+				todos={allTodos}
+				isPending={isPending}
+				error={error}
+				isEmpty={''}
+			/>
 		</>
 	);
 }

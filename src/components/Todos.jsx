@@ -2,12 +2,14 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { toast } from 'react-toastify';
 import Loading from '../utils/Loading';
 
-export default function Todos({ todos, isPending, error }) {
+export default function Todos({ todos, isPending, error, isEmpty }) {
 	return (
 		<>
 			<section className="mb-4 flex items-start justify-start flex-wrap">
 				{isPending && <Loading />}
 				{error && toast.error(error)}
+				{(!todos || todos.length === 0) && <h4>{isEmpty}</h4>}
+
 				{todos &&
 					todos.map((todo) => (
 						<div

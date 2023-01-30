@@ -1,5 +1,5 @@
 import { BiDockLeft, BiLogOut } from 'react-icons/bi';
-import { BsBookmarksFill } from 'react-icons/bs';
+import { BsBookmarksFill, BsListCheck } from 'react-icons/bs';
 import { Link, NavLink } from 'react-router-dom';
 import useAuthState from '../hooks/auth/useAuthState';
 import useLogout from '../hooks/auth/useLogout';
@@ -16,19 +16,30 @@ export default function Sidebar() {
 						{user.displayName[0]}
 					</div>
 					<h4 className="mx-auto capitalize">{user.displayName}</h4>
-					<h4 className="mx-auto normal-case text-xs font-thin">
+					<h5 className="mx-auto normal-case text-xs font-thin">
 						{user.email}
-					</h4>
-					{/* bookmark */}
+					</h5>
+					{/* todos */}
+					<div className="mb-4">
+						<h4 className="capitalize my-2 text-[#fad6a5] font-bold">todos</h4>
+						<NavLink
+							to={'/uncompleted-todos'}
+							title="Bookmarks"
+							className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
+						>
+							<BsListCheck className="inline-block mr-2" />
+							<span className="text-sm">Uncompleted</span>
+						</NavLink>
+						<NavLink
+							to={'/bookmarked-todos'}
+							title="Bookmarks"
+							className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
+						>
+							<BsBookmarksFill className="inline-block mr-2" />
+							<span className="text-sm">Bookmarked</span>
+						</NavLink>
+					</div>
 
-					<NavLink
-						to={'/bookmarks'}
-						title="Bookmarks"
-						className="flex items-center justify-start mt-8 hover:cursor-pointer lg:hover:text-[#fad6a5]"
-					>
-						<BsBookmarksFill className="inline-block mr-2" />
-						<span>Bookmarks</span>
-					</NavLink>
 					{/* documentation */}
 					<NavLink
 						to={'/docs'}

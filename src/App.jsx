@@ -14,10 +14,12 @@ import AddTodo from './pages/AddTodo';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
-import Bookmarks from './pages/Bookmarks';
 import Docs from './pages/Docs';
 import Home from './pages/Home';
 import FallbackRoute from './utils/routes/FallbackRoute';
+// todos
+import BookmarkedTodos from './pages/todos/BookmarkedTodos';
+import UncompletedTodos from './pages/todos/UncompletedTodos';
 // auth
 import useAuthState from './hooks/auth/useAuthState';
 import LoginRoute from './utils/routes/LoginRoute';
@@ -70,13 +72,7 @@ function App() {
 										<Route element={<ProtectedRoute user={user} />} path={'/'}>
 											<Route element={<Home />} path={'/'} />
 										</Route>
-										{/* bookmark */}
-										<Route
-											element={<ProtectedRoute user={user} />}
-											path={'/bookmarks'}
-										>
-											<Route element={<Bookmarks />} path={'/bookmarks'} />
-										</Route>
+
 										{/* add note */}
 										<Route
 											element={<ProtectedRoute user={user} />}
@@ -90,6 +86,26 @@ function App() {
 											path={'/new-todo'}
 										>
 											<Route element={<AddTodo />} path={'/new-todo'} />
+										</Route>
+										{/* uncompleted todos */}
+										<Route
+											element={<ProtectedRoute user={user} />}
+											path={'/uncompleted-todos'}
+										>
+											<Route
+												element={<UncompletedTodos />}
+												path={'/uncompleted-todos'}
+											/>
+										</Route>
+										{/* bookmarked todos */}
+										<Route
+											element={<ProtectedRoute user={user} />}
+											path={'/bookmarked-todos'}
+										>
+											<Route
+												element={<BookmarkedTodos />}
+												path={'/bookmarked-todos'}
+											/>
 										</Route>
 
 										{/* logged out user */}
