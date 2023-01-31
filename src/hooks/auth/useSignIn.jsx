@@ -1,6 +1,7 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from './useAuthContext';
 
 export default function useSignIn() {
 	const [isCancelled, setIsCancelled] = useState(false);
@@ -8,6 +9,7 @@ export default function useSignIn() {
 	const [error, setError] = useState(null);
 	const navigate = useNavigate();
 	const auth = getAuth();
+	const { dispatch } = useAuthContext();
 
 	async function signIn(email, password) {
 		setIsPending(true);
@@ -28,6 +30,9 @@ export default function useSignIn() {
 					navigate('/');
 				}, 3000);
 			}
+
+			// dispatch sign-in action
+			dispatch({ type: 'LOGIN', payload: user });
 
 			//   update state
 			if (!isCancelled) {

@@ -4,14 +4,16 @@ import {
 	updateProfile,
 } from 'firebase/auth';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
-import { useDebugValue, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { db } from '../../firebase/firebase.config';
+import { useAuthContext } from './useAuthContext';
 
 export default function useSignUp() {
 	const [isCancelled, setIsCancelled] = useState(false);
 	const [isPending, setIsPending] = useState(false);
 	const [error, setError] = useState(null);
 	const auth = getAuth();
+	const { dispatch } = useAuthContext();
 
 	async function signUp(email, password, name) {
 		setIsPending(true);
@@ -27,9 +29,6 @@ export default function useSignUp() {
 			await updateProfile(auth.currentUser, { displayName: name });
 			const user = userCredential.user;
 
-			// debugging
-			useDebugValue(user, (user) => `user info: ${user}`);
-
 			// add user info to db
 			await setDoc(doc(db, 'users', user.uid), {
 				name: user.displayName,
@@ -40,6 +39,9 @@ export default function useSignUp() {
 			if (!user) {
 				throw new Error('Could not complete signup');
 			}
+
+			// dispatch login action
+			dispatch({ type: 'LOGIN', payload: user });
 
 			//   update state
 			if (!isCancelled) {

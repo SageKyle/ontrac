@@ -24,7 +24,8 @@ import UncompletedTodos from './pages/todos/UncompletedTodos';
 import AllNotes from './pages/notes/AllNotes';
 import BookmarkedNotes from './pages/notes/BookmarkedNotes';
 // auth
-import useAuthState from './hooks/auth/useAuthState';
+import { useAuthContext } from './hooks/auth/useAuthContext';
+// import useAuthState from './hooks/auth/useAuthState';
 import LoginRoute from './utils/routes/LoginRoute';
 import ProtectedRoute from './utils/routes/ProtectedRoute';
 // loader
@@ -32,7 +33,8 @@ import Loading from './utils/Loading';
 
 function App() {
 	// auth
-	const { authState, user, isPending, error } = useAuthState();
+	const { user, authIsReady } = useAuthContext();
+	// const { authState, user, isPending, error } = useAuthState();
 
 	const { notFirstTime, setNotFirstTime } = CheckIfNotFirstTime();
 	// sidebar
@@ -54,15 +56,15 @@ function App() {
 				{notFirstTime && (
 					<>
 						{/* show loader */}
-						{isPending && <Loading />}
+						{/* {isPending && <Loading />} */}
 						{/* handle error */}
-						{error && (
+						{/* {error && (
 							<h1 className="text-2xl p-6">
 								Something went wrong... please reload the page
 							</h1>
-						)}
+						)} */}
 
-						{authState && (
+						{authIsReady && (
 							<>
 								<main
 									className="p-10 pb-[4rem]"

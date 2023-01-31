@@ -5,12 +5,12 @@ import { RxCaretDown } from 'react-icons/rx';
 
 import { useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import useAuthState from '../hooks/auth/useAuthState';
+import { useAuthContext } from '../hooks/auth/useAuthContext';
 import useLogout from '../hooks/auth/useLogout';
 
 export default function Sidebar() {
-	const { logout, isPending, error } = useLogout();
-	const { user } = useAuthState();
+	const { logout, isPending } = useLogout();
+	const { user } = useAuthContext();
 	const todoRef = useRef();
 	const noteRef = useRef();
 
@@ -94,16 +94,6 @@ export default function Sidebar() {
 						</div>
 					</div>
 
-					{/* documentation */}
-					<NavLink
-						to={'/docs'}
-						title="Documentation"
-						className="flex items-center justify-start mt-2 hover:cursor-pointer lg:hover:text-[#fad6a5]"
-					>
-						<BiDockLeft className="inline-block mr-2" />
-						<span>Documentation</span>
-					</NavLink>
-
 					{!isPending && (
 						<button
 							onClick={logout}
@@ -131,17 +121,17 @@ export default function Sidebar() {
 					<Link to={'/sign-up'} className="hover:underline text-xl">
 						sign up
 					</Link>
-					{/* documentation */}
-					<NavLink
-						to={'/docs'}
-						title="Documentation"
-						className="flex items-center justify-start mt-auto mb-2 hover:cursor-pointer lg:hover:text-[#fad6a5]"
-					>
-						<BiDockLeft className="inline-block mr-2" />
-						<span>About OnTrac</span>
-					</NavLink>
 				</section>
 			)}
+			{/* documentation */}
+			<NavLink
+				to={'/docs'}
+				title="Documentation"
+				className="flex items-center justify-start mt-auto mb-2 hover:cursor-pointer lg:hover:text-[#fad6a5]"
+			>
+				<BiDockLeft className="inline-block mr-2" />
+				<span>About OnTrac</span>
+			</NavLink>
 		</aside>
 	);
 }
