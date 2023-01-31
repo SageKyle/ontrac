@@ -9,7 +9,7 @@ import { useAuthContext } from '../hooks/auth/useAuthContext';
 import useLogout from '../hooks/auth/useLogout';
 
 export default function Sidebar() {
-	const { logout, isPending } = useLogout();
+	const { logout, isPending, error } = useLogout();
 	const { user } = useAuthContext();
 	const todoRef = useRef();
 	const noteRef = useRef();
@@ -19,18 +19,21 @@ export default function Sidebar() {
 	}
 
 	return (
-		<aside className="fixed flex capitalize p-4 flex-col shadow right-0 top-0 bg-[#567189] w-[50%] md:w-[30%] h-[100vh] z-10">
+		<aside className="fixed flex capitalize flex-col shadow right-0 top-0 bg-[#567189] w-[50%] md:w-[30%] h-[90vh] z-10">
 			{user && (
-				<section className="flex flex-col relative items-start my-4 h-4/5">
-					<div className="flex items-center mx-auto justify-center w-[4rem] h-[4rem] bg-[#7B8FA1] mb-2 rounded-full">
-						{user.displayName[0]}
+				<section className="flex flex-col relative items-start my-4 max-h-4/5">
+					{/* user profile */}
+					<div className="flex flex-col items-center mx-auto justify-center w-full mb-4 pb-4 border-b-[1px] border-slate-400">
+						<div className="flex items-center mx-auto justify-center w-[4rem] h-[4rem] bg-[#7B8FA1] mb-2 rounded-full">
+							{user.displayName[0]}
+						</div>
+						<h4 className="mx-auto capitalize">{user.displayName}</h4>
+						<h5 className="mx-auto normal-case text-xs font-thin">
+							{user.email}
+						</h5>
 					</div>
-					<h4 className="mx-auto capitalize">{user.displayName}</h4>
-					<h5 className="mx-auto normal-case text-xs font-thin">
-						{user.email}
-					</h5>
 					{/* todos */}
-					<div className="mb-2 w-full">
+					<div className="w-full px-4 pb-2">
 						<h4
 							className="flex justify-start items-center capitalize mb-2 font-semibold cursor-pointer"
 							onClick={() => toggleRef(todoRef)}
@@ -63,7 +66,7 @@ export default function Sidebar() {
 						</div>
 					</div>
 					{/* notes */}
-					<div className="mb-2 w-full">
+					<div className="px-4 pb-2 w-full">
 						<h4
 							className="flex justify-start items-center capitalize mb-2 font-semibold cursor-pointer"
 							onClick={() => toggleRef(noteRef)}
@@ -93,28 +96,20 @@ export default function Sidebar() {
 							</NavLink>
 						</div>
 					</div>
-
-					{!isPending && (
-						<button
-							onClick={logout}
-							className="hover:underline text-xl mb-4 mt-auto  after:absolute after:inline-block after:w-full after:border-t-[1px] after:border-[#7B8FA1] after:left-0 after:bottom-12"
-						>
-							<BiLogOut className="mr-2 inline-block" />
-							logout
-						</button>
-					)}
-					{isPending && (
-						<button onClick={logout} disabled className="text-xl mb-4 mt-auto">
-							<BiLogOut className="mr-2 inline-block" />
-							logging out
-						</button>
-					)}
-					{error && <p className="my-2 text-[red]">{error}</p>}
 				</section>
 			)}
+			{/* documentation */}
+			<NavLink
+				to={'/docs'}
+				title="Documentation"
+				className="flex items-center justify-start mt-2 ml-4 hover:cursor-pointer lg:hover:text-[#fad6a5]"
+			>
+				<BiDockLeft className="inline-block mr-2" />
+				<span>About OnTrac</span>
+			</NavLink>
 			{/* no logged in user */}
 			{!user && (
-				<section className=" flex flex-col mb-2 h-4/5">
+				<section className="p-4 flex flex-col mb-2 h-4/5">
 					<Link to={'/sign-in'} className="hover:underline text-xl mb-2">
 						login
 					</Link>
@@ -123,15 +118,28 @@ export default function Sidebar() {
 					</Link>
 				</section>
 			)}
-			{/* documentation */}
-			<NavLink
-				to={'/docs'}
-				title="Documentation"
-				className="flex items-center justify-start mt-auto mb-2 hover:cursor-pointer lg:hover:text-[#fad6a5]"
-			>
-				<BiDockLeft className="inline-block mr-2" />
-				<span>About OnTrac</span>
-			</NavLink>
+			{/* logout */}
+			{user && (
+				<div className="w-full mb-8 mt-auto self-start p-4 border-t-[1px] border-slate-400">
+					{!isPending && (
+						<button onClick={logout} className="hover:underline text-xl">
+							<BiLogOut className="mr-2 inline-block" />
+							logout
+						</button>
+					)}
+					{isPending && (
+						<button
+							onClick={logout}
+							disabled
+							className="hover:underline text-xl"
+						>
+							<BiLogOut className="mr-2 inline-block" />
+							logging out
+						</button>
+					)}
+					{error && <p className="my-2 text-[red]">{error}</p>}
+				</div>
+			)}
 		</aside>
 	);
 }
