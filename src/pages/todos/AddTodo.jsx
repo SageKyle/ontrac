@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import useAddDoc from '../hooks/db/useAddDoc';
+import useAddDoc from '../../hooks/db/useAddDoc';
 // icons
 import {
 	BsCheck2,
@@ -9,7 +9,7 @@ import {
 	BsFillBookmarkPlusFill,
 } from 'react-icons/bs';
 import { MdOutlineNotificationAdd } from 'react-icons/md';
-import LoadingIcon from '../assets/Rolling-spinner.svg';
+import LoadingIcon from '../../assets/Rolling-spinner.svg';
 
 export default function AddTodo() {
 	// Form States

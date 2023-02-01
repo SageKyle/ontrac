@@ -9,13 +9,13 @@ import Sidebar from './components/Sidebar';
 import CheckIfNotFirstTime from './utils/CheckIfNotFirstTime';
 import Welcome from './utils/Welcome';
 // pages/routes
-import AddNewNote from './pages/AddNewNote';
-import AddTodo from './pages/AddTodo';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
 import Docs from './pages/Docs';
 import Home from './pages/Home';
+import AddNewNote from './pages/notes/AddNewNote';
+import AddTodo from './pages/todos/AddTodo';
 import FallbackRoute from './utils/routes/FallbackRoute';
 // todos
 import BookmarkedTodos from './pages/todos/BookmarkedTodos';

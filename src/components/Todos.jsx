@@ -1,8 +1,16 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { toast } from 'react-toastify';
+import useUpdateDoc from '../hooks/db/useUpdateDoc';
 import Loading from '../utils/Loading';
 
 export default function Todos({ todos, isPending, error, isEmpty }) {
+	const { updateDocument } = useUpdateDoc('todos');
+
+	async function completeTodo(id) {
+		await updateDocument(id, { completed: true });
+		console.log(id);
+	}
+
 	return (
 		<>
 			<section className="mb-4 flex items-start justify-start flex-wrap">
@@ -15,6 +23,7 @@ export default function Todos({ todos, isPending, error, isEmpty }) {
 						<div
 							key={Math.random()}
 							className="m-2 p-2 border-2 relative cursor-pointer rounded sm:w-full md:w-[20rem]"
+							onClick={() => completeTodo(todo.id)}
 						>
 							<h4
 								className={
