@@ -6,9 +6,9 @@ import Loading from '../utils/Loading';
 export default function Todos({ todos, isPending, error, isEmpty }) {
 	const { updateDocument } = useUpdateDoc('todos');
 
-	async function completeTodo(id) {
-		await updateDocument(id, { completed: true });
-		console.log(id);
+	async function completeTodo(todo) {
+		await updateDocument(todo.id, { completed: true });
+		console.log(todo);
 	}
 
 	return (
@@ -23,7 +23,7 @@ export default function Todos({ todos, isPending, error, isEmpty }) {
 						<div
 							key={Math.random()}
 							className="m-2 p-2 border-2 relative cursor-pointer rounded sm:w-full md:w-[20rem]"
-							onClick={() => completeTodo(todo.id)}
+							onClick={() => completeTodo(todo)}
 						>
 							<h4
 								className={

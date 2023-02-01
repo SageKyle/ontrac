@@ -26,7 +26,7 @@ export default function useFetchDoc(firestoreCollection) {
 				docRef?.forEach((doc) => {
 					let singleDoc = doc.data();
 					// check if the doc was created by the current user
-					if (singleDoc.id === user.uid) {
+					if (singleDoc.userId === user.uid) {
 						result.push(singleDoc);
 					}
 				});

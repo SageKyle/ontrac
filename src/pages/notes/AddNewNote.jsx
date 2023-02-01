@@ -5,8 +5,9 @@ import { toast } from 'react-toastify';
 import {
 	BsCheck2,
 	BsFillArrowLeftCircleFill,
-	BsFillBookmarkPlusFill,
 	BsFillMicFill,
+	BsStar,
+	BsStarFill,
 } from 'react-icons/bs';
 import { MdOutlineNotificationAdd } from 'react-icons/md';
 import LoadingIcon from '../../assets/Rolling-spinner.svg';
@@ -25,7 +26,7 @@ export default function AddNewNote() {
 	// Form States
 	const [title, setTitle] = useState('');
 	const [note, setNote] = useState('');
-	const [bookmarked, setBookmarked] = useState(false);
+	const [starred, setStarred] = useState(false);
 
 	// Form Actions
 	const handleSubmit = async () => {
@@ -33,7 +34,7 @@ export default function AddNewNote() {
 			toast.error('Oops! Your note is empty...');
 			return null;
 		}
-		const doc = { title, note, bookmarked };
+		const doc = { title, note, starred };
 		await addDocument(doc);
 	};
 
@@ -78,15 +79,14 @@ export default function AddNewNote() {
 					>
 						<MdOutlineNotificationAdd className="text-2xl" />
 					</span>
-					{/* bookmark */}
+					{/* star */}
 					<span
 						className=" cursor-pointer"
-						onClick={() => setBookmarked((prev) => !prev)}
-						title="Add to bookmark"
+						onClick={() => setStarred((prev) => !prev)}
+						title="Mark as Important"
 					>
-						<BsFillBookmarkPlusFill
-							className={bookmarked ? 'text-[#fad6a5] text-2xl' : 'text-2xl'}
-						/>
+						{starred && <BsStarFill className="text-[#fad6a5] text-2xl" />}
+						{!starred && <BsStar className="text-2xl" />}
 					</span>
 				</div>
 			</nav>

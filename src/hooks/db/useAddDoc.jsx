@@ -21,7 +21,7 @@ export default function useAddDoc(firestoreCollection) {
 			// create doc
 			const doc = {
 				...newDoc,
-				id: user.uid,
+				userId: user.uid,
 				createdAt: serverTimestamp(),
 			};
 

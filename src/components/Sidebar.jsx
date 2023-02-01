@@ -1,6 +1,6 @@
 // icons
 import { BiDockLeft, BiLogOut } from 'react-icons/bi';
-import { BsBookmarksFill, BsListCheck } from 'react-icons/bs';
+import { BsListCheck, BsStarFill } from 'react-icons/bs';
 import { RxCaretDown } from 'react-icons/rx';
 
 import { useRef } from 'react';
@@ -49,19 +49,19 @@ export default function Sidebar() {
 						>
 							<NavLink
 								to={'/uncompleted-todos'}
-								title="Bookmarks"
+								title="Uncompleted Tasks"
 								className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
 							>
 								<BsListCheck className="inline-block mr-2" />
 								<span className="text-sm">Uncompleted</span>
 							</NavLink>
 							<NavLink
-								to={'/bookmarked-todos'}
-								title="Bookmarked Todos"
+								to={'/starred-todos'}
+								title="Important Todos"
 								className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
 							>
-								<BsBookmarksFill className="inline-block mr-2" />
-								<span className="text-sm">Bookmarked</span>
+								<BsStarFill className="inline-block mr-2" />
+								<span className="text-sm">Important</span>
 							</NavLink>
 						</div>
 					</div>
@@ -88,11 +88,11 @@ export default function Sidebar() {
 								<span className="text-sm">All</span>
 							</NavLink>
 							<NavLink
-								to={'/bookmarked-notes'}
-								title="Bookmarked Notes"
+								to={'/starred-notes'}
+								title="Important Notes"
 								className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
 							>
-								<span className="text-sm">Bookmarked</span>
+								<span className="text-sm">Important</span>
 							</NavLink>
 						</div>
 					</div>

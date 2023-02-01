@@ -6,7 +6,8 @@ import useAddDoc from '../../hooks/db/useAddDoc';
 import {
 	BsCheck2,
 	BsFillArrowLeftCircleFill,
-	BsFillBookmarkPlusFill,
+	BsStar,
+	BsStarFill,
 } from 'react-icons/bs';
 import { MdOutlineNotificationAdd } from 'react-icons/md';
 import LoadingIcon from '../../assets/Rolling-spinner.svg';
@@ -14,8 +15,8 @@ import LoadingIcon from '../../assets/Rolling-spinner.svg';
 export default function AddTodo() {
 	// Form States
 	const [todo, setTodo] = useState('');
-	const [date, setDate] = useState('');
-	const [bookmarked, setBookmarked] = useState(false);
+	const [dueDate, setdueDate] = useState('');
+	const [starred, setStarred] = useState(false);
 
 	const { addDocument, error, isPending } = useAddDoc('todos');
 
@@ -25,11 +26,11 @@ export default function AddTodo() {
 			toast.error('Oops! You forgot to add a todo...');
 			return null;
 		}
-		if (date === '') {
+		if (dueDate === '') {
 			toast.error('Oops! You forgot to add a date...');
 			return null;
 		}
-		const doc = { todo, date, bookmarked, completed: false };
+		const doc = { todo, dueDate, starred, completed: false };
 		await addDocument(doc);
 	};
 
@@ -63,15 +64,14 @@ export default function AddTodo() {
 					>
 						<MdOutlineNotificationAdd className="text-2xl" />
 					</span>
-					{/* bookmark */}
+					{/* star */}
 					<span
 						className=" cursor-pointer"
-						onClick={() => setBookmarked((prev) => !prev)}
-						title="Add to bookmark"
+						onClick={() => setStarred((prev) => !prev)}
+						title="Mark as Important"
 					>
-						<BsFillBookmarkPlusFill
-							className={bookmarked ? 'text-[#fad6a5] text-2xl' : 'text-2xl'}
-						/>
+						{starred && <BsStarFill className="text-[#fad6a5] text-2xl" />}
+						{!starred && <BsStar className="text-2xl" />}
 					</span>
 				</div>
 			</nav>
@@ -99,8 +99,8 @@ export default function AddTodo() {
 					<input
 						type="datetime-local"
 						required
-						value={date}
-						onChange={(e) => setDate(e.target.value)}
+						value={dueDate}
+						onChange={(e) => setdueDate(e.target.value)}
 						className="bg-transparent w-full border-0 outline-0"
 					/>
 				</label>

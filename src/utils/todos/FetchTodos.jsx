@@ -9,19 +9,17 @@ export default function FetchTodos() {
 	const completedTodos = allTodos
 		? allTodos.filter((todo) => todo.completed === true)
 		: null;
-	const bookmarkedTodos = allTodos
-		? allTodos.filter((todo) => todo.bookmarked === true)
+	const starredTodos = allTodos
+		? allTodos.filter((todo) => todo.starred === true)
 		: null;
 	const numberOfUncompletedTodos = allTodos
 		? allTodos.filter((todo) => todo.completed === false).length
 		: 0;
 
-	console.log('fetch todos ran', allTodos);
-
 	return {
 		allTodos,
 		uncompletedTodos,
-		bookmarkedTodos,
+		starredTodos,
 		numberOfUncompletedTodos,
 		completedTodos,
 		isPending,

@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 // icons
 import { BiHomeCircle, BiUserCircle } from 'react-icons/bi';
-import { BsBookmarksFill, BsListCheck } from 'react-icons/bs';
+import { BsListCheck } from 'react-icons/bs';
 import { MdOutlineEditNote } from 'react-icons/md';
 
 export default function Navbar({ toggleSidebar }) {

@@ -18,23 +18,22 @@ import AddNewNote from './pages/notes/AddNewNote';
 import AddTodo from './pages/todos/AddTodo';
 import FallbackRoute from './utils/routes/FallbackRoute';
 // todos
-import BookmarkedTodos from './pages/todos/BookmarkedTodos';
+import StarredTodos from './pages/todos/StarredTodos';
 import UncompletedTodos from './pages/todos/UncompletedTodos';
 // notes
 import AllNotes from './pages/notes/AllNotes';
-import BookmarkedNotes from './pages/notes/BookmarkedNotes';
+import StarredNotes from './pages/notes/StarredNotes';
 // auth
 import { useAuthContext } from './hooks/auth/useAuthContext';
 // import useAuthState from './hooks/auth/useAuthState';
 import LoginRoute from './utils/routes/LoginRoute';
 import ProtectedRoute from './utils/routes/ProtectedRoute';
 // loader
-import Loading from './utils/Loading';
+// import Loading from './utils/Loading';
 
 function App() {
 	// auth
 	const { user, authIsReady } = useAuthContext();
-	// const { authState, user, isPending, error } = useAuthState();
 
 	const { notFirstTime, setNotFirstTime } = CheckIfNotFirstTime();
 	// sidebar
@@ -102,14 +101,14 @@ function App() {
 												path={'/uncompleted-todos'}
 											/>
 										</Route>
-										{/* bookmarked todos */}
+										{/* starred todos */}
 										<Route
 											element={<ProtectedRoute user={user} />}
-											path={'/bookmarked-todos'}
+											path={'/starred-todos'}
 										>
 											<Route
-												element={<BookmarkedTodos />}
-												path={'/bookmarked-todos'}
+												element={<StarredTodos />}
+												path={'/starred-todos'}
 											/>
 										</Route>
 										{/* all notes */}
@@ -119,14 +118,14 @@ function App() {
 										>
 											<Route element={<AllNotes />} path={'/notes'} />
 										</Route>
-										{/* bookmarked notes */}
+										{/* starred notes */}
 										<Route
 											element={<ProtectedRoute user={user} />}
-											path={'/bookmarked-notes'}
+											path={'/starred-notes'}
 										>
 											<Route
-												element={<BookmarkedNotes />}
-												path={'/bookmarked-notes'}
+												element={<StarredNotes />}
+												path={'/starred-notes'}
 											/>
 										</Route>
 
