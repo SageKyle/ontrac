@@ -1,7 +1,7 @@
 import Tasks from '../../components/Tasks';
 import FetchTasks from '../../utils/tasks/FetchTasks';
 
-export default function AllTodos() {
+export default function AllTasks() {
 	const { allTasks, numberOfUncompletedTasks, isPending, error } = FetchTasks();
 
 	return (

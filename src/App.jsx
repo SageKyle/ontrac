@@ -18,6 +18,7 @@ import AddNewNote from './pages/notes/AddNewNote';
 import AddTask from './pages/tasks/AddTask';
 import FallbackRoute from './utils/routes/FallbackRoute';
 // Tasks
+import AllTasks from './pages/tasks/AllTasks';
 import StarredTasks from './pages/tasks/StarredTasks';
 import UncompletedTasks from './pages/tasks/UncompletedTasks';
 // notes
@@ -111,6 +112,13 @@ function App() {
 												element={<StarredTasks />}
 												path={'/starred-tasks'}
 											/>
+										</Route>
+										{/* all tasks */}
+										<Route
+											element={<ProtectedRoute user={user} />}
+											path={'/tasks'}
+										>
+											<Route element={<AllTasks />} path={'/tasks'} />
 										</Route>
 										{/* all notes */}
 										<Route

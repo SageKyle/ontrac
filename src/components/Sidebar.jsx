@@ -1,6 +1,7 @@
 // icons
 import { BiDockLeft, BiLogOut } from 'react-icons/bi';
-import { BsListCheck, BsStarFill } from 'react-icons/bs';
+import { BsListCheck, BsListTask, BsStarFill } from 'react-icons/bs';
+import { FaTasks } from 'react-icons/fa';
 import { RxCaretDown } from 'react-icons/rx';
 
 import { useRef } from 'react';
@@ -47,6 +48,14 @@ export default function Sidebar() {
 							ref={taskRef}
 							className="hidden transition-all duration-300 ease-in-out"
 						>
+							<NavLink
+								to={'/tasks'}
+								title="Tasks"
+								className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
+							>
+								<FaTasks className="inline-block mr-2" />
+								<span className="text-sm">All</span>
+							</NavLink>
 							<NavLink
 								to={'/uncompleted-tasks'}
 								title="Uncompleted Tasks"
