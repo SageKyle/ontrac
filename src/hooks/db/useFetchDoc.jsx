@@ -40,7 +40,7 @@ export default function useFetchDoc(firestoreCollection) {
 				setIsPending(false);
 				setError(null);
 			} catch (err) {
-				console.log(err.message);
+				console.log(err);
 				setError(err.message);
 				setIsPending(false);
 			}

@@ -12,10 +12,16 @@ export default function useUpdateDoc(firestoreCollection) {
 		setError(null);
 
 		try {
-			const updatedDocument = await updateDoc(
-				doc(db, firestoreCollection, id),
-				updates
-			);
+			const updatedDocument = await db
+				.collection(firestoreCollection)
+				.doc(id)
+				.update({
+					updates,
+				});
+			// updateDoc(
+			// 	doc(db, firestoreCollection, id),
+			// 	{ ...updates }
+			// );
 
 			if (!updatedDocument) {
 				throw new Error('Something went wrong...');
@@ -26,6 +32,7 @@ export default function useUpdateDoc(firestoreCollection) {
 				setIsPending(false);
 				setError(null);
 			}
+			return updatedDocument;
 		} catch (err) {
 			if (!isCancelled) {
 				console.error(err.message);

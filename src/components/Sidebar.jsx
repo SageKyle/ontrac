@@ -11,7 +11,7 @@ import useLogout from '../hooks/auth/useLogout';
 export default function Sidebar() {
 	const { logout, isPending, error } = useLogout();
 	const { user } = useAuthContext();
-	const todoRef = useRef();
+	const taskRef = useRef();
 	const noteRef = useRef();
 
 	function toggleRef(ref) {
@@ -32,23 +32,23 @@ export default function Sidebar() {
 							{user.email}
 						</h5>
 					</div>
-					{/* todos */}
+					{/* tasks */}
 					<div className="w-full px-4 pb-2">
 						<h4
 							className="flex justify-start items-center capitalize mb-2 font-semibold cursor-pointer"
-							onClick={() => toggleRef(todoRef)}
+							onClick={() => toggleRef(taskRef)}
 						>
-							todos{' '}
+							tasks{' '}
 							<span>
 								<RxCaretDown className="ml-8" />
 							</span>
 						</h4>
 						<div
-							ref={todoRef}
+							ref={taskRef}
 							className="hidden transition-all duration-300 ease-in-out"
 						>
 							<NavLink
-								to={'/uncompleted-todos'}
+								to={'/uncompleted-tasks'}
 								title="Uncompleted Tasks"
 								className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
 							>
@@ -56,8 +56,8 @@ export default function Sidebar() {
 								<span className="text-sm">Uncompleted</span>
 							</NavLink>
 							<NavLink
-								to={'/starred-todos'}
-								title="Important Todos"
+								to={'/starred-tasks'}
+								title="Important tasks"
 								className="flex items-center justify-start hover:cursor-pointer hover:ml-2 transition-all duration-150 ease-in-out lg:hover:text-[#fad6a5] active:ml-4"
 							>
 								<BsStarFill className="inline-block mr-2" />

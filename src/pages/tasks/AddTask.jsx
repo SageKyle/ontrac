@@ -12,25 +12,25 @@ import {
 import { MdOutlineNotificationAdd } from 'react-icons/md';
 import LoadingIcon from '../../assets/Rolling-spinner.svg';
 
-export default function AddTodo() {
+export default function AddTask() {
 	// Form States
-	const [todo, setTodo] = useState('');
+	const [task, setTask] = useState('');
 	const [dueDate, setdueDate] = useState('');
 	const [starred, setStarred] = useState(false);
 
-	const { addDocument, error, isPending } = useAddDoc('todos');
+	const { addDocument, error, isPending } = useAddDoc('tasks');
 
 	// Form Actions
 	const handleSubmit = async () => {
-		if (todo === '') {
-			toast.error('Oops! You forgot to add a todo...');
+		if (task === '') {
+			toast.error('Oops! You forgot to add a task...');
 			return null;
 		}
 		if (dueDate === '') {
 			toast.error('Oops! You forgot to add a date...');
 			return null;
 		}
-		const doc = { todo, dueDate, starred, completed: false };
+		const doc = { task, dueDate, starred, completed: false };
 		await addDocument(doc);
 	};
 
@@ -79,15 +79,15 @@ export default function AddTodo() {
 				{error && toast.error(error)}
 				<label className="flex flex-col p-1 w-full mb-6">
 					<span className="inline-block my-2 pl-4 text-[#fad6a5] font-bold">
-						Todo:
+						Task:
 					</span>
 					<input
 						type="text"
-						placeholder="Todo..."
+						placeholder="Task..."
 						required
 						autoFocus
-						value={todo}
-						onChange={(e) => setTodo(e.target.value)}
+						value={task}
+						onChange={(e) => setTask(e.target.value)}
 						className="bg-transparent w-full placeholder:text-slate-300 border-2 border-slate-400 focus:border-slate-300 focus:outline-0 outline-0"
 					/>
 				</label>

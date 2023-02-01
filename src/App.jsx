@@ -15,11 +15,11 @@ import SignUp from './pages/auth/SignUp';
 import Docs from './pages/Docs';
 import Home from './pages/Home';
 import AddNewNote from './pages/notes/AddNewNote';
-import AddTodo from './pages/todos/AddTodo';
+import AddTask from './pages/tasks/AddTask';
 import FallbackRoute from './utils/routes/FallbackRoute';
-// todos
-import StarredTodos from './pages/todos/StarredTodos';
-import UncompletedTodos from './pages/todos/UncompletedTodos';
+// Tasks
+import StarredTasks from './pages/tasks/StarredTasks';
+import UncompletedTasks from './pages/tasks/UncompletedTasks';
 // notes
 import AllNotes from './pages/notes/AllNotes';
 import StarredNotes from './pages/notes/StarredNotes';
@@ -84,31 +84,31 @@ function App() {
 										>
 											<Route element={<AddNewNote />} path={'/new-note'} />
 										</Route>
-										{/* new todo */}
+										{/* new Task */}
 										<Route
 											element={<ProtectedRoute user={user} />}
-											path={'/new-todo'}
+											path={'/new-task'}
 										>
-											<Route element={<AddTodo />} path={'/new-todo'} />
+											<Route element={<AddTask />} path={'/new-task'} />
 										</Route>
-										{/* uncompleted todos */}
+										{/* uncompleted tasks */}
 										<Route
 											element={<ProtectedRoute user={user} />}
-											path={'/uncompleted-todos'}
+											path={'/uncompleted-tasks'}
 										>
 											<Route
-												element={<UncompletedTodos />}
-												path={'/uncompleted-todos'}
+												element={<UncompletedTasks />}
+												path={'/uncompleted-tasks'}
 											/>
 										</Route>
-										{/* starred todos */}
+										{/* starred tasks */}
 										<Route
 											element={<ProtectedRoute user={user} />}
-											path={'/starred-todos'}
+											path={'/starred-tasks'}
 										>
 											<Route
-												element={<StarredTodos />}
-												path={'/starred-todos'}
+												element={<StarredTasks />}
+												path={'/starred-tasks'}
 											/>
 										</Route>
 										{/* all notes */}

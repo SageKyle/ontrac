@@ -38,14 +38,14 @@ export default function Navbar({ toggleSidebar }) {
 				{/* Add New task */}
 				<li
 					className="mr-4 lg:hover:cursor-pointer list-none hover:text-amber-300"
-					title="Add A Todo"
+					title="Add A New Task"
 				>
 					<NavLink
-						to={'/new-todo'}
+						to={'/new-task'}
 						className="flex flex-col items-center justify-center"
 					>
 						<BsListCheck className="text-2xl" />
-						<span>Add Todo</span>
+						<span>Add Task</span>
 					</NavLink>
 				</li>
 

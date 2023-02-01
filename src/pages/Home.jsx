@@ -1,13 +1,13 @@
 import AllNotes from './notes/AllNotes';
-import AllTodos from './todos/AllTodos';
+import AllTasks from './tasks/AllTasks';
 
 export default function Home() {
 	return (
 		<section>
 			<h3 className="capitalize my-4 text-2xl text-[#fad6a5] font-bold">
-				todos
+				Tasks
 			</h3>
-			<AllTodos />
+			<AllTasks />
 			<h3 className="capitalize my-4 text-2xl text-[#fad6a5] font-bold">
 				notes
 			</h3>
