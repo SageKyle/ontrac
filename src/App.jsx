@@ -54,6 +54,7 @@ function App() {
 
 				{notFirstTime && (
 					<>
+						{/* TODO add preloader */}
 						{/* show loader */}
 						{/* {isPending && <Loading />} */}
 						{/* handle error */}

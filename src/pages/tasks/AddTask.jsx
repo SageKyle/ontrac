@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import useAddDoc from '../../hooks/db/useAddDoc';
+import PushNotification from '../../utils/PushNotification';
 // icons
 import {
 	BsCheck2,
@@ -19,6 +20,12 @@ export default function AddTask() {
 	const [starred, setStarred] = useState(false);
 
 	const { addDocument, error, isPending } = useAddDoc('tasks');
+
+	function sendNotification() {
+		const notice = 'do more work';
+		const tag = 'task';
+		PushNotification(notice, tag);
+	}
 
 	// Form Actions
 	const handleSubmit = async () => {
@@ -61,6 +68,7 @@ export default function AddTask() {
 					<span
 						className="inline-block mr-4 cursor-pointer"
 						title="Enable notification"
+						onClick={sendNotification}
 					>
 						<MdOutlineNotificationAdd className="text-2xl" />
 					</span>
