@@ -41,9 +41,10 @@ export default function Tasks({ tasks, isPending, error, isEmpty }) {
 							)}
 							<p className="text-sm">{task.note}</p>
 							<p>
-								{formatDistanceToNow(task.createdAt.toDate(), {
+								{formatDistanceToNow(new Date(task.dueDate), {
 									addSuffix: true,
-								})}
+								})}{' '}
+								<span>time</span>
 							</p>
 						</div>
 					))}
