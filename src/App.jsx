@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useDeferredValue, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -37,6 +37,7 @@ function App() {
 	const { user, authIsReady } = useAuthContext();
 
 	const { notFirstTime, setNotFirstTime } = CheckIfNotFirstTime();
+	const deferredNotFirstTime = useDeferredValue(notFirstTime);
 	// sidebar
 	const sidebarRef = useRef();
 
@@ -48,12 +49,12 @@ function App() {
 	}
 
 	return (
-		<div className="App relative bg-[#567189] text-gray-200 min-h-[100vh]">
+		<div className="App relative flex flex-col justify-center bg-[#567189] text-gray-200 min-h-[100vh]">
 			<Router>
 				{/* welcome page */}
-				{!notFirstTime && <Welcome setNotFirstTime={setNotFirstTime} />}
+				{!deferredNotFirstTime && <Welcome setNotFirstTime={setNotFirstTime} />}
 
-				{notFirstTime && (
+				{deferredNotFirstTime && (
 					<>
 						{/* TODO add preloader */}
 						{/* show loader */}
@@ -68,7 +69,7 @@ function App() {
 						{authIsReady && (
 							<>
 								<main
-									className="p-10 pb-[4rem] mt-auto min-h-full"
+									className="p-10 pb-[4rem] w-full my-auto min-h-full"
 									// hide sidebar when user clicks outside the area
 									onClick={hideSidebar}
 								>
