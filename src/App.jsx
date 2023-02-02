@@ -9,10 +9,10 @@ import Sidebar from './components/Sidebar';
 import CheckIfNotFirstTime from './utils/CheckIfNotFirstTime';
 import Welcome from './utils/Welcome';
 // pages/routes
+import Docs from './components/Docs';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
-import Docs from './pages/Docs';
 import Home from './pages/Home';
 import AddNewNote from './pages/notes/AddNewNote';
 import AddTask from './pages/tasks/AddTask';
@@ -68,7 +68,7 @@ function App() {
 						{authIsReady && (
 							<>
 								<main
-									className="p-10 pb-[4rem]"
+									className="p-10 pb-[4rem] mt-auto min-h-full"
 									// hide sidebar when user clicks outside the area
 									onClick={hideSidebar}
 								>
