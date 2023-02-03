@@ -41,7 +41,7 @@ export default function AddNewNote() {
 	const handleSpeechToText = () => {
 		if (!listening) {
 			listenContinuously();
-			setNote((prevValue) => prevValue + ' ' + transcript);
+			setNote((prevValue) => prevValue + transcript);
 			toast.info('mic is on');
 		} else if (listening) {
 			stopListening();
