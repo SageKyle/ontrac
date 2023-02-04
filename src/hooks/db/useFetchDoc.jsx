@@ -1,13 +1,14 @@
 import { getAuth } from 'firebase/auth';
-import { collection, getDocs } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { collection, getDocs, orderBy } from 'firebase/firestore';
+import { useDeferredValue, useEffect, useState } from 'react';
 import { db } from '../../firebase/firebase.config';
 
 export default function useFetchDoc(firestoreCollection) {
 	const [isPending, setIsPending] = useState(false);
 	const [error, setError] = useState(null);
-	const [docs, setDocs] = useState(null);
+	const [fetchedDocs, setFetchedDocs] = useState(null);
 	const auth = getAuth();
+	const docs = useDeferredValue(fetchedDocs);
 
 	useEffect(() => {
 		async function fetchDoc() {
@@ -19,7 +20,10 @@ export default function useFetchDoc(firestoreCollection) {
 				const user = auth.currentUser;
 
 				// get docs
-				const docRef = await getDocs(collection(db, firestoreCollection));
+				const docRef = await getDocs(
+					collection(db, firestoreCollection),
+					orderBy('createdAt', 'desc')
+				);
 
 				let result = [];
 
@@ -36,7 +40,7 @@ export default function useFetchDoc(firestoreCollection) {
 				}
 
 				//   update state
-				setDocs(result);
+				setFetchedDocs(result);
 				setIsPending(false);
 				setError(null);
 			} catch (err) {
