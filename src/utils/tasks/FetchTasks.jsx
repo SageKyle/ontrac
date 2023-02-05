@@ -1,7 +1,7 @@
 import useFetchDoc from '../../hooks/db/useFetchDoc';
 
 export default function FetchTasks() {
-	const { docs: allTasks, isPending, error } = useFetchDoc('tasks');
+	const { deferredDocs: allTasks, isPending, error } = useFetchDoc('tasks');
 
 	const uncompletedTasks = allTasks
 		? allTasks.filter((task) => task.completed === false)

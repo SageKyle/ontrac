@@ -20,7 +20,7 @@ export default function Notes({ notes, isPending, error }) {
 					>
 						<h1 className="capitalize font-semibold">{note.title}</h1>
 
-						<p>{note.note}</p>
+						<pre className="max-w-full">{note.note}</pre>
 						<p className="text-xs mt-6">
 							Edited{' '}
 							{formatDistanceToNow(note.createdAt.toDate(), {

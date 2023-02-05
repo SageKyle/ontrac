@@ -16,7 +16,7 @@ import LoadingIcon from '../../assets/Rolling-spinner.svg';
 // import useAddDoc from '../../hooks/db/useAddDoc';
 import useSpeechToText from '../../hooks/TTS/useTextToSpeech';
 
-export default function EditNote({ note, title, starred, id }) {
+export default function EditNote({ _note, _title, _starred, id }) {
 	// const { addDocument, error, isPending } = useAddDoc('notes');
 
 	// Speech to Text
@@ -24,9 +24,9 @@ export default function EditNote({ note, title, starred, id }) {
 		useSpeechToText();
 
 	// Form States
-	const [title, setTitle] = useState(title);
-	const [note, setNote] = useState(note);
-	const [starred, setStarred] = useState(starred);
+	const [title, setTitle] = useState(_title);
+	const [note, setNote] = useState(_note);
+	const [starred, setStarred] = useState(_starred);
 
 	// Form Actions
 	const handleSubmit = async () => {

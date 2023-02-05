@@ -6,9 +6,9 @@ import { db } from '../../firebase/firebase.config';
 export default function useFetchDoc(firestoreCollection) {
 	const [isPending, setIsPending] = useState(false);
 	const [error, setError] = useState(null);
-	const [fetchedDocs, setFetchedDocs] = useState(null);
+	const [docs, setDocs] = useState(null);
 	const auth = getAuth();
-	const docs = useDeferredValue(fetchedDocs);
+	const deferredDocs = useDeferredValue(docs);
 
 	useEffect(() => {
 		async function fetchDoc() {
@@ -40,7 +40,7 @@ export default function useFetchDoc(firestoreCollection) {
 				}
 
 				//   update state
-				setFetchedDocs(result);
+				setDocs(result);
 				setIsPending(false);
 				setError(null);
 			} catch (err) {
@@ -52,5 +52,5 @@ export default function useFetchDoc(firestoreCollection) {
 		return () => fetchDoc();
 	}, []);
 
-	return { docs, isPending, error };
+	return { deferredDocs, isPending, error };
 }

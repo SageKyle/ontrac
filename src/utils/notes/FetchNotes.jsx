@@ -1,7 +1,7 @@
 import useFetchDoc from '../../hooks/db/useFetchDoc';
 
 export default function FetchNotes() {
-	const { docs: allNotes, isPending, error } = useFetchDoc('notes');
+	const { deferredDocs: allNotes, isPending, error } = useFetchDoc('notes');
 
 	const starredNotes = allNotes
 		? allNotes.filter((note) => note.starred === true)
