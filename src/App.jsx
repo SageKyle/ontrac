@@ -23,10 +23,10 @@ import StarredTasks from './pages/tasks/StarredTasks';
 import UncompletedTasks from './pages/tasks/UncompletedTasks';
 // notes
 import AllNotes from './pages/notes/AllNotes';
+import EditNote from './pages/notes/EditNote';
 import StarredNotes from './pages/notes/StarredNotes';
 // auth
 import { useAuthContext } from './hooks/auth/useAuthContext';
-// import useAuthState from './hooks/auth/useAuthState';
 import LoginRoute from './utils/routes/LoginRoute';
 import ProtectedRoute from './utils/routes/ProtectedRoute';
 // loader
@@ -137,6 +137,13 @@ function App() {
 												element={<StarredNotes />}
 												path={'/starred-notes'}
 											/>
+										</Route>
+										{/* edit notes */}
+										<Route
+											element={<ProtectedRoute user={user} />}
+											path={'/edit-note/:id'}
+										>
+											<Route element={<EditNote />} path={'/edit-note/:id'} />
 										</Route>
 
 										{/* logged out user */}

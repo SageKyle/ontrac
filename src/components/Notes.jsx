@@ -1,8 +1,11 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from '../utils/Loading';
 
 export default function Notes({ notes, isPending, error }) {
+	const { id } = useParams();
+
 	return (
 		<section className="mb-4 flex items-start justify-start flex-wrap">
 			{isPending && <Loading />}
@@ -10,7 +13,8 @@ export default function Notes({ notes, isPending, error }) {
 			{!notes && <p>There's nothing here!</p>}
 			{notes &&
 				notes.map((note) => (
-					<div
+					<Link
+						to={'edit-note/' + id}
 						key={Math.random()}
 						className="m-2 p-2 border-2 relative cursor-pointer rounded sm:w-full md:w-[20rem]"
 					>
@@ -23,7 +27,7 @@ export default function Notes({ notes, isPending, error }) {
 								addSuffix: true,
 							})}
 						</p>
-					</div>
+					</Link>
 				))}
 		</section>
 	);
