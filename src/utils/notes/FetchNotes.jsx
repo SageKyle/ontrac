@@ -1,7 +1,15 @@
-import useFetchDoc from '../../hooks/db/useFetchDoc';
+import { useQuery } from '@tanstack/react-query';
+import { fetchAllNotes } from '../../hooks/db/useFetchDoc';
 
 export default function FetchNotes() {
-	const { deferredDocs: allNotes, isPending, error } = useFetchDoc('notes');
+	const queryDocs = useQuery({
+		queryKey: ['notes'],
+		queryFn: fetchAllNotes,
+	});
+
+	const allNotes = queryDocs.data,
+		isPending = queryDocs.isFetching,
+		error = queryDocs.error;
 
 	const starredNotes = allNotes
 		? allNotes.filter((note) => note.starred === true)

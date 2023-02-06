@@ -1,7 +1,15 @@
-import useFetchDoc from '../../hooks/db/useFetchDoc';
+import { useQuery } from '@tanstack/react-query';
+import { fetchAllTasks } from '../../hooks/db/useFetchDoc';
 
 export default function FetchTasks() {
-	const { deferredDocs: allTasks, isPending, error } = useFetchDoc('tasks');
+	const queryDocs = useQuery({
+		queryKey: ['tasks'],
+		queryFn: fetchAllTasks,
+	});
+
+	const allTasks = queryDocs.data,
+		isPending = queryDocs.isFetching,
+		error = queryDocs.error;
 
 	const uncompletedTasks = allTasks
 		? allTasks.filter((task) => task.completed === false)
