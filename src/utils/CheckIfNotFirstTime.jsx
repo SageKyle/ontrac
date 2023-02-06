@@ -1,16 +1,36 @@
-import { useCallback, useEffect, useState } from 'react';
+// import { useCallback, useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
+const queryClient = useQueryClient();
 
 export default function CheckIfNotFirstTime() {
-	const [notFirstTime, updateNotFirstTime] = useState(null);
+	// get
+	const queryResult = useQuery({
+		queryKey: ['notFirstTime'],
+		queryFn: checkLs,
+	});
 
-	const setNotFirstTime = useCallback(() => {
-		localStorage.setItem('notFirstTime', 'true');
-		updateNotFirstTime(true);
-	}, []);
+	// set
+	const setQuery = useMutation({
+		mutationFn: addLs,
+		onSuccess: () => {
+			queryClient.invalidateQueries(['notFirstTime']);
+		},
+	});
 
-	useEffect(() => {
-		updateNotFirstTime(localStorage.getItem('notFirstTime'));
-	}, []);
+	const notFirstTime = queryResult.data,
+		isPending = queryResult.isFetching,
+		setNotFirstTime = setQuery.mutate;
 
-	return { notFirstTime, setNotFirstTime };
+	return { notFirstTime, setNotFirstTime, isPending };
+}
+
+// check local storage
+function checkLs() {
+	return localStorage.getItem('notFirstTime');
+}
+
+// set local storage
+function addLs() {
+	return localStorage.setItem('notFirstTime', 'true');
 }

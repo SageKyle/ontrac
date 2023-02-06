@@ -36,7 +36,7 @@ function App() {
 	// auth
 	const { user, authIsReady } = useAuthContext();
 
-	const { notFirstTime, setNotFirstTime } = CheckIfNotFirstTime();
+	const { notFirstTime, setNotFirstTime, isPending } = CheckIfNotFirstTime();
 	const deferredNotFirstTime = useDeferredValue(notFirstTime);
 	// sidebar
 	const sidebarRef = useRef();
@@ -56,9 +56,9 @@ function App() {
 
 				{deferredNotFirstTime && (
 					<>
-						{/* TODO add preloader */}
 						{/* show loader */}
-						{/* {isPending && <Loading />} */}
+						{isPending && <Loading />}
+						{/* TODO display a message on error */}
 						{/* handle error */}
 						{/* {error && (
 							<h1 className="text-2xl p-6">
