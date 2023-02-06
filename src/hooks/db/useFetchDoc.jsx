@@ -21,7 +21,7 @@ async function fetchAllTasks() {
 			let singleDoc = doc.data();
 			// check if the doc was created by the current user
 			if (singleDoc.userId === user.uid) {
-				result.push(singleDoc);
+				result.push(doc);
 			}
 		});
 
@@ -52,7 +52,7 @@ async function fetchAllNotes() {
 			let singleDoc = doc.data();
 			// check if the doc was created by the current user
 			if (singleDoc.userId === user.uid) {
-				result.push(singleDoc);
+				result.push(doc);
 			}
 		});
 

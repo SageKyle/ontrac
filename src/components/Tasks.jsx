@@ -6,9 +6,9 @@ import Loading from '../utils/Loading';
 export default function Tasks({ tasks, isPending, error, isEmpty }) {
 	const { updateDocument } = useUpdateDoc('tasks');
 
-	async function completedTask(task) {
-		const updatedDoc = await updateDocument(task.id, { completed: true });
-		console.log(updatedDoc);
+	function ToggleCompletedTask(task) {
+		const completed = task.data().completed;
+		updateDocument(task.id, { completed: !completed });
 	}
 
 	return (
@@ -21,27 +21,23 @@ export default function Tasks({ tasks, isPending, error, isEmpty }) {
 				{tasks &&
 					tasks.map((task) => (
 						<div
-							key={Math.random()}
+							key={task.id}
 							className="m-2 p-2 border-2 relative cursor-pointer rounded sm:w-full md:w-[20rem]"
-							onClick={() => completedTask(task)}
+							onClick={() => ToggleCompletedTask(task)}
 						>
 							<h4
 								className={
-									task.completed
+									task.data().completed
 										? 'capitalize line-through text-2xl'
 										: 'capitalize text-2xl text-[#fad6a5]'
 								}
 							>
-								{task.task}
+								{task.data().task}
 							</h4>
-							{task.completed && (
-								<span className="absolute top-0 right-1 block text-[#fad6a5] font-bold">
-									Done
-								</span>
-							)}
-							<p className="text-sm">{task.note}</p>
+
+							<p className="text-sm">{task.data().note}</p>
 							<p>
-								{formatDistanceToNow(new Date(task.dueDate), {
+								{formatDistanceToNow(new Date(task.data().dueDate), {
 									addSuffix: true,
 								})}
 							</p>

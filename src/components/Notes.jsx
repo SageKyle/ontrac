@@ -15,15 +15,15 @@ export default function Notes({ notes, isPending, error }) {
 				notes.map((note) => (
 					<Link
 						to={'edit-note/' + id}
-						key={Math.random()}
+						key={note.id}
 						className="m-2 p-2 border-2 relative cursor-pointer rounded sm:w-full md:w-[20rem]"
 					>
-						<h1 className="capitalize font-semibold">{note.title}</h1>
+						<h1 className="capitalize font-semibold">{note.data().title}</h1>
 
-						<pre className="max-w-full">{note.note}</pre>
+						<pre className="max-w-full">{note.data().note}</pre>
 						<p className="text-xs mt-6">
 							Edited{' '}
-							{formatDistanceToNow(note.createdAt.toDate(), {
+							{formatDistanceToNow(note.data().createdAt.toDate(), {
 								addSuffix: true,
 							})}
 						</p>
