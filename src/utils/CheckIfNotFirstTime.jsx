@@ -1,9 +1,8 @@
 // import { useCallback, useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-const queryClient = useQueryClient();
-
 export default function CheckIfNotFirstTime() {
+	const queryClient = useQueryClient();
 	// get
 	const queryResult = useQuery({
 		queryKey: ['notFirstTime'],

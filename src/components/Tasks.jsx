@@ -43,8 +43,7 @@ export default function Tasks({ tasks, isPending, error, isEmpty }) {
 							<p>
 								{formatDistanceToNow(new Date(task.dueDate), {
 									addSuffix: true,
-								})}{' '}
-								<span>time</span>
+								})}
 							</p>
 						</div>
 					))}

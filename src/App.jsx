@@ -30,7 +30,7 @@ import { useAuthContext } from './hooks/auth/useAuthContext';
 import LoginRoute from './utils/routes/LoginRoute';
 import ProtectedRoute from './utils/routes/ProtectedRoute';
 // loader
-// import Loading from './utils/Loading';
+import Loading from './utils/Loading';
 
 function App() {
 	// auth
