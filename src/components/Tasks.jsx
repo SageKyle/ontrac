@@ -4,12 +4,12 @@ import useUpdateDoc from '../hooks/db/useUpdateDoc';
 import Loading from '../utils/Loading';
 
 export default function Tasks({ tasks, isPending, error, isEmpty }) {
-	const { updateDocument } = useUpdateDoc('tasks');
+	const { completeTask } = useUpdateDoc();
 
-	function ToggleCompletedTask(task) {
-		const completed = task.data().completed;
-		updateDocument(task.id, { completed: !completed });
-	}
+	// function ToggleCompletedTask(task) {
+	// 	const completed = task.data().completed;
+	// 	updateDocument(task.id, { completed: !completed });
+	// }
 
 	return (
 		<>
@@ -23,7 +23,7 @@ export default function Tasks({ tasks, isPending, error, isEmpty }) {
 						<div
 							key={task.id}
 							className="m-2 p-2 border-2 relative cursor-pointer rounded sm:w-full md:w-[20rem]"
-							onClick={() => ToggleCompletedTask(task)}
+							onClick={() => completeTask(task)}
 						>
 							<h4
 								className={

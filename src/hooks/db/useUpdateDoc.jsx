@@ -1,22 +1,42 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase/firebase.config';
 
-async function updateDocument(id, updates, firestoreCollection) {
-	let updatedDoc = null;
+export default function useUpdateDoc() {
+	// const queryClient = useQueryClient();
 
-	try {
-		const updatedDoc = await updateDoc(doc(db, firestoreCollection, id), {
-			...updates,
-		});
+	async function updateDocument(firestoreCollection, id, updates) {
+		let updatedDoc = null;
 
-		if (!updatedDoc) {
-			throw new Error('Something went wrong...');
+		try {
+			const updatedDoc = await updateDoc(doc(db, firestoreCollection, id), {
+				...updates,
+			});
+
+			if (!updatedDoc) {
+				throw new Error('Something went wrong...');
+			}
+		} catch (err) {
+			console.error(err.message);
 		}
-	} catch (err) {
-		console.error(err.message);
+
+		return updatedDoc;
 	}
 
-	return updatedDoc;
-}
+	function completeTask(task) {
+		const completed = task.data().completed;
+		const isCompleted = {
+			completed: !completed,
+		};
 
-export { updateDocument };
+		const taskQuery = useMutation({
+			mutationKey: ['tasks', task.id],
+			mutationFn: () => updateDocument('tasks', task.id, isCompleted),
+			// onSuccess: () => queryClient.invalidateQueries(['tasks', task.id]),
+		});
+
+		taskQuery.mutate;
+	}
+
+	return { updateDocument, completeTask };
+}
