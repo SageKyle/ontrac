@@ -27,17 +27,17 @@ export default function Tasks({ tasks, isPending, error, isEmpty }) {
 						>
 							<h4
 								className={
-									task.data().completed
+									task.completed
 										? 'capitalize line-through text-2xl'
 										: 'capitalize text-2xl text-[#fad6a5]'
 								}
 							>
-								{task.data().task}
+								{task.task}
 							</h4>
 
-							<p className="text-sm">{task.data().note}</p>
+							<p className="text-sm">{task.note}</p>
 							<p>
-								{formatDistanceToNow(new Date(task.data().dueDate), {
+								{formatDistanceToNow(new Date(task.dueDate), {
 									addSuffix: true,
 								})}
 							</p>

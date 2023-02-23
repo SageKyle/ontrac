@@ -21,10 +21,8 @@ async function fetchAllTasks() {
 
 		const tasks = await getDocs(docQuery);
 
-		console.log(tasks);
-
 		tasks?.forEach((doc) => {
-			result.push(doc);
+			result.push({ id: doc.id, ...doc.data() });
 		});
 
 		if (!tasks) {
@@ -54,13 +52,9 @@ async function fetchAllNotes() {
 
 		const notes = await getDocs(docQuery);
 
-		// const docRef = await getDocs(
-		// 	collection(db, 'notes'),
-		// 	orderBy('createdAt', 'desc')
-		// );
-
+		// add docs
 		notes?.forEach((doc) => {
-			result.push(doc);
+			result.push({ id: doc.id, ...doc.data() });
 		});
 
 		if (!notes) {
