@@ -1,5 +1,5 @@
 import { getAuth } from 'firebase/auth';
-import { collection, getDocs, orderBy } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from '../../firebase/firebase.config';
 
 const auth = getAuth();
@@ -12,20 +12,22 @@ async function fetchAllTasks() {
 		const user = auth.currentUser;
 
 		// get docs
-		const docRef = await getDocs(
-			collection(db, 'tasks'),
+		const docRef = collection(db, 'tasks');
+		const docQuery = query(
+			docRef,
+			where('userId', '==', user.uid),
 			orderBy('createdAt', 'desc')
 		);
 
-		docRef?.forEach((doc) => {
-			let singleDoc = doc.data();
-			// check if the doc was created by the current user
-			if (singleDoc.userId === user.uid) {
-				result.push(doc);
-			}
+		const tasks = await getDocs(docQuery);
+
+		console.log(tasks);
+
+		tasks?.forEach((doc) => {
+			result.push(doc);
 		});
 
-		if (!docRef) {
+		if (!tasks) {
 			throw new Error('Something went wrong...');
 		}
 	} catch (err) {
@@ -43,20 +45,25 @@ async function fetchAllNotes() {
 		const user = auth.currentUser;
 
 		// get docs
-		const docRef = await getDocs(
-			collection(db, 'notes'),
+		const docRef = collection(db, 'notes');
+		const docQuery = query(
+			docRef,
+			where('userId', '==', user.uid),
 			orderBy('createdAt', 'desc')
 		);
 
-		docRef?.forEach((doc) => {
-			let singleDoc = doc.data();
-			// check if the doc was created by the current user
-			if (singleDoc.userId === user.uid) {
-				result.push(doc);
-			}
+		const notes = await getDocs(docQuery);
+
+		// const docRef = await getDocs(
+		// 	collection(db, 'notes'),
+		// 	orderBy('createdAt', 'desc')
+		// );
+
+		notes?.forEach((doc) => {
+			result.push(doc);
 		});
 
-		if (!docRef) {
+		if (!notes) {
 			throw new Error('Something went wrong...');
 		}
 	} catch (err) {
