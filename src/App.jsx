@@ -1,4 +1,4 @@
-import { useDeferredValue, useRef } from 'react';
+import { useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -36,8 +36,7 @@ function App() {
 	// auth
 	const { user, authIsReady } = useAuthContext();
 
-	const { notFirstTime, setNotFirstTime, isPending } = CheckIfNotFirstTime();
-	const deferredNotFirstTime = useDeferredValue(notFirstTime);
+	const { notFirstTime, setNotFirstTime } = CheckIfNotFirstTime();
 	// sidebar
 	const sidebarRef = useRef();
 
@@ -52,12 +51,12 @@ function App() {
 		<div className="App relative flex flex-col justify-center bg-[#567189] text-gray-200 min-h-[100vh]">
 			<Router>
 				{/* welcome page */}
-				{!deferredNotFirstTime && <Welcome setNotFirstTime={setNotFirstTime} />}
+				{!notFirstTime && <Welcome setNotFirstTime={setNotFirstTime} />}
 
-				{deferredNotFirstTime && (
+				{notFirstTime && (
 					<>
 						{/* show loader */}
-						{isPending && <Loading />}
+						{/* {isPending && <Loading />} */}
 						{/* TODO display a message on error */}
 						{/* handle error */}
 						{/* {error && (
