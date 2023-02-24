@@ -1,9 +1,18 @@
 import { getAuth } from 'firebase/auth';
-import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
+import {
+	collection,
+	getDoc,
+	getDocs,
+	orderBy,
+	query,
+	where,
+} from 'firebase/firestore';
 import { db } from '../../firebase/firebase.config';
 
+// auth
 const auth = getAuth();
 
+// fetch all tasks
 async function fetchAllTasks() {
 	let result = [];
 
@@ -35,6 +44,7 @@ async function fetchAllTasks() {
 	return result;
 }
 
+// fetch all notes
 async function fetchAllNotes() {
 	let result = [];
 
@@ -67,4 +77,37 @@ async function fetchAllNotes() {
 	return result;
 }
 
-export { fetchAllNotes, fetchAllTasks };
+// fetch single note
+async function fetchSingleNote(id) {
+	let result = [];
+
+	try {
+		// get current user
+		// const user = auth.currentUser;
+
+		// get docs
+		const docRef = collection(db, 'notes', id);
+		// const docQuery = query(
+		// 	docRef,
+		// 	where('userId', '==', user.uid),
+		// 	orderBy('createdAt', 'desc')
+		// );
+
+		const notes = await getDoc(docRef);
+
+		// add docs
+		notes?.forEach((doc) => {
+			result.push({ id: doc.id, ...doc.data() });
+		});
+
+		if (!notes) {
+			throw new Error('Something went wrong...');
+		}
+	} catch (err) {
+		console.log(err);
+	}
+
+	return result;
+}
+
+export { fetchAllNotes, fetchAllTasks, fetchSingleNote };

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 // React icons
 import {
@@ -13,11 +13,14 @@ import { MdOutlineNotificationAdd } from 'react-icons/md';
 import LoadingIcon from '../../assets/Rolling-spinner.svg';
 
 // Custom hooks
-// import useAddDoc from '../../hooks/db/useAddDoc';
+import useAddDoc from '../../hooks/db/useAddDoc';
 import useSpeechToText from '../../hooks/TTS/useTextToSpeech';
+import FetchSingleNote from '../../utils/notes/FetchSingleNote';
 
-export default function EditNote({ _note, _title, _starred, id }) {
-	// const { addDocument, error, isPending } = useAddDoc('notes');
+export default function EditNote() {
+	const { id } = useParams();
+	const { _title, _note, _starred } = FetchSingleNote(id);
+	const { addDocument, error, isPending } = useAddDoc('notes');
 
 	// Speech to Text
 	const { listenContinuously, listening, stopListening, transcript } =
@@ -36,7 +39,7 @@ export default function EditNote({ _note, _title, _starred, id }) {
 		}
 		const doc = { title, note, starred };
 		console.log(doc);
-		// await addDocument(doc);
+		await addDocument(doc);
 	};
 
 	const handleSpeechToText = () => {
