@@ -7,7 +7,8 @@ export default function FetchSingleNote(id) {
 		queryFn: () => fetchSingleNote(id),
 	});
 
-	const { _title, _note, _starred } = queryDocs.data;
+	const { title, note, starred } = queryDocs?.data;
+	// const isPending = queryDocs.isFetching;
 
-	return { _title, _note, _starred };
+	return { title, note, starred };
 }

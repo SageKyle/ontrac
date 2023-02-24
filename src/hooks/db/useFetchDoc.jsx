@@ -1,6 +1,7 @@
 import { getAuth } from 'firebase/auth';
 import {
 	collection,
+	doc,
 	getDoc,
 	getDocs,
 	orderBy,
@@ -25,7 +26,9 @@ async function fetchAllTasks() {
 		const docQuery = query(
 			docRef,
 			where('userId', '==', user.uid),
-			orderBy('createdAt', 'desc')
+			orderBy('createdAt', 'desc'),
+			orderBy('starred', 'desc'),
+			orderBy('completed', 'desc')
 		);
 
 		const tasks = await getDocs(docQuery);
@@ -82,27 +85,23 @@ async function fetchSingleNote(id) {
 	let result = [];
 
 	try {
-		// get current user
-		// const user = auth.currentUser;
-
 		// get docs
-		const docRef = collection(db, 'notes', id);
-		// const docQuery = query(
-		// 	docRef,
-		// 	where('userId', '==', user.uid),
-		// 	orderBy('createdAt', 'desc')
-		// );
+		const docRef = doc(db, 'notes', id);
+		const note = await getDoc(docRef);
 
-		const notes = await getDoc(docRef);
+		if (note.exists()) {
+			console.log(note);
+		} else {
+			console.log('doc does not exist');
+			return null;
+		}
 
-		// add docs
-		notes?.forEach((doc) => {
-			result.push({ id: doc.id, ...doc.data() });
-		});
-
-		if (!notes) {
+		if (!note.exists()) {
 			throw new Error('Something went wrong...');
 		}
+
+		// add docs
+		result.push({ id: note.id, ...note.data() });
 	} catch (err) {
 		console.log(err);
 	}

@@ -2,13 +2,10 @@ import Tasks from '../../components/Tasks';
 import FetchTasks from '../../utils/tasks/FetchTasks';
 
 export default function AllTasks() {
-	const { allTasks, numberOfUncompletedTasks, isPending, error } = FetchTasks();
+	const { allTasks, isPending, error } = FetchTasks();
 
 	return (
 		<>
-			<h2 className="text-2xl my-4">
-				You have {numberOfUncompletedTasks} uncompleted tasks
-			</h2>
 			<Tasks
 				tasks={allTasks}
 				isPending={isPending}

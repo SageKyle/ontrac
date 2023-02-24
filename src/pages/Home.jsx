@@ -1,15 +1,17 @@
 import { useRef } from 'react';
+import FetchTasks from '../utils/tasks/FetchTasks';
 import AllNotes from './notes/AllNotes';
 import AllTasks from './tasks/AllTasks';
 import StarredTasks from './tasks/StarredTasks';
 
 export default function Home() {
+	const { numberOfUncompletedTasks } = FetchTasks();
 	const tasksRef = useRef();
 	const toggleRef = useRef();
 
 	function showMore() {
-		tasksRef.current.classList.remove('hidden');
-		tasksRef.current.classList.add('hidden');
+		tasksRef.current.classList.toggle('hidden');
+		// tasksRef.current.classList.add('hidden');
 	}
 
 	return (
@@ -18,8 +20,11 @@ export default function Home() {
 				Tasks
 			</h3>
 			<>
+				<h2 className="text-2xl my-4">
+					You have {numberOfUncompletedTasks} uncompleted tasks
+				</h2>
 				{/* Starred Tasks */}
-				<div className="mb-4 border-b-2 border-[#fad6a5] w-full">
+				<div className="mb-4 border-b-2 border-slate-500 w-full">
 					<StarredTasks />
 				</div>
 
