@@ -6,6 +6,7 @@ export default function FetchSingleNote(id) {
 	const [title, setTitle] = useState('');
 	const [note, setNote] = useState('');
 	const [starred, setStarred] = useState(false);
+	const [fetching, setFetching] = useState(true);
 
 	useEffect(() => {
 		async function fetcDoc() {
@@ -13,6 +14,7 @@ export default function FetchSingleNote(id) {
 			setNote(doc.note);
 			setTitle(doc.title);
 			setStarred(doc.starred);
+			setFetching(false);
 		}
 
 		return () => {
@@ -20,12 +22,5 @@ export default function FetchSingleNote(id) {
 		};
 	}, []);
 
-	// const queryDocs = useQuery({
-	// 	queryKey: ['notes', id],
-	// 	queryFn: () => fetchSingleNote(id),
-	// });
-
-	// const { title, note, starred } = queryDocs?.data;
-
-	return { title, note, starred };
+	return { title, note, starred, fetching };
 }
