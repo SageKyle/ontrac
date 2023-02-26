@@ -13,14 +13,15 @@ import { MdOutlineNotificationAdd } from 'react-icons/md';
 import LoadingIcon from '../../assets/Rolling-spinner.svg';
 
 // Custom hooks
-import useAddDoc from '../../hooks/db/useAddDoc';
+import useUpdateDoc from '../../hooks/db/useUpdateDoc';
 import useSpeechToText from '../../hooks/TTS/useTextToSpeech';
 import FetchSingleNote from '../../utils/notes/FetchSingleNote';
 
 export default function EditNote() {
 	const { id } = useParams();
+	// TODO add fetching state (disable interaction until it's done)
 	const { title, note, starred } = FetchSingleNote(id);
-	const { addDocument, error, isPending } = useAddDoc('notes');
+	const { updateDocument, isPending, error } = useUpdateDoc('notes');
 
 	// Speech to Text
 	const { listenContinuously, listening, stopListening, transcript } =
@@ -35,9 +36,8 @@ export default function EditNote() {
 			toast.error('Oops! Your note is empty...');
 			return null;
 		}
-		const doc = formData;
-		// TODO change this to update a doc instead of creating a new one
-		await addDocument(doc);
+
+		await updateDocument(id, formData);
 	};
 
 	const handleSpeechToText = () => {
