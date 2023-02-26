@@ -19,7 +19,7 @@ import FetchSingleNote from '../../utils/notes/FetchSingleNote';
 
 export default function EditNote() {
 	const { id } = useParams();
-	const { _title, _note, _starred } = FetchSingleNote(id);
+	const { title, note, starred } = FetchSingleNote(id);
 	const { addDocument, error, isPending } = useAddDoc('notes');
 
 	// Speech to Text
@@ -27,27 +27,26 @@ export default function EditNote() {
 		useSpeechToText();
 
 	// Form States
-	const [title, setTitle] = useState(_title);
-	const [note, setNote] = useState(_note);
-	const [starred, setStarred] = useState(_starred);
+	const [formData, setFormData] = useState({ title, note, starred });
 
-	// Form Actions
+	// Submit Form
 	const handleSubmit = async () => {
-		if (note === '') {
+		if (formData.note === '') {
 			toast.error('Oops! Your note is empty...');
 			return null;
 		}
-		const doc = { title, note, starred };
-		console.log(doc);
+		const doc = formData;
+		// TODO change this to update a doc instead of creating a new one
 		await addDocument(doc);
 	};
 
 	const handleSpeechToText = () => {
 		if (!listening) {
 			listenContinuously();
-			setNote((prevValue) => prevValue + transcript);
+			setFormData({ ...formData, note: note + transcript });
 			toast.info('mic is on');
-		} else if (listening) {
+		}
+		if (listening) {
 			stopListening();
 			toast.info('mic is off');
 		}
@@ -86,11 +85,13 @@ export default function EditNote() {
 					{/* star */}
 					<span
 						className=" cursor-pointer"
-						onClick={() => setStarred((prev) => !prev)}
+						onClick={() => setFormData({ ...formData, starred: !starred })}
 						title="Mark as Important"
 					>
-						{starred && <BsStarFill className="text-[#fad6a5] text-2xl" />}
-						{!starred && <BsStar className="text-2xl" />}
+						{formData.starred && (
+							<BsStarFill className="text-[#fad6a5] text-2xl" />
+						)}
+						{!formData.starred && <BsStar className="text-2xl" />}
 					</span>
 				</div>
 			</nav>
@@ -100,8 +101,10 @@ export default function EditNote() {
 					<input
 						type="text"
 						placeholder="Title (optional)"
-						value={title}
-						onChange={(e) => setTitle(e.target.value)}
+						value={formData.title}
+						onChange={(e) =>
+							setFormData({ ...formData, title: e.target.value })
+						}
 						className="bg-transparent text-gray-200 w-full caret-[#fad6a5] placeholder:text-slate-300 border-0 border-b-2 border-slate-400 focus:border-slate-300 focus:outline-0 outline-0"
 					/>
 				</label>
@@ -111,8 +114,8 @@ export default function EditNote() {
 						className="bg-transparent text-gray-200 resize-none mb-6 outline-0 w-full placeholder:text-[#fad6a5] caret-[#fad6a5] border-2 border-slate-400 focus:border-slate-300 focus:outline-0"
 						placeholder="Note..."
 						title="Add Note"
-						value={note}
-						onChange={(e) => setNote(e.target.value)}
+						value={formData.note}
+						onChange={(e) => setFormData({ ...formData, note: e.target.value })}
 						required
 						autoFocus
 					></textarea>
