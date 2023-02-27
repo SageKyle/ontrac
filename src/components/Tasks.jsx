@@ -4,12 +4,13 @@ import useUpdateDoc from '../hooks/db/useUpdateDoc';
 import Loading from '../utils/Loading';
 
 export default function Tasks({ tasks, isPending, error, isEmpty }) {
-	const { completeTask } = useUpdateDoc();
+	const { updateDocument } = useUpdateDoc('tasks');
 
-	// function ToggleCompletedTask(task) {
-	// 	const completed = task.data().completed;
-	// 	updateDocument(task.id, { completed: !completed });
-	// }
+	async function completeTask(task) {
+		// if task is completed, toggle the value
+		const completed = task.completed == true ? 'true' : false;
+		await updateDocument(task.id, { completed });
+	}
 
 	return (
 		<>
@@ -29,7 +30,7 @@ export default function Tasks({ tasks, isPending, error, isEmpty }) {
 								className={
 									task.completed
 										? 'capitalize line-through text-2xl'
-										: 'capitalize text-2xl text-[#fad6a5]'
+										: 'capitalize text-2xl'
 								}
 							>
 								{task.task}
