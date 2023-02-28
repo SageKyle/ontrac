@@ -6,15 +6,14 @@ export default function FetchNotes() {
 	const [allNotes, setAllNotes] = useState(null);
 	const [error, setError] = useState(null);
 	const [isPending, setIsPending] = useState(false);
-	const [isCancelled, setIsCancelled] = useState(false);
 
 	useEffect(() => {
 		setIsPending(true);
 		setError(null);
 
-		if (!isCancelled) {
+		async function getNotes() {
 			try {
-				const doc = fetchAllNotes();
+				const doc = await fetchAllNotes();
 				setAllNotes(doc);
 				setIsPending(false);
 				setError(null);
@@ -26,7 +25,7 @@ export default function FetchNotes() {
 		}
 
 		return () => {
-			setIsCancelled(true);
+			getNotes();
 		};
 	}, []);
 

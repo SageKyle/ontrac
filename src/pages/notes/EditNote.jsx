@@ -28,8 +28,13 @@ export default function EditNote() {
 		useSpeechToText();
 
 	// Form States
-	const [formData, setFormData] = useState({ title, note, starred });
-
+	const [text, setText] = useState(note);
+	const [formData, setFormData] = useState({
+		title,
+		note,
+		starred,
+	});
+	console.log('edit note: ', note, 'text: ', text);
 	// Submit Form
 	const handleSubmit = async () => {
 		if (formData.note === '') {
@@ -117,10 +122,8 @@ export default function EditNote() {
 								className="bg-transparent text-gray-200 resize-none mb-6 outline-0 w-full placeholder:text-[#fad6a5] caret-[#fad6a5] border-2 border-slate-400 focus:border-slate-300 focus:outline-0"
 								placeholder="Note..."
 								title="Add Note"
-								value={formData.note}
-								onChange={(e) =>
-									setFormData({ ...formData, note: e.target.value })
-								}
+								value={text}
+								onChange={(e) => setText(e.target.value)}
 								required
 								autoFocus
 							></textarea>

@@ -1,4 +1,3 @@
-// import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { fetchAllTasks } from '../../hooks/db/useFetchDoc';
 
@@ -6,15 +5,14 @@ export default function FetchTasks() {
 	const [allTasks, setAllTasks] = useState(null);
 	const [error, setError] = useState(null);
 	const [isPending, setIsPending] = useState(false);
-	const [isCancelled, setIsCancelled] = useState(false);
 
 	useEffect(() => {
 		setIsPending(true);
 		setError(null);
 
-		if (!isCancelled) {
+		async function fetchTasks() {
 			try {
-				const doc = fetchAllTasks();
+				const doc = await fetchAllTasks();
 				setAllTasks(doc);
 				setIsPending(false);
 				setError(null);
@@ -26,18 +24,9 @@ export default function FetchTasks() {
 		}
 
 		return () => {
-			setIsCancelled(true);
+			fetchTasks();
 		};
 	}, []);
-
-	// const queryDocs = useQuery({
-	// 	queryKey: ['tasks'],
-	// 	queryFn: fetchAllTasks,
-	// });
-
-	// const allTasks = queryDocs.data,
-	// 	isPending = queryDocs.isFetching,
-	// 	error = queryDocs.error;
 
 	const uncompletedTasks = allTasks
 		? allTasks.filter((task) => task.completed === false)

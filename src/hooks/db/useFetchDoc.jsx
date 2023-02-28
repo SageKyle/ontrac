@@ -89,13 +89,6 @@ async function fetchSingleNote(id) {
 		const docRef = doc(db, 'notes', id);
 		const note = await getDoc(docRef);
 
-		if (note.exists()) {
-			console.log(note);
-		} else {
-			console.log('doc does not exist');
-			return null;
-		}
-
 		if (!note.exists()) {
 			throw new Error('Something went wrong...');
 		}

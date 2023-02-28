@@ -1,4 +1,3 @@
-// import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { fetchSingleNote } from '../../hooks/db/useFetchDoc';
 
@@ -9,11 +8,13 @@ export default function FetchSingleNote(id) {
 	const [fetching, setFetching] = useState(true);
 
 	useEffect(() => {
+		setFetching(true);
+
 		async function fetcDoc() {
 			const doc = await fetchSingleNote(id);
-			setNote(doc.note);
-			setTitle(doc.title);
-			setStarred(doc.starred);
+			setNote(doc[0].note);
+			setTitle(doc[0].title);
+			setStarred(doc[0].starred);
 			setFetching(false);
 		}
 
@@ -21,6 +22,8 @@ export default function FetchSingleNote(id) {
 			fetcDoc();
 		};
 	}, []);
+
+	console.log('note: ', note);
 
 	return { title, note, starred, fetching };
 }
