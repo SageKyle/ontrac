@@ -53,3 +53,5 @@ export default function Home() {
 		</section>
 	);
 }
+
+// TODO create a home folder and move this component inside it

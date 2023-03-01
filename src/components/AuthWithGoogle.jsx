@@ -21,3 +21,5 @@ export default function AuthWithGoogle() {
 		</section>
 	);
 }
+
+// TODO  display a proper error message

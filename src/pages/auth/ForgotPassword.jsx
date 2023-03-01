@@ -75,3 +75,5 @@ export default function SignUp() {
 		</form>
 	);
 }
+
+// TODO still requires improvement to the UI

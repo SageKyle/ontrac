@@ -39,3 +39,6 @@ enableIndexedDbPersistence(db).catch((err) => {
 		toast.info("Your browser doesn't support offline storage");
 	}
 });
+
+// TODO finalize the offline feature so that it also works properly when adding a doc
+// TODO a setup a service worker

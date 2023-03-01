@@ -23,3 +23,5 @@ export default function useSpeechToText() {
 
 	return { listenContinuously, listening, stopListening, transcript };
 }
+
+// TODO research/fix

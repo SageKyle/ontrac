@@ -69,3 +69,5 @@ export default function Tasks({ tasks, isPending, error, isEmpty }) {
 		</>
 	);
 }
+
+// TODO add a loading state when updating a task

@@ -13,6 +13,8 @@ import { db } from '../../firebase/firebase.config';
 // auth
 const auth = getAuth();
 
+// TODO use an onSnapshot to update the UI whenever a task is updated
+
 // fetch all tasks
 async function fetchAllTasks() {
 	let result = [];

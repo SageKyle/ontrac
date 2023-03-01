@@ -66,3 +66,6 @@ export default function Navbar({ toggleSidebar }) {
 		</nav>
 	);
 }
+
+// TODO still requires improvement to UI
+// TODO display a more intuitive active state

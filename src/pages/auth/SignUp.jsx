@@ -127,3 +127,7 @@ export default function SignUp() {
 		</form>
 	);
 }
+
+// TODO verify users once they signup to prevent spamming
+// TODO still requires improvement to UI
+// TODO display a proper error message

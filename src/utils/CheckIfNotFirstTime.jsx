@@ -39,3 +39,5 @@ export default function CheckIfNotFirstTime() {
 // function addLs() {
 // 	return localStorage.setItem('notFirstTime', 'true');
 // }
+
+// TODO finalize on the UX if this component

@@ -11,3 +11,5 @@ export default function FallbackRoute() {
 		</main>
 	);
 }
+
+// TODO still requires improvement to UI --> add a cool descriptive image

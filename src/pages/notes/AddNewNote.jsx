@@ -128,3 +128,6 @@ export default function AddNewNote() {
 		</section>
 	);
 }
+
+// TODO still requires improvement to UI
+// TODO change the TTS icons

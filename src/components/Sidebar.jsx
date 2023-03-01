@@ -152,3 +152,5 @@ export default function Sidebar() {
 		</aside>
 	);
 }
+
+// TODO make sidebar scrollable on landscape

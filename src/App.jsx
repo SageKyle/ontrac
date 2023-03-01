@@ -201,3 +201,6 @@ function App() {
 }
 
 export default App;
+
+// TODO add OnTrac logo
+// TODO install/ add animation (framer motion)

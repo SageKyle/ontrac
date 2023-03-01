@@ -116,3 +116,5 @@ export default function AddTask() {
 		</section>
 	);
 }
+
+// TODO still requires improvement to UI (the input fields have weird outlines)

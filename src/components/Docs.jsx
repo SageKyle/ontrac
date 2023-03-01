@@ -18,3 +18,5 @@ export default function Docs() {
 		</main>
 	);
 }
+
+// TODO write a detailed guide on how to use each part of the application and also add a link to the article about the project published on Hashnode

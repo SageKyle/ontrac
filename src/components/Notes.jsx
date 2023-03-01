@@ -30,3 +30,7 @@ export default function Notes({ notes, isPending, error }) {
 		</section>
 	);
 }
+
+// TODO display last edited date instead of date created
+// TODO add a button to delete a note
+// TODO set a fixed height for a note and make it scrollable

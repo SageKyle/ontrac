@@ -105,3 +105,6 @@ export default function SignIn() {
 		</form>
 	);
 }
+
+// TODO still requires improvement to UI
+// TODO display a proper error message
