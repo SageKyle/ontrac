@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 // React icons
@@ -10,31 +10,41 @@ import {
 	BsStarFill,
 } from 'react-icons/bs';
 import { MdOutlineNotificationAdd } from 'react-icons/md';
+// loaders
 import LoadingIcon from '../../assets/Rolling-spinner.svg';
 import Loading from '../../utils/Loading';
 
 // Custom hooks
+import { fetchSingleNote } from '../../hooks/db/useFetchDoc';
 import useUpdateDoc from '../../hooks/db/useUpdateDoc';
 import useSpeechToText from '../../hooks/TTS/useTextToSpeech';
-import FetchSingleNote from '../../utils/notes/FetchSingleNote';
 
 export default function EditNote() {
 	const { id } = useParams();
-	const { title, note, starred, fetching } = FetchSingleNote(id);
 	const { updateDocument, isPending, error } = useUpdateDoc('notes');
+	const [fetching, setFetching] = useState(true);
+
+	// Form States
+	const [formData, setFormData] = useState(null);
+
+	useEffect(() => {
+		setFetching(true);
+
+		async function fetcDoc() {
+			const doc = await fetchSingleNote(id);
+			setFormData(doc[0]);
+			setFetching(false);
+		}
+
+		return () => {
+			fetcDoc();
+		};
+	}, [id]);
 
 	// Speech to Text
 	const { listenContinuously, listening, stopListening, transcript } =
 		useSpeechToText();
 
-	// Form States
-	const [text, setText] = useState(note);
-	const [formData, setFormData] = useState({
-		title,
-		note,
-		starred,
-	});
-	console.log('edit note: ', note, 'text: ', text);
 	// Submit Form
 	const handleSubmit = async () => {
 		if (formData.note === '') {
@@ -59,6 +69,7 @@ export default function EditNote() {
 
 	return (
 		<>
+			{/* show fetching state */}
 			{fetching && <Loading />}
 			{!fetching && (
 				<section className="text-gray-200 h-4/5 max-h-[80vh] md:w-4/5 lg:w-2/4 mx-auto">
@@ -122,8 +133,10 @@ export default function EditNote() {
 								className="bg-transparent text-gray-200 resize-none mb-6 outline-0 w-full placeholder:text-[#fad6a5] caret-[#fad6a5] border-2 border-slate-400 focus:border-slate-300 focus:outline-0"
 								placeholder="Note..."
 								title="Add Note"
-								value={text}
-								onChange={(e) => setText(e.target.value)}
+								value={formData.note}
+								onChange={(e) =>
+									setFormData({ ...formData, note: e.target.value })
+								}
 								required
 								autoFocus
 							></textarea>
