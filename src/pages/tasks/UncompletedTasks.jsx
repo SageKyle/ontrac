@@ -6,7 +6,7 @@ export default function UncompletedTasks() {
 
 	return (
 		<>
-			<h1 className="capitalize my-4 text-2xl text-[#fad6a5] font-bold">
+			<h1 className="capitalize my-4 text-[#fad6a5] font-medium">
 				uncompleted tasks
 			</h1>
 			<Tasks

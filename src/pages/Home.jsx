@@ -3,6 +3,7 @@ import FetchTasks from '../utils/tasks/FetchTasks';
 import AllNotes from './notes/AllNotes';
 import AllTasks from './tasks/AllTasks';
 import StarredTasks from './tasks/StarredTasks';
+import UncompletedTasks from './tasks/UncompletedTasks';
 
 export default function Home() {
 	const { numberOfUncompletedTasks } = FetchTasks();
@@ -19,12 +20,16 @@ export default function Home() {
 			<h3 className="capitalize my-4 text-2xl text-[#fad6a5] font-bold">
 				Tasks
 			</h3>
-			<>
+			<article className="mb-4 border-b-2 border-slate-500">
 				<h2 className="text-2xl my-4">
 					You have {numberOfUncompletedTasks} uncompleted tasks
 				</h2>
-				{/* Starred Tasks */}
+				{/* Uncompleted Tasks */}
 				<div className="mb-4 border-b-2 border-slate-500 w-full">
+					<UncompletedTasks />
+				</div>
+				{/* Starred Tasks */}
+				<div className="">
 					<StarredTasks />
 				</div>
 
@@ -33,13 +38,13 @@ export default function Home() {
 					ref={toggleRef}
 					onClick={showMore}
 				>
-					More
+					All
 				</h4>
 				{/* All Tasks */}
 				<div className="hidden w-full" ref={tasksRef}>
 					<AllTasks />
 				</div>
-			</>
+			</article>
 			{/* Notes */}
 			<h3 className="capitalize my-4 text-2xl text-[#fad6a5] font-bold">
 				notes

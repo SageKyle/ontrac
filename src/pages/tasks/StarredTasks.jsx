@@ -6,11 +6,14 @@ export default function StarredTasks() {
 
 	return (
 		<>
+			<h4 className="capitalize mb-4 text-[#fad6a5] font-medium">
+				Your important tasks
+			</h4>
 			<Tasks
 				tasks={StarredTasks}
 				isPending={isPending}
 				error={error}
-				isEmpty={''}
+				isEmpty={"There's nothing here!"}
 			/>
 		</>
 	);
