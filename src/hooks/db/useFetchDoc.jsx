@@ -33,6 +33,7 @@ async function fetchAllTasks() {
 			orderBy('completed', 'desc')
 		);
 
+		// set
 		const tasks = await getDocs(docQuery);
 
 		tasks?.forEach((doc) => {

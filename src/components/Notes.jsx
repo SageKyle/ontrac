@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from '../utils/Loading';
 
+import { FaTrash } from 'react-icons/fa';
+
 export default function Notes({ notes, isPending, error }) {
 	return (
 		<section className="mb-4 flex items-start justify-start flex-wrap">
@@ -11,21 +13,27 @@ export default function Notes({ notes, isPending, error }) {
 			{!notes && <p>There's nothing here!</p>}
 			{notes &&
 				notes.map((note) => (
-					<Link
-						to={'edit-note/' + note.id}
+					<article
 						key={note.id}
-						className="m-2 p-2 border-2 relative cursor-pointer rounded sm:w-full md:w-[20rem]"
+						className="m-2 p-2 flex flex-col border-2 relative cursor-pointer rounded sm:w-full md:w-[20rem] max-h-[20rem] overflow-y-auto"
 					>
-						<h1 className="capitalize font-semibold">{note.title}</h1>
+						<h1 className="mb-2 border-b-2 border-slate-500 capitalize font-bold">
+							{note.title}
+						</h1>
 
-						<pre className="max-w-full">{note.note}</pre>
+						<Link to={'edit-note/' + note.id}>
+							<pre className="max-w-full">{note.note}</pre>
+						</Link>
 						<p className="text-xs mt-6">
 							Edited{' '}
 							{formatDistanceToNow(note.createdAt.toDate(), {
 								addSuffix: true,
 							})}
 						</p>
-					</Link>
+						<button className="sticky block ml-auto right-4 bottom-0 z-10 bg-[#567189] rounded-full p-2">
+							<FaTrash />
+						</button>
+					</article>
 				))}
 		</section>
 	);
