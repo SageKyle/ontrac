@@ -1,11 +1,14 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import useDeleteDoc from '../hooks/db/useDeleteDoc';
 import Loading from '../utils/Loading';
 
 import { FaTrash } from 'react-icons/fa';
 
 export default function Notes({ notes, isPending, error }) {
+	const { deleteDocument } = useDeleteDoc('notes');
+
 	return (
 		<section className="mb-4 flex items-start justify-start flex-wrap">
 			{isPending && <Loading />}
@@ -30,7 +33,10 @@ export default function Notes({ notes, isPending, error }) {
 								addSuffix: true,
 							})}
 						</p>
-						<button className="sticky block ml-auto right-4 bottom-0 z-10 bg-[#567189] rounded-full p-2">
+						<button
+							onClick={() => deleteDocument(note.id)}
+							className="sticky block ml-auto right-4 bottom-0 z-10 bg-[#567189] rounded-full p-2"
+						>
 							<FaTrash />
 						</button>
 					</article>
@@ -40,5 +46,3 @@ export default function Notes({ notes, isPending, error }) {
 }
 
 // TODO display last edited date instead of date created
-// TODO add a button to delete a note
-// TODO set a fixed height for a note and make it scrollable
