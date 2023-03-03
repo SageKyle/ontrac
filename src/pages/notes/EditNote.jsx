@@ -104,7 +104,9 @@ export default function EditNote() {
 							{/* star */}
 							<span
 								className=" cursor-pointer"
-								onClick={() => setFormData({ ...formData, starred: !starred })}
+								onClick={() =>
+									setFormData({ ...formData, starred: !formData.starred })
+								}
 								title="Mark as Important"
 							>
 								{formData.starred && (

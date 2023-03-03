@@ -1,10 +1,12 @@
 import { doc, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase/firebase.config';
 
 export default function useUpdateDoc(collection) {
 	const [isPending, setIsPending] = useState(false);
 	const [error, setError] = useState(null);
+	const navigate = useNavigate();
 
 	async function updateDocument(id, updates) {
 		let updatedDoc = null;
@@ -12,13 +14,13 @@ export default function useUpdateDoc(collection) {
 		setError(null);
 
 		try {
-			const updatedDoc = await updateDoc(doc(db, collection, id), {
+			await updateDoc(doc(db, collection, id), {
 				...updates,
 			});
 
-			if (!updatedDoc) {
-				throw new Error('Something went wrong...');
-			}
+			setTimeout(() => {
+				navigate('/');
+			}, 2000);
 
 			setIsPending(false);
 			setError(null);
