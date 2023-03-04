@@ -12,7 +12,7 @@ import { db } from '../../firebase/firebase.config';
 // auth
 const auth = getAuth();
 
-export default function useFetchDoc(firestoreCollection, id) {
+export default function useFetchDoc(firestoreCollection) {
 	const [data, setData] = useState(null);
 	const [error, setError] = useState(null);
 	const [isPending, setIsPending] = useState(true);

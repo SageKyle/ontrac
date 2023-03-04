@@ -1,9 +1,9 @@
 import { useRef } from 'react';
-import FetchTasks from '../utils/tasks/FetchTasks';
-import AllNotes from './notes/AllNotes';
-import AllTasks from './tasks/AllTasks';
-import StarredTasks from './tasks/StarredTasks';
-import UncompletedTasks from './tasks/UncompletedTasks';
+import FetchTasks from '../../utils/tasks/FetchTasks';
+import AllNotes from '../notes/AllNotes';
+import AllTasks from '../tasks/AllTasks';
+import StarredTasks from '../tasks/StarredTasks';
+import UncompletedTasks from '../tasks/UncompletedTasks';
 
 export default function Home() {
 	const { numberOfUncompletedTasks } = FetchTasks();
@@ -53,5 +53,3 @@ export default function Home() {
 		</section>
 	);
 }
-
-// TODO create a home folder and move this component inside it

@@ -13,7 +13,7 @@ import Docs from './components/Docs';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
-import Home from './pages/Home';
+import Home from './pages/home/Home';
 import AddNewNote from './pages/notes/AddNewNote';
 import AddTask from './pages/tasks/AddTask';
 import FallbackRoute from './utils/routes/FallbackRoute';
