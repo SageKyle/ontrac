@@ -1,4 +1,4 @@
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase/firebase.config';
@@ -16,6 +16,7 @@ export default function useUpdateDoc(collection) {
 		try {
 			await updateDoc(doc(db, collection, id), {
 				...updates,
+				createdAt: serverTimestamp(),
 			});
 
 			setTimeout(() => {

@@ -44,5 +44,3 @@ export default function Notes({ notes, isPending, error }) {
 		</section>
 	);
 }
-
-// TODO display last edited date instead of date created
