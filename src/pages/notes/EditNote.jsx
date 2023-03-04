@@ -15,13 +15,14 @@ import LoadingIcon from '../../assets/Rolling-spinner.svg';
 import Loading from '../../utils/Loading';
 
 // Custom hooks
-import { fetchSingleNote } from '../../hooks/db/useFetchDoc';
+import useFetchSingleDoc from '../../hooks/db/useFetchSingleDoc';
 import useUpdateDoc from '../../hooks/db/useUpdateDoc';
 import useSpeechToText from '../../hooks/TTS/useTextToSpeech';
 
 export default function EditNote() {
 	const { id } = useParams();
 	const { updateDocument, isPending, error } = useUpdateDoc('notes');
+	const { fetchSingleDoc } = useFetchSingleDoc('notes');
 	const [fetching, setFetching] = useState(true);
 
 	// Form States
@@ -31,7 +32,7 @@ export default function EditNote() {
 		setFetching(true);
 
 		async function fetcDoc() {
-			const doc = await fetchSingleNote(id);
+			const doc = await fetchSingleDoc(id);
 			setFormData(doc[0]);
 			setFetching(false);
 		}

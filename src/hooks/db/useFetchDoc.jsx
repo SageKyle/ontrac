@@ -1,108 +1,60 @@
 import { getAuth } from 'firebase/auth';
 import {
 	collection,
-	doc,
-	getDoc,
-	getDocs,
+	onSnapshot,
 	orderBy,
 	query,
 	where,
 } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import { db } from '../../firebase/firebase.config';
 
 // auth
 const auth = getAuth();
 
-// TODO use an onSnapshot to update the UI whenever a task is updated
+export default function useFetchDoc(firestoreCollection, id) {
+	const [data, setData] = useState(null);
+	const [error, setError] = useState(null);
+	const [isPending, setIsPending] = useState(true);
 
-// fetch all tasks
-async function fetchAllTasks() {
-	let result = [];
+	useEffect(() => {
+		// fetch all tasks
+		setError(null);
+		setIsPending(true);
+		async function fetchAllDocs() {
+			try {
+				// get current user
+				const user = auth.currentUser;
 
-	try {
-		// get current user
-		const user = auth.currentUser;
+				// get docs
+				const docRef = collection(db, firestoreCollection);
+				const docQuery = query(
+					docRef,
+					where('userId', '==', user.uid),
+					orderBy('createdAt', 'desc'),
+					orderBy('starred', 'desc')
+				);
 
-		// get docs
-		const docRef = collection(db, 'tasks');
-		const docQuery = query(
-			docRef,
-			where('userId', '==', user.uid),
-			orderBy('createdAt', 'desc'),
-			orderBy('starred', 'desc'),
-			orderBy('completed', 'desc')
-		);
+				// set
+				const unsub = onSnapshot(docQuery, (snapshot) => {
+					const result = [];
+					snapshot.forEach((doc) => {
+						result.push({ id: doc.id, ...doc.data() });
+					});
+					setData(result);
+				});
 
-		// set
-		const tasks = await getDocs(docQuery);
-
-		tasks?.forEach((doc) => {
-			result.push({ id: doc.id, ...doc.data() });
-		});
-
-		if (!tasks) {
-			throw new Error('Something went wrong...');
+				setError(null);
+				setIsPending(false);
+				unsub();
+			} catch (err) {
+				console.error(err);
+				setError(err);
+				setIsPending(false);
+			}
 		}
-	} catch (err) {
-		console.log(err);
-	}
+		return () => fetchAllDocs();
+	}, []);
 
-	return result;
+	return { data, error, isPending };
 }
-
-// fetch all notes
-async function fetchAllNotes() {
-	let result = [];
-
-	try {
-		// get current user
-		const user = auth.currentUser;
-
-		// get docs
-		const docRef = collection(db, 'notes');
-		const docQuery = query(
-			docRef,
-			where('userId', '==', user.uid),
-			orderBy('createdAt', 'desc')
-		);
-
-		const notes = await getDocs(docQuery);
-
-		// add docs
-		notes?.forEach((doc) => {
-			result.push({ id: doc.id, ...doc.data() });
-		});
-
-		if (!notes) {
-			throw new Error('Something went wrong...');
-		}
-	} catch (err) {
-		console.log(err);
-	}
-
-	return result;
-}
-
-// fetch single note
-async function fetchSingleNote(id) {
-	let result = [];
-
-	try {
-		// get docs
-		const docRef = doc(db, 'notes', id);
-		const note = await getDoc(docRef);
-
-		if (!note.exists()) {
-			throw new Error('Something went wrong...');
-		}
-
-		// add docs
-		result.push({ id: note.id, ...note.data() });
-	} catch (err) {
-		console.log(err);
-	}
-
-	return result;
-}
-
-export { fetchAllNotes, fetchAllTasks, fetchSingleNote };

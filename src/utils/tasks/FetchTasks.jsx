@@ -1,32 +1,7 @@
-import { useEffect, useState } from 'react';
-import { fetchAllTasks } from '../../hooks/db/useFetchDoc';
+import useFetchDoc from '../../hooks/db/useFetchDoc';
 
 export default function FetchTasks() {
-	const [allTasks, setAllTasks] = useState(null);
-	const [error, setError] = useState(null);
-	const [isPending, setIsPending] = useState(false);
-
-	useEffect(() => {
-		setIsPending(true);
-		setError(null);
-
-		async function fetchTasks() {
-			try {
-				const doc = await fetchAllTasks();
-				setAllTasks(doc);
-				setIsPending(false);
-				setError(null);
-			} catch (err) {
-				console.error(err);
-				setIsPending(false);
-				setError(err);
-			}
-		}
-
-		return () => {
-			fetchTasks();
-		};
-	}, []);
+	const { data: allTasks, error, isPending } = useFetchDoc('tasks');
 
 	const uncompletedTasks = allTasks
 		? allTasks.filter((task) => task.completed === false)
