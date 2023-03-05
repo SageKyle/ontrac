@@ -129,5 +129,4 @@ export default function AddNewNote() {
 	);
 }
 
-// TODO still requires improvement to UI
 // TODO change the TTS icons

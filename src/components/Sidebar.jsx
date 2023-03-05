@@ -20,7 +20,7 @@ export default function Sidebar() {
 	}
 
 	return (
-		<aside className="fixed flex capitalize flex-col shadow right-0 top-0 bg-[#567189] w-[50%] md:w-[30%] h-[90vh] z-10">
+		<aside className="fixed flex capitalize flex-col shadow right-0 top-0 bg-[#567189] w-[50%] md:w-[30%] h-[90vh] overflow-y-auto z-10">
 			{user && (
 				<section className="flex flex-col relative items-start my-4 max-h-4/5">
 					{/* user profile */}
@@ -152,5 +152,3 @@ export default function Sidebar() {
 		</aside>
 	);
 }
-
-// TODO make sidebar scrollable on landscape
