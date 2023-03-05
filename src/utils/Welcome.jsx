@@ -18,15 +18,15 @@ export default function Welcome({ setNotFirstTime }) {
 				OnTrac is an intuitively simple personal manager that makes it easier
 				for you to manage your time.
 			</p>
-			<Link
+			<div
 				className="px-6 py-3 my-4 rounded bg-emerald-500 text-white"
-				to={'/'}
+				// to={'/'}
 				onClick={() => setNotFirstTime(true)}
 			>
 				<button className="capitalize text-2xl " type="submit">
 					get started
 				</button>
-			</Link>
+			</div>
 		</section>
 	);
 }
