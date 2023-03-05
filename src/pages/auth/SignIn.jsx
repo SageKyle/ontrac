@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthWithGoogle from '../../components/AuthWithGoogle';
 import useSignIn from '../../hooks/auth/useSignIn';
+import ErrorModal from '../../utils/modals/ErrorModal';
 // icons
 import { BsBoxArrowUpRight } from 'react-icons/bs';
 import {
@@ -80,7 +81,11 @@ export default function SignIn() {
 				Forgot password?
 				<BsBoxArrowUpRight className="inline-block ml-2 text-2xl" />
 			</Link>
-			{error && <p className="text-[red]">{error}</p>}
+			{error && (
+				<ErrorModal>
+					<p>{error}</p>
+				</ErrorModal>
+			)}
 
 			{isPending && (
 				<button
@@ -105,6 +110,3 @@ export default function SignIn() {
 		</form>
 	);
 }
-
-// TODO still requires improvement to UI
-// TODO display a proper error message

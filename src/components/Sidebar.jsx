@@ -8,6 +8,7 @@ import { useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuthContext } from '../hooks/auth/useAuthContext';
 import useLogout from '../hooks/auth/useLogout';
+import ErrorModal from '../utils/modals/ErrorModal';
 
 export default function Sidebar() {
 	const { logout, isPending, error } = useLogout();
@@ -20,7 +21,7 @@ export default function Sidebar() {
 	}
 
 	return (
-		<aside className="fixed flex capitalize flex-col shadow right-0 top-0 bg-[#567189] w-[50%] md:w-[30%] h-[90vh] overflow-y-auto z-10">
+		<aside className="fixed flex capitalize flex-col shadow right-0 top-0 bg-[#011d33] w-[50%] md:w-[30%] h-[90vh] overflow-y-auto z-50">
 			{user && (
 				<section className="flex flex-col relative items-start my-4 max-h-4/5">
 					{/* user profile */}
@@ -146,7 +147,11 @@ export default function Sidebar() {
 							logging out
 						</button>
 					)}
-					{error && <p className="my-2 text-[red]">{error}</p>}
+					{error && (
+						<ErrorModal>
+							<p>{error}</p>
+						</ErrorModal>
+					)}
 				</div>
 			)}
 		</aside>

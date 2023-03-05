@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import useSignUp from '../../hooks/auth/useSignUp';
 
 import AuthWithGoogle from '../../components/AuthWithGoogle';
+import ErrorModal from '../../utils/modals/ErrorModal';
 // icons
 import { FaUserAlt } from 'react-icons/fa';
 import {
@@ -102,8 +103,11 @@ export default function SignUp() {
 				</div>
 			</label>
 
-			{error && <p className="text-[red]">{error}</p>}
-
+			{error && (
+				<ErrorModal>
+					<p>{error}</p>
+				</ErrorModal>
+			)}
 			{isPending && (
 				<button
 					className="px-6 py-3 my-4 rounded text-gray-200 capitalize bg-gray-700 text-2xl"
@@ -129,5 +133,3 @@ export default function SignUp() {
 }
 
 // TODO verify users once they signup to prevent spamming
-// TODO still requires improvement to UI
-// TODO display a proper error message

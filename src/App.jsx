@@ -61,16 +61,6 @@ function App() {
 
 				{notFirstTime && (
 					<>
-						{/* show loader */}
-						{/* {isPending && <Loading />} */}
-						{/* TODO display a message on error */}
-						{/* handle error */}
-						{/* {error && (
-							<h1 className="text-2xl p-6">
-								Something went wrong... please reload the page
-							</h1>
-						)} */}
-
 						{authIsReady && (
 							<>
 								<main

@@ -1,8 +1,8 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import useDeleteDoc from '../hooks/db/useDeleteDoc';
 import Loading from '../utils/Loading';
+import ErrorModal from '../utils/modals/ErrorModal';
 
 import { FaTrash } from 'react-icons/fa';
 
@@ -12,8 +12,12 @@ export default function Notes({ notes, isPending, error }) {
 	return (
 		<section className="mb-4 flex items-start justify-start flex-wrap">
 			{isPending && <Loading />}
-			{error && toast.error(error)}
 			{!notes && <p>There's nothing here!</p>}
+			{error && (
+				<ErrorModal>
+					<p>{error}</p>
+				</ErrorModal>
+			)}
 			{notes &&
 				notes.map((note) => (
 					<article

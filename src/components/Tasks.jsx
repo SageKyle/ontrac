@@ -1,13 +1,13 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { toast } from 'react-toastify';
-import Fetching from '../assets/Rolling-spinner.svg';
 import useUpdateDoc from '../hooks/db/useUpdateDoc';
 import Loading from '../utils/Loading';
+import ErrorModal from '../utils/modals/ErrorModal';
 
 export default function Tasks({ tasks, isPending, error, isEmpty }) {
 	const {
 		updateDocument,
-		isPending: loading,
+		isPending: updating,
 		error: err,
 	} = useUpdateDoc('tasks');
 
@@ -24,7 +24,11 @@ export default function Tasks({ tasks, isPending, error, isEmpty }) {
 				{/* loading component */}
 				{isPending && <Loading />}
 				{/* error loading component */}
-				{error && toast.error(error)}
+				{error && (
+					<ErrorModal>
+						<p>{error}</p>
+					</ErrorModal>
+				)}
 				{/* error updating a task */}
 				{err && toast.error(err)}
 				{/* empty/null tasks list */}
@@ -35,18 +39,11 @@ export default function Tasks({ tasks, isPending, error, isEmpty }) {
 						<div
 							key={task.id}
 							className={`m-2 p-2 border-2 relative cursor-pointer rounded sm:w-full md:w-[20rem] ${
-								loading ? 'opacity-40' : ''
+								updating ? 'opacity-40' : 'opacity-100'
 							}`}
 							onClick={() => completeTask(task)}
-							disabled={loading}
+							disabled={updating}
 						>
-							{/* {loading && (
-								<img
-									className="absolute w-12 top-6 right-1/2 z-20"
-									src={Fetching}
-									alt="loading..."
-								/>
-							)} */}
 							<h4
 								className={
 									task.completed

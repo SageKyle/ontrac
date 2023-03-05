@@ -1,5 +1,6 @@
 import { FcGoogle } from 'react-icons/fc';
 import useSignInWithGoogle from '../hooks/auth/useSignInWithGoogle';
+import ErrorModal from '../utils/modals/ErrorModal';
 
 export default function AuthWithGoogle() {
 	const { signInWithGoogle, error } = useSignInWithGoogle();
@@ -9,7 +10,11 @@ export default function AuthWithGoogle() {
 			<div className="flex w-full justify-center item-center my-6">
 				<span className="uppercase text-2xl">or</span>
 			</div>
-			{error && <p>{error}</p>}
+			{error && (
+				<ErrorModal>
+					<p>{error}</p>
+				</ErrorModal>
+			)}
 			<button
 				type="button"
 				onClick={signInWithGoogle}
@@ -21,5 +26,3 @@ export default function AuthWithGoogle() {
 		</section>
 	);
 }
-
-// TODO  display a proper error message
