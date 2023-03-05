@@ -109,12 +109,10 @@ export default function AddTask() {
 						required
 						value={dueDate}
 						onChange={(e) => setdueDate(e.target.value)}
-						className="bg-transparent w-full border-0 outline-0"
+						className="bg-transparent w-full border-2 outline-0"
 					/>
 				</label>
 			</form>
 		</section>
 	);
 }
-
-// TODO still requires improvement to UI (the input fields have weird outlines)

@@ -30,6 +30,3 @@ export default function Welcome({ setNotFirstTime }) {
 		</section>
 	);
 }
-
-// TODO still requires improvement to UI
-// TODO add OnTrac logo

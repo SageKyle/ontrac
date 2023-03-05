@@ -30,6 +30,7 @@ import { useAuthContext } from './hooks/auth/useAuthContext';
 import LoginRoute from './utils/routes/LoginRoute';
 import ProtectedRoute from './utils/routes/ProtectedRoute';
 // loader
+import Logo from './assets/ontrac.png';
 import Loading from './utils/Loading';
 
 function App() {
@@ -48,7 +49,12 @@ function App() {
 	}
 
 	return (
-		<div className="App relative flex flex-col justify-center bg-[#567189] text-gray-200 min-h-[100vh]">
+		<div className="App relative flex flex-col justify-center bg-[#01233f] text-gray-200 min-h-[100vh]">
+			<img
+				className="h-12 absolute top-4 right-4 inline-block"
+				src={Logo}
+				alt="onTrac"
+			/>
 			<Router>
 				{/* welcome page */}
 				{!notFirstTime && <Welcome setNotFirstTime={setNotFirstTime} />}
@@ -202,5 +208,4 @@ function App() {
 
 export default App;
 
-// TODO add OnTrac logo
 // TODO install/ add animation (framer motion)
