@@ -19,9 +19,9 @@ export default function useFetchDoc(firestoreCollection) {
 
 	useEffect(() => {
 		// fetch all tasks
-		setError(null);
-		setIsPending(true);
 		async function fetchAllDocs() {
+			setError(null);
+			setIsPending(true);
 			try {
 				// get current user
 				const user = auth.currentUser;
