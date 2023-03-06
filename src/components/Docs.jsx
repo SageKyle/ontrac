@@ -15,6 +15,13 @@ export default function Docs() {
 			<p className="mt-4 leading-tight">
 				This page provides a guide on how to use this web app
 			</p>
+			<h2 className="font-semibold my-4">Using OnTrac</h2>
+			<article>
+				<section>
+					<h4>Tasks</h4>
+					<p>tasks provide a way to itemize your daily todos.</p>
+				</section>
+			</article>
 		</main>
 	);
 }

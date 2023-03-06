@@ -44,9 +44,9 @@ export default function useFetchDoc(firestoreCollection) {
 					setData(result);
 				});
 
+				// unsub();
 				setError(null);
 				setIsPending(false);
-				unsub();
 			} catch (err) {
 				console.error(err);
 				setError(err);
