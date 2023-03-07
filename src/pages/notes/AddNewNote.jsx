@@ -6,6 +6,7 @@ import {
 	BsCheck2,
 	BsFillArrowLeftCircleFill,
 	BsFillMicFill,
+	BsMicMuteFill,
 	BsStar,
 	BsStarFill,
 } from 'react-icons/bs';
@@ -104,7 +105,7 @@ export default function AddNewNote() {
 				<label className="flex p-2 w-full relative h-[20rem]">
 					<textarea
 						id="note"
-						className="bg-transparent text-gray-200 resize-none mb-6 outline-0 w-full placeholder:text-[#fad6a5] caret-[#fad6a5] border-2 border-slate-400 focus:border-slate-300 focus:outline-0"
+						className="bg-transparent relative text-gray-200 resize-none mb-6 outline-0 w-full placeholder:text-[#fad6a5] caret-[#fad6a5] border-2 border-slate-400 focus:border-slate-300 focus:outline-0"
 						placeholder="Note..."
 						title="Add Note"
 						value={note}
@@ -113,20 +114,19 @@ export default function AddNewNote() {
 						autoFocus
 					></textarea>
 					<span
-						className="absolute bottom-[1rem] bg-[#567189] p-1 right-2 cursor-pointer inline-block m-2 hover:scale-[1.1]"
+						className="absolute bottom-6 bg-transparent p-2 rounded-full right-2 cursor-pointer inline-block m-2 hover:scale-[1.1]"
 						title="Record Note"
 						onClick={handleSpeechToText}
 					>
-						<BsFillMicFill
-							className={
-								listening ? 'text-[#fad6a5] text-2xl listening' : 'text-2xl'
-							}
-						/>
+						{listening && (
+							<BsFillMicFill className="text-[#fad6a5] md:text-3xl text-2xl" />
+						)}
+						{!listening && (
+							<BsMicMuteFill className="text-gray-200 md:text-3xl text-2xl" />
+						)}
 					</span>
 				</label>
 			</form>
 		</section>
 	);
 }
-
-// TODO change the TTS icons

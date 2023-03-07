@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
 import SpeechRecognition, {
 	useSpeechRecognition,
 } from 'react-speech-recognition';
 
 export default function useSpeechToText() {
 	const { transcript, listening } = useSpeechRecognition();
+	const stopListening = SpeechRecognition.stopListening;
 
 	if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
 		console.log(
@@ -19,9 +21,7 @@ export default function useSpeechToText() {
 		});
 	};
 
-	const stopListening = SpeechRecognition.startListening;
-
-	return { listenContinuously, listening, stopListening, transcript };
+	return { listening, stopListening, listenContinuously, transcript };
 }
 
 // TODO research/fix

@@ -18,16 +18,3 @@ pre {
 	white-space: -o-pre-wrap;
 	word-wrap: break-word;
 }
-
-@keyframes icon-scale {
-	from {
-		scale: 1;
-	}
-	to {
-		scale: 1.4;
-	}
-}
-
-.listening {
-	animation: icon-scale infinite 2s ease-in-out;
-}
