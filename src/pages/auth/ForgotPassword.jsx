@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import useForgotPassword from '../../hooks/auth/useForgotPassword';
+import ErrorModal from '../../utils/modals/ErrorModal';
 
-import AuthWithGoogle from '../../components/AuthWithGoogle';
 // icons
 import { HiOutlineMail } from 'react-icons/hi';
 
@@ -50,7 +50,11 @@ export default function SignUp() {
 				Sign In Instead
 			</Link>
 
-			{error && <p className="text-[red]">{error}</p>}
+			{error && (
+				<ErrorModal>
+					<p>{error}</p>
+				</ErrorModal>
+			)}
 
 			{isPending && (
 				<button
@@ -71,9 +75,6 @@ export default function SignUp() {
 					Sign up
 				</Link>
 			</p>
-			<AuthWithGoogle />
 		</form>
 	);
 }
-
-// TODO still requires improvement to the UI
