@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -31,13 +31,33 @@ import LoginRoute from './utils/routes/LoginRoute';
 import ProtectedRoute from './utils/routes/ProtectedRoute';
 // loader
 import Logo from './assets/ontrac.png';
-import Loading from './utils/Loading';
+// import Loading from './utils/Loading';
+// animation
+import { motion } from 'framer-motion';
+
+const variants = {
+	open: {
+		y: null,
+		opacity: 1,
+		transition: {
+			y: { stiffness: 1, ease: 'easeOut', velocity: 10, duration: 1.5 },
+		},
+	},
+	closed: {
+		y: 0,
+		opacity: 0,
+		transition: {
+			y: { stiffness: 1, velocity: -100, duration: 1.5 },
+		},
+	},
+};
 
 function App() {
 	// auth
 	const { user, authIsReady } = useAuthContext();
 
 	const { notFirstTime, setNotFirstTime } = CheckIfNotFirstTime();
+	const [isOpen, setIsOpen] = useState(false);
 	// sidebar
 	const sidebarRef = useRef();
 
@@ -170,11 +190,19 @@ function App() {
 									</Routes>
 								</main>
 								{/* sidebar */}
-								<div ref={sidebarRef} className="hidden">
+								<motion.div
+									ref={sidebarRef}
+									className="hidden"
+									animate={isOpen ? 'open' : 'closed'}
+									variants={variants}
+								>
 									<Sidebar />
-								</div>
+								</motion.div>
 								{/* navbar */}
-								<Navbar toggleSidebar={toggleSidebar} />
+								<Navbar
+									toggleSidebar={toggleSidebar}
+									toggleIsOpen={setIsOpen}
+								/>
 							</>
 						)}
 					</>
@@ -197,5 +225,3 @@ function App() {
 }
 
 export default App;
-
-// TODO install/ add animation (framer motion)

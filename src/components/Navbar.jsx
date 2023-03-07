@@ -5,7 +5,12 @@ import { BiHomeCircle, BiUserCircle } from 'react-icons/bi';
 import { BsListCheck } from 'react-icons/bs';
 import { MdOutlineEditNote } from 'react-icons/md';
 
-export default function Navbar({ toggleSidebar }) {
+export default function Navbar({ toggleSidebar, toggleIsOpen }) {
+	function displaySideBar() {
+		toggleSidebar();
+		toggleIsOpen((isOpen) => !isOpen);
+	}
+
 	return (
 		<nav className="py-2 px-4 w-full bg-[#011d33] border-t-amber-300 border-2 text-white flex fixed z-50 bottom-0">
 			<ul className="flex justify-evenly align-middle w-[100%]">
@@ -56,7 +61,7 @@ export default function Navbar({ toggleSidebar }) {
 				>
 					<div
 						className="flex flex-col items-center justify-center"
-						onClick={toggleSidebar}
+						onClick={displaySideBar}
 					>
 						<BiUserCircle className="text-2xl" />
 						<span>Dashboard</span>
