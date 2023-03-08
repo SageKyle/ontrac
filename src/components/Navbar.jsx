@@ -71,5 +71,3 @@ export default function Navbar({ toggleSidebar, toggleIsOpen }) {
 		</nav>
 	);
 }
-
-// TODO display a more intuitive active state
