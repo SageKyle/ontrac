@@ -51,7 +51,6 @@ export default function SignUp() {
 				</span>
 				<input
 					required
-					autoFocus
 					type="text"
 					id="name"
 					value={name}

@@ -111,7 +111,6 @@ export default function AddNewNote() {
 						value={note}
 						onChange={(e) => setNote(e.target.value)}
 						required
-						autoFocus
 					></textarea>
 					<span
 						className="absolute bottom-6 bg-transparent p-2 rounded-full right-2 cursor-pointer inline-block m-2 hover:scale-[1.1]"

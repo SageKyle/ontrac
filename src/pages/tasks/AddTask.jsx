@@ -93,7 +93,6 @@ export default function AddTask() {
 						type="text"
 						placeholder="Task..."
 						required
-						autoFocus
 						value={task}
 						onChange={(e) => setTask(e.target.value)}
 						className="bg-transparent w-full placeholder:text-slate-300 border-2 border-slate-400 focus:border-slate-300 focus:outline-0 outline-0"

@@ -44,7 +44,6 @@ export default function SignIn() {
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
 					required
-					autoFocus
 					title="Enter your email"
 					placeholder="Email"
 					className="bg-transparent w-[95%] outline-0 border-0"
