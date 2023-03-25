@@ -34,7 +34,7 @@ export default function Home() {
 				</div>
 
 				<h4
-					className="text-[#fad6a5] m-2 hover:underline"
+					className="text-[#fad6a5] cursor-pointer m-2 hover:underline"
 					ref={toggleRef}
 					onClick={showMore}
 				>

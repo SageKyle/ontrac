@@ -13,7 +13,7 @@ export default function StarredTasks() {
 				tasks={StarredTasks}
 				isPending={isPending}
 				error={error}
-				isEmpty={"There's nothing here!"}
+				isEmpty={''}
 			/>
 		</>
 	);

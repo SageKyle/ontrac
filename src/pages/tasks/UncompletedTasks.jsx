@@ -6,14 +6,14 @@ export default function UncompletedTasks() {
 
 	return (
 		<>
-			<h1 className="capitalize my-4 text-[#fad6a5] font-medium">
+			{/* <h1 className="capitalize my-4 text-[#fad6a5] font-medium">
 				uncompleted tasks
-			</h1>
+			</h1> */}
 			<Tasks
 				tasks={uncompletedTasks}
 				isPending={isPending}
 				error={error}
-				isEmpty={'You have no uncompleted tasks'}
+				isEmpty={''}
 			/>
 		</>
 	);

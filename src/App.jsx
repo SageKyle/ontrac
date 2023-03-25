@@ -69,7 +69,7 @@ function App() {
 	}
 
 	return (
-		<div className="App relative flex flex-col justify-center bg-[#01233f] text-gray-200 min-h-[100vh]">
+		<div className="App relative flex flex-col justify-center bg-[#252c53] text-gray-200 min-h-[100vh]">
 			<img
 				className="h-12 absolute top-4 right-4 inline-block"
 				src={Logo}

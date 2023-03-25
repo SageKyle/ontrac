@@ -38,9 +38,7 @@ export default function Tasks({ tasks, isPending, error, isEmpty }) {
 					tasks.map((task) => (
 						<div
 							key={task.id}
-							className={`m-2 p-2 border-2 relative cursor-pointer rounded sm:w-full md:w-[20rem] ${
-								updating ? 'opacity-40' : 'opacity-100'
-							}`}
+							className="m-2 p-2 border-2 relative cursor-pointer rounded sm:w-full md:w-[20rem]"
 							onClick={() => completeTask(task)}
 							disabled={updating}
 						>
