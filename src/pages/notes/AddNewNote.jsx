@@ -21,8 +21,16 @@ export default function AddNewNote() {
 	const { addDocument, error, isPending } = useAddDoc('notes');
 
 	// Speech to Text
-	const { listenContinuously, listening, stopListening, transcript } =
-		useSpeechToText();
+	// const { listenContinuously, listening, stopListening, transcript } =
+	// 	useSpeechToText();
+
+	const {
+		isListening,
+		startListening,
+		stopListening,
+		transcript,
+		resetTranscript,
+	} = useSpeechToText();
 
 	// Form States
 	const [title, setTitle] = useState('');
@@ -40,14 +48,14 @@ export default function AddNewNote() {
 	};
 
 	const handleSpeechToText = () => {
-		if (!listening) {
-			listenContinuously();
-			setNote((prevValue) => prevValue + transcript);
-			toast.info('mic is on');
-		} else if (listening) {
-			stopListening();
-			toast.info('mic is off');
-		}
+		setNote((prevValue) => prevValue + transcript);
+		// if (!isListening) {
+		// 	// listenContinuously();
+		// 	toast.info('mic is on');
+		// } else if (isListening) {
+		// 	// stopListening();
+		// 	toast.info('mic is off');
+		// }
 	};
 
 	return (
@@ -109,19 +117,26 @@ export default function AddNewNote() {
 						placeholder="Note..."
 						title="Add Note"
 						value={note}
-						onChange={(e) => setNote(e.target.value)}
+						onChange={handleSpeechToText}
+						// onChange={(e) => setNote(e.target.value)}
 						required
 					></textarea>
 					<span
 						className="absolute bottom-6 bg-transparent p-2 rounded-full right-2 cursor-pointer inline-block m-2 hover:scale-[1.1]"
 						title="Record Note"
-						onClick={handleSpeechToText}
+						// onClick={handleSpeechToText}
 					>
-						{listening && (
-							<BsFillMicFill className="text-[#fad6a5] md:text-3xl text-2xl" />
+						{isListening && (
+							<BsFillMicFill
+								className="text-[#fad6a5] md:text-3xl text-2xl"
+								onClick={stopListening}
+							/>
 						)}
-						{!listening && (
-							<BsMicMuteFill className="text-gray-200 md:text-3xl text-2xl" />
+						{!isListening && (
+							<BsMicMuteFill
+								className="text-gray-200 md:text-3xl text-2xl"
+								onClick={startListening}
+							/>
 						)}
 					</span>
 				</label>
