@@ -117,8 +117,8 @@ export default function AddNewNote() {
 						placeholder="Note..."
 						title="Add Note"
 						value={note}
-						onChange={handleSpeechToText}
-						// onChange={(e) => setNote(e.target.value)}
+						// onChange={handleSpeechToText}
+						onChange={(e) => setNote(e.target.value)}
 						required
 					></textarea>
 					<span
