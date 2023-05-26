@@ -2,20 +2,20 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { Link } from 'react-router-dom';
 import useDeleteDoc from '../hooks/db/useDeleteDoc';
 import Loading from '../utils/Loading';
-import DeleteNote from '../utils/modals/DeleteNote';
+import DeleteConfirmationModal from '../utils/modals/DeleteConfirmationModal';
 import ErrorModal from '../utils/modals/ErrorModal';
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
 
 export default function Notes({ notes, isPending, error }) {
-	const [open, setOpen] = useState(false);
-	const modalRef = useRef();
-
 	const { deleteDocument } = useDeleteDoc('notes');
-	function handleDelete(id) {
-		deleteDocument(id);
-		setOpen(false);
+	const [modalProp, setmodalProp] = useState({ open: false, id: null });
+
+	// delete note and hide popup
+	function handleDelete(modalProp) {
+		deleteDocument(modalProp.id);
+		setmodalProp({ ...modalProp, open: false });
 	}
 
 	return (
@@ -49,21 +49,21 @@ export default function Notes({ notes, isPending, error }) {
 							})}
 						</p>
 						<button
-							onClick={() => setOpen(true)}
+							disabled={modalProp.open}
+							onClick={() => setmodalProp({ id: note.id, open: true })}
 							className="sticky block ml-auto right-4 bottom-0 z-10 bg-[#567189] rounded-full p-2"
 						>
 							<FaTrash />
 						</button>
-						{open && (
-							<DeleteNote
-								ref={modalRef}
-								open={open}
-								deleteNote={() => handleDelete(note.id)}
-								onClose={() => setOpen(false)}
-							/>
-						)}
 					</article>
 				))}
+			{/* note delete modal */}
+			{modalProp.open && (
+				<DeleteConfirmationModal
+					deleteNote={() => handleDelete(modalProp)}
+					onClose={() => setmodalProp({ ...modalProp, open: false })}
+				/>
+			)}
 		</section>
 	);
 }
