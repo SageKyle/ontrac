@@ -123,6 +123,7 @@ export default function EditNote() {
 							<input
 								type="text"
 								placeholder="Title (optional)"
+								spellCheck="true"
 								value={formData.title}
 								onChange={(e) =>
 									setFormData({ ...formData, title: e.target.value })
@@ -136,6 +137,7 @@ export default function EditNote() {
 								className="bg-transparent text-gray-200 resize-none mb-6 outline-0 w-full placeholder:text-[#fad6a5] caret-[#fad6a5] border-2 border-slate-400 focus:border-slate-300 focus:outline-0"
 								placeholder="Note..."
 								title="Add Note"
+								spellCheck="true"
 								value={formData.note}
 								onChange={(e) =>
 									setFormData({ ...formData, note: e.target.value })

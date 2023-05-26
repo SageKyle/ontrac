@@ -92,6 +92,7 @@ export default function AddTask() {
 					<input
 						type="text"
 						placeholder="Task..."
+						spellCheck="true"
 						required
 						value={task}
 						onChange={(e) => setTask(e.target.value)}

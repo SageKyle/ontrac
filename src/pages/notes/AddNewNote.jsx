@@ -105,6 +105,7 @@ export default function AddNewNote() {
 					<input
 						type="text"
 						placeholder="Title (optional)"
+						spellCheck="true"
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
 						className="bg-transparent text-gray-200 w-full caret-[#fad6a5] placeholder:text-slate-300 border-0 border-b-2 border-slate-400 focus:border-slate-300 focus:outline-0 outline-0"
@@ -116,6 +117,7 @@ export default function AddNewNote() {
 						className="bg-transparent relative text-gray-200 resize-none mb-6 outline-0 w-full placeholder:text-[#fad6a5] caret-[#fad6a5] border-2 border-slate-400 focus:border-slate-300 focus:outline-0"
 						placeholder="Note..."
 						title="Add Note"
+						spellCheck="true"
 						value={note}
 						// onChange={handleSpeechToText}
 						onChange={(e) => setNote(e.target.value)}
