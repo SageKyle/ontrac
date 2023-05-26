@@ -1,7 +1,7 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { toast } from 'react-toastify';
 import useUpdateDoc from '../hooks/db/useUpdateDoc';
-import Loading from '../utils/Loading';
+// import Loading from '../utils/Loading';
 import ErrorModal from '../utils/modals/ErrorModal';
 
 export default function Tasks({ tasks, isPending, error, isEmpty }) {
@@ -22,7 +22,7 @@ export default function Tasks({ tasks, isPending, error, isEmpty }) {
 		<>
 			<section className="mb-4 flex items-start justify-start flex-wrap">
 				{/* loading component */}
-				{isPending && <Loading />}
+				{/* {isPending && <Loading />} */}
 				{/* error loading component */}
 				{error && (
 					<ErrorModal>
