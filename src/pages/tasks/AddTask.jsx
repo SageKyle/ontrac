@@ -42,7 +42,13 @@ export default function AddTask() {
 	};
 
 	return (
-		<section className="max-h-4/5 md:w-4/5 lg:w-2/4 mx-auto pt-auto">
+		<section
+			// submit the form when user press ctrl + Enter
+			onKeyDown={(e) => {
+				if (e.key === 'Enter' && e.ctrlKey) handleSubmit();
+			}}
+			className="max-h-4/5 md:w-4/5 lg:w-2/4 mx-auto pt-auto"
+		>
 			<nav className="flex justify-between items-center mb-6">
 				{/* arrow left */}
 				<Link to={'/'} className="cursor-pointer" title="Home">
@@ -92,6 +98,7 @@ export default function AddTask() {
 					<input
 						type="text"
 						placeholder="Task..."
+						autoFocus
 						spellCheck="true"
 						required
 						value={task}

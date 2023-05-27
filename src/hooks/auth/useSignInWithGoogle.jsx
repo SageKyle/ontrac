@@ -1,5 +1,12 @@
-import { getAuth, GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
+import {
+	GoogleAuthProvider,
+	getAuth,
+	getRedirectResult,
+	signInWithRedirect,
+} from 'firebase/auth';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import { db } from '../../firebase/firebase.config';
 import { useAuthContext } from './useAuthContext';
 
 export default function useSignInWithGoogle() {
@@ -17,7 +24,18 @@ export default function useSignInWithGoogle() {
 			// sign in user
 			const userCredential = await signInWithRedirect(auth, provider);
 
-			const user = userCredential.user;
+			const result = await getRedirectResult(auth);
+
+			const user = result.user;
+
+			console.log(user);
+
+			// add user info to db
+			await setDoc(doc(db, 'users', user.uid), {
+				name: user.displayName,
+				email: user.email,
+				timeStamp: serverTimestamp(),
+			});
 
 			if (!user) {
 				throw new Error('Could not complete sign in');

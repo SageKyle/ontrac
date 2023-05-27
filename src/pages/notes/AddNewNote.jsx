@@ -59,7 +59,13 @@ export default function AddNewNote() {
 	};
 
 	return (
-		<section className="text-gray-200 h-4/5 max-h-[80vh] md:w-4/5 lg:w-2/4 mx-auto">
+		<section
+			// submit the form when user press ctrl + Enter
+			onKeyDown={(e) => {
+				if (e.key === 'Enter' && e.ctrlKey) handleSubmit();
+			}}
+			className="text-gray-200 h-4/5 max-h-[80vh] md:w-4/5 lg:w-2/4 mx-auto"
+		>
 			<nav className="flex justify-between items-center mb-6">
 				{/* arrow left */}
 				<Link to={'/'} className="cursor-pointer" title="Home">
@@ -118,6 +124,7 @@ export default function AddNewNote() {
 						placeholder="Note..."
 						title="Add Note"
 						spellCheck="true"
+						autoFocus
 						value={note}
 						// onChange={handleSpeechToText}
 						onChange={(e) => setNote(e.target.value)}
