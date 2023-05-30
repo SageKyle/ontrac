@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AuthWithGoogle from '../../components/AuthWithGoogle';
+import AlternativeAuth from '../../components/AlternativeAuth';
 import useSignIn from '../../hooks/auth/useSignIn';
 import ErrorModal from '../../utils/modals/ErrorModal';
 // icons
@@ -105,7 +105,7 @@ export default function SignIn() {
 					Sign Up
 				</Link>
 			</p>
-			<AuthWithGoogle />
+			<AlternativeAuth />
 		</form>
 	);
 }

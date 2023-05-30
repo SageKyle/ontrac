@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useSignUp from '../../hooks/auth/useSignUp';
 
-import AuthWithGoogle from '../../components/AuthWithGoogle';
+import AlternativeAuth from '../../components/AlternativeAuth';
 import ErrorModal from '../../utils/modals/ErrorModal';
 // icons
 import { FaUserAlt } from 'react-icons/fa';
@@ -126,7 +126,7 @@ export default function SignUp() {
 					Sign in
 				</Link>
 			</p>
-			<AuthWithGoogle />
+			<AlternativeAuth />
 		</form>
 	);
 }
