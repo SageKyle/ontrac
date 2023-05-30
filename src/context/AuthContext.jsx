@@ -31,7 +31,7 @@ export function AuthContextProvider({ children }) {
 			dispatch({ type: 'AUTH_IS_READY', payload: user });
 			unsub();
 		});
-	}, []);
+	}, [auth.currentUser]);
 
 	return (
 		<AuthContext.Provider value={{ ...state, dispatch }}>

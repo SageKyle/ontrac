@@ -10,7 +10,7 @@ import { useAuthContext } from '../hooks/auth/useAuthContext';
 import useLogout from '../hooks/auth/useLogout';
 import ErrorModal from '../utils/modals/ErrorModal';
 
-export default function Sidebar() {
+export default function Sidebar({ hideSidebar }) {
 	const { logout, isPending, error } = useLogout();
 	const { user } = useAuthContext();
 	const taskRef = useRef();
@@ -18,6 +18,11 @@ export default function Sidebar() {
 
 	function toggleRef(ref) {
 		ref.current.classList.toggle('hidden');
+	}
+
+	async function handleLogout() {
+		await logout();
+		hideSidebar();
 	}
 
 	return (
@@ -132,17 +137,13 @@ export default function Sidebar() {
 			{user && (
 				<div className="w-full mb-8 mt-auto self-start p-4 border-t-[1px] border-slate-400">
 					{!isPending && (
-						<button onClick={logout} className="hover:underline text-xl">
+						<button onClick={handleLogout} className="hover:underline text-xl">
 							<BiLogOut className="mr-2 inline-block" />
 							logout
 						</button>
 					)}
 					{isPending && (
-						<button
-							onClick={logout}
-							disabled
-							className="hover:underline text-xl"
-						>
+						<button disabled className="hover:underline text-xl">
 							<BiLogOut className="mr-2 inline-block" />
 							logging out
 						</button>

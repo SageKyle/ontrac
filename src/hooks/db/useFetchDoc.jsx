@@ -1,4 +1,4 @@
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
 	collection,
 	onSnapshot,
@@ -26,22 +26,28 @@ export default function useFetchDoc(firestoreCollection) {
 				// get current user
 				const user = auth.currentUser;
 
-				// get docs
-				const docRef = collection(db, firestoreCollection);
-				const docQuery = query(
-					docRef,
-					where('userId', '==', user.uid),
-					orderBy('createdAt', 'desc'),
-					orderBy('starred', 'desc')
-				);
+				onAuthStateChanged(auth, (userExists) => {
+					if (userExists) {
+						// get docs
+						const docRef = collection(db, firestoreCollection);
+						const docQuery = query(
+							docRef,
+							where('userId', '==', user.uid),
+							orderBy('createdAt', 'desc'),
+							orderBy('starred', 'desc')
+						);
 
-				// set
-				const unsub = onSnapshot(docQuery, (snapshot) => {
-					const result = [];
-					snapshot.forEach((doc) => {
-						result.push({ id: doc.id, ...doc.data() });
-					});
-					setData(result);
+						// set
+						const unsub = onSnapshot(docQuery, (snapshot) => {
+							const result = [];
+							snapshot.forEach((doc) => {
+								result.push({ id: doc.id, ...doc.data() });
+							});
+							setData(result);
+						});
+					} else {
+						setError('You need to login first!');
+					}
 				});
 
 				// unsub();

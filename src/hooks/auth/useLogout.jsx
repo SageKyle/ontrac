@@ -20,16 +20,17 @@ export default function useLogout() {
 			await signOut(auth);
 
 			// dispatch logout action
-			dispatch({ type: 'LOGOUT' });
-
-			setTimeout(() => {
-				navigate('/sign-in');
-			}, 300);
+			await dispatch({ type: 'LOGOUT' });
 
 			//   update state
 			if (!isCancelled) {
 				setIsPending(false);
 				setError(null);
+
+				setTimeout(() => {
+					navigate('/sign-in');
+					// window.location.reload();
+				}, 1000);
 			}
 			// handle error
 		} catch (err) {

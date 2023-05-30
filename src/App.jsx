@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -59,13 +59,15 @@ function App() {
 	const { notFirstTime, setNotFirstTime } = CheckIfNotFirstTime();
 	const [isOpen, setIsOpen] = useState(false);
 	// sidebar
-	const sidebarRef = useRef();
+	// const sidebarRef = useRef();
 
 	function toggleSidebar() {
-		sidebarRef.current.classList.toggle('hidden');
+		setIsOpen((prev) => !prev);
+		// sidebarRef.current.classList.toggle('hidden');
 	}
 	function hideSidebar() {
-		sidebarRef.current.classList.add('hidden');
+		setIsOpen(false);
+		// sidebarRef.current.classList.add('hidden');
 	}
 
 	return (
@@ -190,18 +192,20 @@ function App() {
 									</Routes>
 								</main>
 								{/* sidebar */}
-								<motion.div
-									ref={sidebarRef}
-									className="hidden"
-									animate={isOpen ? 'open' : 'closed'}
-									variants={variants}
-								>
-									<Sidebar />
-								</motion.div>
+								{isOpen && (
+									<motion.div
+										// ref={sidebarRef}
+										// className="hidden"
+										animate={isOpen ? 'open' : 'closed'}
+										variants={variants}
+									>
+										<Sidebar hideSidebar={hideSidebar} />
+									</motion.div>
+								)}
 								{/* navbar */}
 								<Navbar
 									toggleSidebar={toggleSidebar}
-									toggleIsOpen={setIsOpen}
+									// hideSidebar={hideSidebar}
 								/>
 							</>
 						)}

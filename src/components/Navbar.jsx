@@ -5,10 +5,10 @@ import { BiHomeCircle, BiUserCircle } from 'react-icons/bi';
 import { BsListCheck } from 'react-icons/bs';
 import { MdOutlineEditNote } from 'react-icons/md';
 
-export default function Navbar({ toggleSidebar, toggleIsOpen }) {
+export default function Navbar({ toggleSidebar }) {
 	function displaySideBar() {
 		toggleSidebar();
-		toggleIsOpen((isOpen) => !isOpen);
+		// toggleIsOpen((isOpen) => !isOpen);
 	}
 
 	return (
