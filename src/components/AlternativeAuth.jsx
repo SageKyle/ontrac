@@ -1,4 +1,5 @@
 import AnonymousAuth from './AnonymousAuth';
+import AuthWithApple from './AuthWithApple';
 import AuthWithGoogle from './AuthWithGoogle';
 
 export default function AlternativeAuth() {
@@ -9,6 +10,7 @@ export default function AlternativeAuth() {
 			</div>
 			<article className="h-14 flex items-center justify-center space-x-4 mb-20">
 				<AuthWithGoogle />
+				<AuthWithApple />
 				<AnonymousAuth />
 			</article>
 		</section>
