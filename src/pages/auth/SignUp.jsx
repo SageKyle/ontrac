@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import useSignUp from '../../hooks/auth/useSignUp';
 
@@ -15,92 +16,138 @@ import {
 
 export default function SignUp() {
 	// form states
-	const [name, setName] = useState('');
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+	const [formData, setFormData] = useState({
+		name: '',
+		email: '',
+		password: '',
+	});
 	const [showPassword, setShowPassword] = useState(false);
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
 
 	const navigate = useNavigate();
 	const { signUp, isPending, error } = useSignUp();
 
 	// Signup user
-	async function handleSubmit(e) {
-		e.preventDefault();
-		await signUp(email, password, name);
-		// if (!error) {
-		setTimeout(() => {
-			navigate('/');
-		}, 3000);
-		// }
+	async function handleFormSubmit() {
+		// e.preventDefault();
+		await signUp(formData.email, formData.password, formData.name);
+		if (!error) {
+			setTimeout(() => {
+				navigate('/');
+			}, 3000);
+		}
 	}
 
 	return (
 		<form
 			className="flex flex-col w-[100%] md:w-4/5 lg:w-2/4 mx-auto items-center justify-center min-h-[85vh]"
-			onSubmit={handleSubmit}
+			onSubmit={handleSubmit(handleFormSubmit)}
 		>
 			<h1 className="capitalize text-3xl font-bold mb-10">Register</h1>
 			<h1 className="capitalize text-1xl font-bold mb-[4rem]">
 				welcome to OnTrac
 			</h1>
+			<div className="flex flex-col space-y-2 w-full mb-10">
+				<label className="border-b-2 pb-1 flex items-center w-full border-slate-700">
+					{' '}
+					<span className="uppercase inline-block mr-2 text-2xl">
+						<FaUserAlt />
+					</span>
+					<input
+						type="text"
+						id="name"
+						aria-invalid={errors.name ? 'true' : 'false'}
+						{...register('name', {
+							required: 'Please enter a valid username!',
+							minLength: 4,
+							maxLength: 15,
+						})}
+						value={formData.name}
+						onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+						title="Enter your full name"
+						placeholder="Full Name"
+						className="bg-transparent outline-0 border-0 w-full"
+					/>
+				</label>
+				{/* name input error message */}
+				{errors.name && (
+					<small className="text-yellow-500">{errors.name?.message}</small>
+				)}
+			</div>
+			<div className="flex flex-col space-y-2 w-full mb-10">
+				<label className="border-b-2 pb-1 flex items-center w-full border-slate-700">
+					{' '}
+					<span className="uppercase inline-block mr-2 text-2xl">
+						<HiOutlineMail />
+					</span>
+					<input
+						{...register('email', { required: 'Please enter a valid email!' })}
+						type="email"
+						id="email"
+						aria-invalid={errors.email ? 'true' : 'false'}
+						value={formData.email}
+						onChange={(e) =>
+							setFormData({ ...formData, email: e.target.value })
+						}
+						title="Enter your email"
+						placeholder="Email"
+						className="bg-transparent outline-0 border-0 w-full"
+					/>
+				</label>
+				{/* email input error message */}
+				{errors.email && (
+					<small className="text-yellow-500">{errors.email?.message}</small>
+				)}
+			</div>
 
-			<label className="border-b-2 pb-1 flex items-center w-full border-slate-700 mb-10">
-				{' '}
-				<span className="uppercase inline-block mr-2 text-2xl">
-					<FaUserAlt />
-				</span>
-				<input
-					required
-					type="text"
-					id="name"
-					value={name}
-					onChange={(e) => setName(e.target.value)}
-					title="Enter your full name"
-					placeholder="Full Name"
-					className="bg-transparent outline-0 border-0 w-[95%]"
-				/>
-			</label>
-
-			<label className="border-b-2 pb-1 flex items-center w-full border-slate-700 mb-10">
-				{' '}
-				<span className="uppercase inline-block mr-2 text-2xl">
-					<HiOutlineMail />
-				</span>
-				<input
-					required
-					type="email"
-					id="email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					title="Enter your email"
-					placeholder="Email"
-					className="bg-transparent outline-0 border-0 w-100"
-				/>
-			</label>
-			<label className="border-b-2 pb-1 flex items-center w-full border-slate-700 mb-10">
-				{' '}
-				<span className="uppercase inline-block mr-2 text-2xl">
-					<HiLockClosed />
-				</span>
-				<input
-					required
-					type={showPassword ? 'text' : 'password'}
-					id="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					title="Enter your password"
-					placeholder="Password"
-					className="bg-transparent w-[90%] outline-0 border-0"
-				/>
-				<div className="ml-auto mr-2 inline-block text-2xl">
-					{showPassword && (
-						<HiOutlineEye onClick={() => setShowPassword((prev) => !prev)} />
-					)}
-					{!showPassword && (
-						<HiOutlineEyeOff onClick={() => setShowPassword((prev) => !prev)} />
-					)}
-				</div>
-			</label>
+			<div className="flex flex-col space-y-2 w-full mb-10">
+				<label className="border-b-2 pb-1 flex relative items-center w-full border-slate-700">
+					{' '}
+					<span className="uppercase inline-block mr-2 text-2xl">
+						<HiLockClosed />
+					</span>
+					<input
+						{...register('password', {
+							required: 'Enter a strong password of at least 6 characters',
+							minLength: 6,
+						})}
+						type={showPassword ? 'text' : 'password'}
+						id="password"
+						value={formData.password}
+						onChange={(e) =>
+							setFormData({ ...formData, password: e.target.value })
+						}
+						title="Enter your password"
+						placeholder="Password"
+						className="bg-transparent w-full outline-0 border-0"
+					/>
+					<div className="ml-auto mr-2 inline-block cursor-pointer absolute right-0 text-2xl">
+						{showPassword && (
+							<HiOutlineEye onClick={() => setShowPassword((prev) => !prev)} />
+						)}
+						{!showPassword && (
+							<HiOutlineEyeOff
+								onClick={() => setShowPassword((prev) => !prev)}
+							/>
+						)}
+					</div>
+				</label>
+				{/* other password input errors */}
+				{errors.password && (
+					<small className="text-yellow-500">{errors.password?.message}</small>
+				)}
+				{/* password too short/long */}
+				{errors.password.type === 'minLength' && (
+					<small className="text-yellow-500">
+						Password should be at least 6 characters!
+					</small>
+				)}
+			</div>
 
 			{error && (
 				<ErrorModal>

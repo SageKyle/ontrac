@@ -49,7 +49,7 @@ export default function SignIn() {
 					className="bg-transparent w-[95%] outline-0 border-0"
 				/>
 			</label>
-			<label className="border-b-2 flex items-center pb-1 w-full border-slate-700 mb-10">
+			<label className="border-b-2 flex items-center relative pb-1 w-full border-slate-700 mb-10">
 				{' '}
 				<span className="uppercase text-2xl inline-block mr-2">
 					<HiLockClosed />
@@ -62,9 +62,9 @@ export default function SignIn() {
 					required
 					title="Enter your password"
 					placeholder="Password"
-					className="bg-transparent w-[90%] outline-0 border-0"
+					className="bg-transparent w-full outline-0 border-0"
 				/>
-				<div className="ml-auto mr-2 inline-block text-2xl">
+				<div className="ml-auto mr-2 inline-block text-2xl cursor-pointer absolute right-0">
 					{showPassword && (
 						<HiOutlineEye onClick={() => setShowPassword((prev) => !prev)} />
 					)}
