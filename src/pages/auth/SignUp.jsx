@@ -63,7 +63,7 @@ export default function SignUp() {
 						id="name"
 						aria-invalid={errors.name ? 'true' : 'false'}
 						{...register('name', {
-							required: 'Please enter a valid username!',
+							required: 'Enter a valid username!',
 							minLength: 4,
 							maxLength: 15,
 						})}
@@ -86,7 +86,7 @@ export default function SignUp() {
 						<HiOutlineMail />
 					</span>
 					<input
-						{...register('email', { required: 'Please enter a valid email!' })}
+						{...register('email', { required: 'Enter a valid email!' })}
 						type="email"
 						id="email"
 						aria-invalid={errors.email ? 'true' : 'false'}
@@ -142,7 +142,7 @@ export default function SignUp() {
 					<small className="text-yellow-500">{errors.password?.message}</small>
 				)}
 				{/* password too short/long */}
-				{errors.password.type === 'minLength' && (
+				{errors.password?.type === 'minLength' && (
 					<small className="text-yellow-500">
 						Password should be at least 6 characters!
 					</small>
