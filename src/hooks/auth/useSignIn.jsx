@@ -1,6 +1,7 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useAuthContext } from './useAuthContext';
 
 export default function useSignIn() {
@@ -44,6 +45,7 @@ export default function useSignIn() {
 			if (!isCancelled) {
 				console.error(err.message);
 				setError(err.message);
+				toast.error(err.message);
 				setIsPending(false);
 			}
 		}

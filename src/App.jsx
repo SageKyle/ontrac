@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,30 +8,33 @@ import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import CheckIfNotFirstTime from './utils/CheckIfNotFirstTime';
 import Welcome from './utils/Welcome';
+import ErrorBoundaryWrapper from './utils/modals/ErrorBoundary';
 // pages/routes
-import Docs from './components/Docs';
-import ForgotPassword from './pages/auth/ForgotPassword';
+const Docs = lazy(() => import('./components/Docs'));
+const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'));
+const SignUp = lazy(() => import('./pages/auth/SignUp'));
+const AddNewNote = lazy(() => import('./pages/notes/AddNewNote'));
+const AddTask = lazy(() => import('./pages/tasks/AddTask'));
+const FallbackRoute = lazy(() => import('./utils/routes/FallbackRoute'));
+
 import SignIn from './pages/auth/SignIn';
-import SignUp from './pages/auth/SignUp';
-import Home from './pages/home/Home';
-import AddNewNote from './pages/notes/AddNewNote';
-import AddTask from './pages/tasks/AddTask';
-import FallbackRoute from './utils/routes/FallbackRoute';
+
+const Home = lazy(() => import('./pages/home/Home'));
 // Tasks
-import AllTasks from './pages/tasks/AllTasks';
-import StarredTasks from './pages/tasks/StarredTasks';
-import UncompletedTasks from './pages/tasks/UncompletedTasks';
+const AllTasks = lazy(() => import('./pages/tasks/AllTasks'));
+const StarredTasks = lazy(() => import('./pages/tasks/StarredTasks'));
+const UncompletedTasks = lazy(() => import('./pages/tasks/UncompletedTasks'));
 // notes
-import AllNotes from './pages/notes/AllNotes';
-import EditNote from './pages/notes/EditNote';
-import StarredNotes from './pages/notes/StarredNotes';
+const AllNotes = lazy(() => import('./pages/notes/AllNotes'));
+const EditNote = lazy(() => import('./pages/notes/EditNote'));
+const StarredNotes = lazy(() => import('./pages/notes/StarredNotes'));
 // auth
 import { useAuthContext } from './hooks/auth/useAuthContext';
 import LoginRoute from './utils/routes/LoginRoute';
 import ProtectedRoute from './utils/routes/ProtectedRoute';
 // loader
 import Logo from './assets/ontrac.png';
-// import Loading from './utils/Loading';
+import Loading from './utils/Loading';
 // animation
 import { motion } from 'framer-motion';
 
@@ -63,11 +66,9 @@ function App() {
 
 	function toggleSidebar() {
 		setIsOpen((prev) => !prev);
-		// sidebarRef.current.classList.toggle('hidden');
 	}
 	function hideSidebar() {
 		setIsOpen(false);
-		// sidebarRef.current.classList.add('hidden');
 	}
 
 	return (
@@ -80,135 +81,113 @@ function App() {
 			<Router>
 				{/* welcome page */}
 				{!notFirstTime && <Welcome setNotFirstTime={setNotFirstTime} />}
-
-				{notFirstTime && (
+				{/* {notFirstTime && ( */}
+				{authIsReady && notFirstTime && (
 					<>
-						{authIsReady && (
-							<>
-								<main
-									className="p-10 pb-[4rem] w-full my-auto min-h-full"
-									// hide sidebar when user clicks outside the area
-									onClick={hideSidebar}
-								>
-									<Routes>
-										{/* logged in user */}
-										{/* home */}
-										<Route element={<ProtectedRoute user={user} />} path={'/'}>
-											<Route element={<Home />} path={'/'} />
-										</Route>
+						<main
+							className="p-10 pb-[4rem] w-full my-auto min-h-full"
+							// hide sidebar when user clicks outside the area
+							onClick={hideSidebar}
+						>
+							<Suspense fallback={<Loading />}>
+								<Routes>
+									{/* logged in user */}
+									{/* home */}
+									<Route element={<ProtectedRoute user={user} />} path={'/'}>
+										<Route element={<Home />} path={'/'} />
+									</Route>
 
-										{/* add note */}
-										<Route
-											element={<ProtectedRoute user={user} />}
-											path={'/new-note'}
-										>
-											<Route element={<AddNewNote />} path={'/new-note'} />
-										</Route>
-										{/* new Task */}
-										<Route
-											element={<ProtectedRoute user={user} />}
-											path={'/new-task'}
-										>
-											<Route element={<AddTask />} path={'/new-task'} />
-										</Route>
-										{/* uncompleted tasks */}
-										<Route
-											element={<ProtectedRoute user={user} />}
-											path={'/uncompleted-tasks'}
-										>
-											<Route
-												element={<UncompletedTasks />}
-												path={'/uncompleted-tasks'}
-											/>
-										</Route>
-										{/* starred tasks */}
-										<Route
-											element={<ProtectedRoute user={user} />}
-											path={'/starred-tasks'}
-										>
-											<Route
-												element={<StarredTasks />}
-												path={'/starred-tasks'}
-											/>
-										</Route>
-										{/* all tasks */}
-										<Route
-											element={<ProtectedRoute user={user} />}
-											path={'/tasks'}
-										>
-											<Route element={<AllTasks />} path={'/tasks'} />
-										</Route>
-										{/* all notes */}
-										<Route
-											element={<ProtectedRoute user={user} />}
-											path={'/notes'}
-										>
-											<Route element={<AllNotes />} path={'/notes'} />
-										</Route>
-										{/* starred notes */}
-										<Route
-											element={<ProtectedRoute user={user} />}
-											path={'/starred-notes'}
-										>
-											<Route
-												element={<StarredNotes />}
-												path={'/starred-notes'}
-											/>
-										</Route>
-										{/* edit notes */}
-										<Route
-											element={<ProtectedRoute user={user} />}
-											path={'/edit-note/:id'}
-										>
-											<Route element={<EditNote />} path={'/edit-note/:id'} />
-										</Route>
-
-										{/* logged out user */}
-										{/* login */}
-										<Route
-											element={<LoginRoute user={user} />}
-											path={'/sign-in'}
-										>
-											<Route element={<SignIn />} path={'/sign-in'} />
-										</Route>
-										{/* register */}
-										<Route
-											element={<LoginRoute user={user} />}
-											path={'/sign-up'}
-										>
-											<Route element={<SignUp />} path={'/sign-up'} />
-										</Route>
-										{/* forgot password */}
-										<Route
-											element={<LoginRoute user={user} />}
-											path={'/iforgot'}
-										>
-											<Route element={<ForgotPassword />} path={'/iforgot'} />
-										</Route>
-										{/* documentation */}
-										<Route element={<Docs />} path={'docs'} />
-										{/* fallback */}
-										<Route element={<FallbackRoute />} path={'*'} />
-									</Routes>
-								</main>
-								{/* sidebar */}
-								{isOpen && (
-									<motion.div
-										// ref={sidebarRef}
-										// className="hidden"
-										animate={isOpen ? 'open' : 'closed'}
-										variants={variants}
+									{/* add note */}
+									<Route
+										element={<ProtectedRoute user={user} />}
+										path={'/new-note'}
 									>
-										<Sidebar hideSidebar={hideSidebar} />
-									</motion.div>
-								)}
-								{/* navbar */}
-								<Navbar
-									toggleSidebar={toggleSidebar}
-									// hideSidebar={hideSidebar}
-								/>
-							</>
+										<Route element={<AddNewNote />} path={'/new-note'} />
+									</Route>
+									{/* new Task */}
+									<Route
+										element={<ProtectedRoute user={user} />}
+										path={'/new-task'}
+									>
+										<Route element={<AddTask />} path={'/new-task'} />
+									</Route>
+									{/* uncompleted tasks */}
+									<Route
+										element={<ProtectedRoute user={user} />}
+										path={'/uncompleted-tasks'}
+									>
+										<Route
+											element={<UncompletedTasks />}
+											path={'/uncompleted-tasks'}
+										/>
+									</Route>
+									{/* starred tasks */}
+									<Route
+										element={<ProtectedRoute user={user} />}
+										path={'/starred-tasks'}
+									>
+										<Route element={<StarredTasks />} path={'/starred-tasks'} />
+									</Route>
+									{/* all tasks */}
+									<Route
+										element={<ProtectedRoute user={user} />}
+										path={'/tasks'}
+									>
+										<Route element={<AllTasks />} path={'/tasks'} />
+									</Route>
+									{/* all notes */}
+									<Route
+										element={<ProtectedRoute user={user} />}
+										path={'/notes'}
+									>
+										<Route element={<AllNotes />} path={'/notes'} />
+									</Route>
+									{/* starred notes */}
+									<Route
+										element={<ProtectedRoute user={user} />}
+										path={'/starred-notes'}
+									>
+										<Route element={<StarredNotes />} path={'/starred-notes'} />
+									</Route>
+									{/* edit notes */}
+									<Route
+										element={<ProtectedRoute user={user} />}
+										path={'/edit-note/:id'}
+									>
+										<Route element={<EditNote />} path={'/edit-note/:id'} />
+									</Route>
+
+									{/* logged out user */}
+									{/* login */}
+									<Route element={<LoginRoute user={user} />} path={'/sign-in'}>
+										<Route element={<SignIn />} path={'/sign-in'} />
+									</Route>
+									{/* register */}
+									<Route element={<LoginRoute user={user} />} path={'/sign-up'}>
+										<Route element={<SignUp />} path={'/sign-up'} />
+									</Route>
+									{/* forgot password */}
+									<Route element={<LoginRoute user={user} />} path={'/iforgot'}>
+										<Route element={<ForgotPassword />} path={'/iforgot'} />
+									</Route>
+									{/* documentation */}
+									<Route element={<Docs />} path={'docs'} />
+									{/* fallback */}
+									<Route element={<FallbackRoute />} path={'*'} />
+								</Routes>
+							</Suspense>
+						</main>
+						{/* sidebar */}
+						{user && isOpen && (
+							<motion.div
+								animate={isOpen ? 'open' : 'closed'}
+								variants={variants}
+							>
+								<Sidebar hideSidebar={hideSidebar} />
+							</motion.div>
 						)}
+						{/* navbar */}
+						{user && <Navbar toggleSidebar={toggleSidebar} />}
 					</>
 				)}
 			</Router>
@@ -228,4 +207,4 @@ function App() {
 	);
 }
 
-export default App;
+export default ErrorBoundaryWrapper(App);

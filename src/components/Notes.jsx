@@ -1,7 +1,7 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { Link } from 'react-router-dom';
 import useDeleteDoc from '../hooks/db/useDeleteDoc';
-// import Loading from '../utils/Loading';
+import Loading from '../utils/Loading';
 import DeleteConfirmationModal from '../utils/modals/DeleteConfirmationModal';
 import ErrorModal from '../utils/modals/ErrorModal';
 
@@ -26,7 +26,8 @@ export default function Notes({ notes, isPending, error }) {
 					modalProp.open ? 'pointer-events-none opacity-40' : ''
 				} mb-4 flex items-start justify-start flex-wrap`}
 			>
-				{/* {isPending && <Loading />} */}
+				{isPending && <Loading />}
+
 				{!notes && <p>There's nothing here!</p>}
 				{error && (
 					<ErrorModal>
