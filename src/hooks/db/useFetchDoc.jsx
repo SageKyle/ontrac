@@ -9,13 +9,13 @@ import {
 import { useEffect, useState } from 'react';
 import { db } from '../../firebase/firebase.config';
 
-// auth
-const auth = getAuth();
-
 export default function useFetchDoc(firestoreCollection) {
 	const [data, setData] = useState(null);
 	const [error, setError] = useState(null);
 	const [isPending, setIsPending] = useState(true);
+
+	// auth
+	const auth = getAuth();
 
 	useEffect(() => {
 		// fetch all tasks
