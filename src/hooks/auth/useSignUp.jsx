@@ -1,6 +1,8 @@
 import {
+	EmailAuthProvider,
 	createUserWithEmailAndPassword,
 	getAuth,
+	linkWithCredential,
 	updateProfile,
 } from 'firebase/auth';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
@@ -12,25 +14,39 @@ export default function useSignUp() {
 	const [isCancelled, setIsCancelled] = useState(false);
 	const [isPending, setIsPending] = useState(false);
 	const [error, setError] = useState(null);
+	const [user, setUser] = useState(null);
 	const auth = getAuth();
 	const { dispatch } = useAuthContext();
 
-	async function signUp(email, password, name) {
+	async function signUp(email, password, name, upgrade) {
 		setIsPending(true);
 		setError(null);
 		try {
-			// signup user
-			const userCredential = await createUserWithEmailAndPassword(
-				auth,
-				email,
-				password
-			);
+			// check if there's an anonymous user data
+			// also check if user wants to upgrade anonymous account
+			// if yes, upgrade the account to a registered user
+			if (auth.currentUser.isAnonymous && upgrade) {
+				const credential = EmailAuthProvider.credential(email, password);
+				const userCredential = await linkWithCredential(
+					auth.currentUser,
+					credential
+				);
+				setUser(userCredential.user);
+			} else {
+				// signup user to a new account
+				const userCredential = await createUserWithEmailAndPassword(
+					auth,
+					email,
+					password
+				);
+
+				setUser(userCredential.user);
+			}
 			// add a username
 			await updateProfile(auth.currentUser, { displayName: name });
-			const user = userCredential.user;
 
 			// add user info to db
-			await setDoc(doc(db, 'users', user.uid), {
+			await setDoc(doc(db, 'users', user?.uid), {
 				name: user.displayName,
 				email: user.email,
 				timeStamp: serverTimestamp(),

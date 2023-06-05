@@ -1,3 +1,4 @@
+import { getAuth } from 'firebase/auth';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -23,6 +24,8 @@ export default function SignUp() {
 		password: '',
 	});
 	const [showPassword, setShowPassword] = useState(false);
+	const [isChecked, setIsChecked] = useState(true);
+	const auth = getAuth();
 
 	const {
 		register,
@@ -36,7 +39,7 @@ export default function SignUp() {
 	// Signup user
 	async function handleFormSubmit() {
 		// e.preventDefault();
-		await signUp(formData.email, formData.password, formData.name);
+		await signUp(formData.email, formData.password, formData.name, isChecked);
 		if (!error) {
 			setTimeout(() => {
 				navigate('/');
@@ -163,6 +166,26 @@ export default function SignUp() {
 						</small>
 					)}
 				</div>
+
+				{/* display a checkbox if it's an anonymous user */}
+				{auth?.currentUser?.isAnonymous && (
+					<div className="flex space-y-2 w-full items-start mb-10">
+						<label className="pb-1 flex items-center space-x-2">
+							{' '}
+							<input
+								type="checkbox"
+								id="upgrade-anonymous"
+								checked={isChecked}
+								onChange={() => setIsChecked((prev) => !prev)}
+								title="Continue from where you stopped"
+								className="h-10"
+							/>
+							<span className="inline-block">
+								Continue from where you stopped
+							</span>
+						</label>
+					</div>
+				)}
 
 				{error && (
 					<ErrorModal>
