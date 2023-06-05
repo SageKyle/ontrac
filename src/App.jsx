@@ -178,7 +178,7 @@ function App() {
 							</Suspense>
 						</main>
 						{/* sidebar */}
-						{user && isOpen && (
+						{(user || user?.isAnonymous) && isOpen && (
 							<motion.div
 								animate={isOpen ? 'open' : 'closed'}
 								variants={variants}
@@ -187,7 +187,9 @@ function App() {
 							</motion.div>
 						)}
 						{/* navbar */}
-						{user && <Navbar toggleSidebar={toggleSidebar} />}
+						{(user || user?.isAnonymous) && (
+							<Navbar toggleSidebar={toggleSidebar} />
+						)}
 					</>
 				)}
 			</Router>

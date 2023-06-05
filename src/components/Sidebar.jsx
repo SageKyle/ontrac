@@ -27,7 +27,7 @@ export default function Sidebar({ hideSidebar }) {
 
 	return (
 		<aside className="fixed flex capitalize flex-col shadow right-0 top-0 bg-[#011d33] w-[50%] md:w-[30%] h-[90vh] overflow-y-auto z-50">
-			{user && (
+			{user && !user?.isAnonymous && (
 				<section className="flex flex-col relative items-start my-4 max-h-4/5">
 					{/* user profile */}
 					<div className="flex flex-col items-center mx-auto justify-center w-full mb-4 pb-4 border-b-[1px] border-slate-400">
@@ -123,7 +123,7 @@ export default function Sidebar({ hideSidebar }) {
 				<span>About OnTrac</span>
 			</NavLink>
 			{/* no logged in user */}
-			{!user && (
+			{(!user || user?.isAnonymous) && (
 				<section className="p-4 flex flex-col mb-2 h-4/5">
 					<Link to={'/sign-in'} className="hover:underline text-xl mb-2">
 						login
@@ -134,7 +134,7 @@ export default function Sidebar({ hideSidebar }) {
 				</section>
 			)}
 			{/* logout */}
-			{user && (
+			{user && !user?.isAnonymous && (
 				<div className="w-full mb-8 mt-auto self-start p-4 border-t-[1px] border-slate-400">
 					{!isPending && (
 						<button onClick={handleLogout} className="hover:underline text-xl">
