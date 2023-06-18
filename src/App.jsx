@@ -1,7 +1,9 @@
 import { Suspense, lazy, useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+// notification
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import './App.css';
 // components/utils
 import Navbar from './components/Navbar';

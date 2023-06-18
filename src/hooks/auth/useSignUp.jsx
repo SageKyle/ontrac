@@ -27,11 +27,15 @@ export default function useSignUp() {
 			// if yes, upgrade the account to a registered user
 			if (auth.currentUser.isAnonymous && upgrade) {
 				const credential = EmailAuthProvider.credential(email, password);
-				const userCredential = await linkWithCredential(
-					auth.currentUser,
-					credential
-				);
-				setUser(userCredential.user);
+				try {
+					const userCredential = await linkWithCredential(
+						auth.currentUser,
+						credential
+					);
+					setUser(userCredential.user);
+				} catch (err) {
+					setError(err.message);
+				}
 			} else {
 				// signup user to a new account
 				const userCredential = await createUserWithEmailAndPassword(

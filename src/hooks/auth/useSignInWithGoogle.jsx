@@ -2,6 +2,7 @@ import {
 	GoogleAuthProvider,
 	getAuth,
 	getRedirectResult,
+	linkWithRedirect,
 	signInWithRedirect,
 } from 'firebase/auth';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
@@ -13,14 +14,28 @@ export default function useSignInWithGoogle() {
 	const [isCancelled, setIsCancelled] = useState(false);
 	const [isPending, setIsPending] = useState(false);
 	const [error, setError] = useState(null);
+	const [user, setUser] = useState(null);
 	const auth = getAuth();
 	const provider = new GoogleAuthProvider();
 	const { dispatch } = useAuthContext();
 
-	async function signInWithGoogle() {
+	async function signInWithGoogle(upgrade) {
 		setIsPending(true);
 		setError(null);
 		try {
+			// check if there's an anonymous user data
+			// also check if user wants to upgrade anonymous account
+			// if yes, upgrade the account to a registered user
+			if (auth.currentUser.isAnonymous && upgrade) {
+				await linkWithRedirect(auth.currentUser, provider);
+
+				const result = await getRedirectResult(auth);
+				const credential = GoogleAuthProvider.credentialFromResult(result);
+
+				if (credential) {
+					setUser(result.user);
+				}
+			}
 			// sign in user
 			const userCredential = await signInWithRedirect(auth, provider);
 
