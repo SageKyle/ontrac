@@ -2,7 +2,6 @@ import { useRef } from 'react';
 import FetchTasks from '../../utils/tasks/FetchTasks';
 import AllNotes from '../notes/AllNotes';
 import AllTasks from '../tasks/AllTasks';
-import StarredTasks from '../tasks/StarredTasks';
 import UncompletedTasks from '../tasks/UncompletedTasks';
 
 export default function Home() {
@@ -25,14 +24,9 @@ export default function Home() {
 					You have {numberOfUncompletedTasks} uncompleted tasks
 				</h2>
 				{/* Uncompleted Tasks */}
-				<div className="mb-4 border-b-2 border-slate-500 w-full">
+				<div className="mb-4 w-full">
 					<UncompletedTasks />
 				</div>
-				{/* Starred Tasks */}
-				<div className="">
-					<StarredTasks />
-				</div>
-
 				<h4
 					className="text-[#fad6a5] cursor-pointer m-2 hover:underline"
 					ref={toggleRef}
