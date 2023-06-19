@@ -2,7 +2,7 @@ import Tasks from '../../components/Tasks';
 import FetchTasks from '../../utils/tasks/FetchTasks';
 
 export default function StarredTasks() {
-	const { StarredTasks, isPending, error } = FetchTasks();
+	const { starredTasks, isPending, error } = FetchTasks();
 
 	return (
 		<>
@@ -10,10 +10,10 @@ export default function StarredTasks() {
 				Your important tasks
 			</h4>
 			<Tasks
-				tasks={StarredTasks}
+				tasks={starredTasks}
 				isPending={isPending}
 				error={error}
-				isEmpty={''}
+				isEmpty={'There is nothing here!'}
 			/>
 		</>
 	);
