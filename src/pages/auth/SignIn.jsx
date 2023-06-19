@@ -6,7 +6,6 @@ import AlternativeAuth from '../../components/AlternativeAuth';
 import useSignIn from '../../hooks/auth/useSignIn';
 import ErrorModal from '../../utils/modals/ErrorModal';
 // icons
-import { BsBoxArrowUpRight } from 'react-icons/bs';
 import {
 	HiLockClosed,
 	HiOutlineEye,
@@ -120,13 +119,7 @@ export default function SignIn() {
 						</small>
 					)}
 				</div>
-				<Link
-					to={'/iforgot'}
-					className="w-auto mx-auto justify-center items-center capitalize mt-2 flex  md:hover:text-gray-300"
-				>
-					<BsBoxArrowUpRight className="inline-block mr-2 text-sm" />
-					Forgot password?
-				</Link>
+
 				{error && (
 					<ErrorModal>
 						<p>{error}</p>
@@ -146,12 +139,22 @@ export default function SignIn() {
 						login
 					</button>
 				)}
-				<p className="mt-4">
-					Don't have an account yet?{' '}
-					<Link to={'/sign-up'} className="text-[#F9A826]">
-						Sign Up
+				<div className="flex gap-2 items-center justify-center text-[#F9A826]">
+					<Link
+						to={'/iforgot'}
+						className="capitalize md:hover:text-gray-300 transition ease-in-out"
+					>
+						Forgot password?
 					</Link>
-				</p>
+					{/* dot */}
+					<span className="inline-block after:w-1 after:h-1 after:bg-slate-200 after:flex after:rounded-full"></span>
+					<Link
+						to={'/sign-up'}
+						className="md:hover:text-gray-300 transition ease-in-out"
+					>
+						Register
+					</Link>
+				</div>
 				<AlternativeAuth />
 			</form>
 		</main>
