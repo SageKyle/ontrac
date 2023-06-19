@@ -12,7 +12,7 @@ import {
 import { MdOutlineNotificationAdd } from 'react-icons/md';
 // loaders
 import LoadingIcon from '../../assets/Rolling-spinner.svg';
-import Loading from '../../utils/Loading';
+// import Loading from '../../utils/Loading';
 
 // Custom hooks
 import useFetchSingleDoc from '../../hooks/db/useFetchSingleDoc';
@@ -40,7 +40,7 @@ export default function EditNote() {
 		return () => {
 			fetcDoc();
 		};
-	}, [id]);
+	}, []);
 
 	// Speech to Text
 	const { listenContinuously, listening, stopListening, transcript } =
@@ -71,9 +71,14 @@ export default function EditNote() {
 	return (
 		<>
 			{/* show fetching state */}
-			{fetching && <Loading />}
+			{/* {fetching && <Loading />} */}
 			{!fetching && (
-				<section className="text-gray-200 h-4/5 max-h-[80vh] md:w-4/5 lg:w-2/4 mx-auto">
+				<section
+					onKeyDown={(e) => {
+						if (e.key === 'Enter' && e.ctrlKey) handleSubmit();
+					}}
+					className="text-gray-200 h-4/5 max-h-[80vh] md:w-4/5 lg:w-2/4 mx-auto"
+				>
 					<nav className="flex justify-between items-center mb-6">
 						{/* arrow left */}
 						<Link to={'/'} className="cursor-pointer" title="Home">
