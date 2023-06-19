@@ -2,6 +2,7 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { toast } from 'react-toastify';
 import useUpdateDoc from '../hooks/db/useUpdateDoc';
 // import Loading from '../utils/Loading';
+import { BsStarFill } from 'react-icons/bs';
 import ErrorModal from '../utils/modals/ErrorModal';
 
 export default function Tasks({ tasks, isPending, error, isEmpty }) {
@@ -51,13 +52,16 @@ export default function Tasks({ tasks, isPending, error, isEmpty }) {
 							>
 								{task.task}
 							</h4>
+							{task.starred && (
+								<BsStarFill className="text-[#fad6a5] absolute top-2 right-2" />
+							)}
 
-							<p className="text-sm">{task.note}</p>
-							<p>
+							{/* <p className="text-sm">{task.note}</p> */}
+							<small className="text-cyan-200">
 								{formatDistanceToNow(new Date(task.dueDate), {
 									addSuffix: true,
 								})}
-							</p>
+							</small>
 						</div>
 					))}
 			</section>
