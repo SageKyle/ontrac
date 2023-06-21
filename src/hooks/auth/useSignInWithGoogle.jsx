@@ -19,6 +19,8 @@ export default function useSignInWithGoogle() {
 	const provider = new GoogleAuthProvider();
 	const { dispatch } = useAuthContext();
 
+	const isAnnon = auth?.currentUser?.isAnonymous;
+
 	async function signInWithGoogle(upgrade) {
 		setIsPending(true);
 		setError(null);
@@ -26,7 +28,7 @@ export default function useSignInWithGoogle() {
 			// check if there's an anonymous user data
 			// also check if user wants to upgrade anonymous account
 			// if yes, upgrade the account to a registered user
-			if (auth.currentUser.isAnonymous && upgrade) {
+			if (isAnnon && upgrade) {
 				await linkWithRedirect(auth.currentUser, provider);
 
 				const result = await getRedirectResult(auth);
@@ -35,13 +37,15 @@ export default function useSignInWithGoogle() {
 				if (credential) {
 					setUser(result.user);
 				}
+			} else {
+				console.log('button clicked');
+				// sign in user
+				await signInWithRedirect(auth, provider);
+
+				const result = await getRedirectResult(auth);
+
+				setUser(result.user);
 			}
-			// sign in user
-			const userCredential = await signInWithRedirect(auth, provider);
-
-			const result = await getRedirectResult(auth);
-
-			const user = result.user;
 
 			console.log(user);
 

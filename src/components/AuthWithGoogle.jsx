@@ -7,14 +7,6 @@ export default function AuthWithGoogle() {
 
 	return (
 		<>
-			{/* <div className="flex w-full justify-center item-center my-6">
-				<span className="uppercase text-2xl">or</span>
-			</div>
-			{error && (
-				<ErrorModal>
-					<p>{error}</p>
-				</ErrorModal>
-			)} */}
 			<button
 				title="Sign in with Google"
 				type="button"
