@@ -1,20 +1,20 @@
-import { getAuth } from 'firebase/auth';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import useSignUp from '../../hooks/auth/useSignUp';
+import { getAuth } from 'firebase/auth'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom'
+import useSignUp from '../../hooks/auth/useSignUp'
 
-import AlternativeAuth from '../../components/AlternativeAuth';
-import ErrorModal from '../../utils/modals/ErrorModal';
+import AlternativeAuth from '../../components/AlternativeAuth'
+import ErrorModal from '../../utils/modals/ErrorModal'
 // icons
-import { FaUserAlt } from 'react-icons/fa';
+import { FaUserAlt } from 'react-icons/fa'
 import {
 	HiLockClosed,
 	HiOutlineEye,
 	HiOutlineEyeOff,
 	HiOutlineMail,
-} from 'react-icons/hi';
-import Avatar from '../../assets/login-avatar.png';
+} from 'react-icons/hi'
+import Avatar from '../../assets/login-avatar.png'
 
 export default function SignUp() {
 	// form states
@@ -22,28 +22,28 @@ export default function SignUp() {
 		name: '',
 		email: '',
 		password: '',
-	});
-	const [showPassword, setShowPassword] = useState(false);
-	const [isChecked, setIsChecked] = useState(true);
-	const auth = getAuth();
+	})
+	const [showPassword, setShowPassword] = useState(false)
+	const [isChecked, setIsChecked] = useState(true)
+	const auth = getAuth()
 
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm();
+	} = useForm()
 
-	const navigate = useNavigate();
-	const { signUp, isPending, error } = useSignUp();
+	const navigate = useNavigate()
+	const { signUp, isPending, error } = useSignUp()
 
 	// Signup user
 	async function handleFormSubmit() {
 		// e.preventDefault();
-		await signUp(formData.email, formData.password, formData.name, isChecked);
+		await signUp(formData.email, formData.password, formData.name, isChecked)
 		if (!error) {
 			setTimeout(() => {
-				navigate('/');
-			}, 3000);
+				navigate('/')
+			}, 3000)
 		}
 	}
 
@@ -201,7 +201,7 @@ export default function SignUp() {
 					</button>
 				)}
 				{!isPending && (
-					<button className="px-6 py-3 my-4 rounded w-full bg-emerald-500 text-white transition-all ease-in-out duration-300 md:hover:bg-transparent border-2 border-emerald-500 capitalize text-2xl ">
+					<button className="px-6 py-3 my-4 rounded w-full bg-emerald-500 text-white transition-all ease-in-out duration-300 md:hover:bg-emerald-600 capitalize text-2xl ">
 						get started
 					</button>
 				)}
@@ -214,7 +214,7 @@ export default function SignUp() {
 				<AlternativeAuth />
 			</form>
 		</article>
-	);
+	)
 }
 
 // TODO verify users once they signup to prevent spamming

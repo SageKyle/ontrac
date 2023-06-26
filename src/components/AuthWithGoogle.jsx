@@ -11,10 +11,10 @@ export default function AuthWithGoogle() {
 				title="Sign in with Google"
 				type="button"
 				onClick={signInWithGoogle}
-				className="w-full p-2 flex justify-center items-center gap-4  border-2 border-white bg-white text-slate-600 rounded-full lg:rounded hover:bg-transparent hover:text-white transition ease-in-out"
+				className="w-full p-2 flex justify-center items-center gap-4  bg-slate-50 text-slate-600 rounded-full lg:rounded hover:bg-slate-200 transition ease-in-out"
 			>
 				<FcGoogle className="inline-block text-3xl" />
-				<span className="capitalize font-semibold ">
+				<span className="capitalize font-semibold lg:text-xl">
 					<span className="lg:hidden">continue with</span> google
 				</span>
 			</button>

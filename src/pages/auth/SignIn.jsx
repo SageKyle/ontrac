@@ -1,39 +1,39 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 
-import { Link } from 'react-router-dom';
-import AlternativeAuth from '../../components/AlternativeAuth';
-import useSignIn from '../../hooks/auth/useSignIn';
-import ErrorModal from '../../utils/modals/ErrorModal';
+import { Link } from 'react-router-dom'
+import AlternativeAuth from '../../components/AlternativeAuth'
+import useSignIn from '../../hooks/auth/useSignIn'
+import ErrorModal from '../../utils/modals/ErrorModal'
 // icons
 import {
 	HiLockClosed,
 	HiOutlineEye,
 	HiOutlineEyeOff,
 	HiOutlineMail,
-} from 'react-icons/hi';
-import Avatar from '../../assets/login-avatar.png';
+} from 'react-icons/hi'
+import Avatar from '../../assets/login-avatar.png'
 
 export default function SignIn() {
 	// form states
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
-	});
-	const [showPassword, setShowPassword] = useState(false);
+	})
+	const [showPassword, setShowPassword] = useState(false)
 
-	const { signIn, isPending, error } = useSignIn();
+	const { signIn, isPending, error } = useSignIn()
 
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm();
+	} = useForm()
 
 	// Sign in user
 	async function handleFormSubmit() {
 		// e.preventDefault();
-		await signIn(formData.email, formData.password);
+		await signIn(formData.email, formData.password)
 	}
 
 	return (
@@ -135,7 +135,7 @@ export default function SignIn() {
 					</button>
 				)}
 				{!isPending && (
-					<button className="px-6 py-3 my-4 w-full rounded transition-all ease-in-out duration-300 bg-emerald-500 text-white md:hover:bg-transparent border-2 border-emerald-500 capitalize text-2xl ">
+					<button className="px-6 py-3 my-4 w-full rounded transition-all ease-in-out duration-300 bg-emerald-500 text-white md:hover:bg-emerald-600 capitalize text-2xl ">
 						login
 					</button>
 				)}
@@ -158,5 +158,5 @@ export default function SignIn() {
 				<AlternativeAuth />
 			</form>
 		</main>
-	);
+	)
 }
