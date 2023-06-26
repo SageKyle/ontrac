@@ -1,51 +1,51 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import useAddDoc from '../../hooks/db/useAddDoc';
-import PushNotification from '../../utils/PushNotification';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import useAddDoc from '../../hooks/db/useAddDoc'
+import PushNotification from '../../utils/PushNotification'
 // icons
 import {
 	BsCheck2,
 	BsFillArrowLeftCircleFill,
 	BsStar,
 	BsStarFill,
-} from 'react-icons/bs';
-import { MdOutlineNotificationAdd } from 'react-icons/md';
-import LoadingIcon from '../../assets/Rolling-spinner.svg';
+} from 'react-icons/bs'
+import { MdOutlineNotificationAdd } from 'react-icons/md'
+import LoadingIcon from '../../assets/Rolling-spinner.svg'
 
 export default function AddTask() {
 	// Form States
-	const [task, setTask] = useState('');
-	const [dueDate, setdueDate] = useState('');
-	const [starred, setStarred] = useState(false);
+	const [task, setTask] = useState('')
+	const [dueDate, setdueDate] = useState('')
+	const [starred, setStarred] = useState(false)
 
-	const { addDocument, error, isPending } = useAddDoc('tasks');
+	const { addDocument, error, isPending } = useAddDoc('tasks')
 
 	function sendNotification() {
-		const notice = 'do more work';
-		const tag = 'task';
-		PushNotification(notice, tag);
+		const notice = 'do more work'
+		const tag = 'task'
+		PushNotification(notice, tag)
 	}
 
 	// Form Actions
 	const handleSubmit = async () => {
 		if (task === '') {
-			toast.error('Oops! You forgot to add a task...');
-			return null;
+			toast.error('Oops! You forgot to add a task...')
+			return null
 		}
 		if (dueDate === '') {
-			toast.error('Oops! You forgot to add a date...');
-			return null;
+			toast.error('Oops! You forgot to add a date...')
+			return null
 		}
-		const doc = { task, dueDate, starred, completed: false };
-		await addDocument(doc);
-	};
+		const doc = { task, dueDate, starred, completed: false }
+		await addDocument(doc)
+	}
 
 	return (
 		<section
 			// submit the form when user press ctrl + Enter
 			onKeyDown={(e) => {
-				if (e.key === 'Enter' && e.ctrlKey) handleSubmit();
+				if (e.key === 'Enter' && e.ctrlKey) handleSubmit()
 			}}
 			className="max-h-4/5 md:w-4/5 lg:w-2/4 mx-auto pt-auto"
 		>
@@ -71,13 +71,13 @@ export default function AddTask() {
 						</span>
 					)}
 					{/* notification */}
-					<span
+					{/* <span
 						className="inline-block mr-4 cursor-pointer"
 						title="Enable notification"
 						onClick={sendNotification}
 					>
 						<MdOutlineNotificationAdd className="text-2xl" />
-					</span>
+					</span> */}
 					{/* star */}
 					<span
 						className=" cursor-pointer"
@@ -121,5 +121,5 @@ export default function AddTask() {
 				</label>
 			</form>
 		</section>
-	);
+	)
 }

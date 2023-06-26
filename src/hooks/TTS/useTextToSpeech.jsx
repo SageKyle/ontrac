@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 import SpeechRecognition, {
 	useSpeechRecognition,
-} from 'react-speech-recognition';
+} from 'react-speech-recognition'
 
 // export default function useSpeechToText() {
 // 	const { transcript, listening } = useSpeechRecognition();
@@ -24,29 +24,29 @@ import SpeechRecognition, {
 // 	return { listening, stopListening, listenContinuously, transcript };
 // }
 
-function useSpeechToText() {
-	const [isListening, setIsListening] = useState(false);
-	const { transcript, resetTranscript } = useSpeechRecognition();
+export default function useSpeechToText() {
+	const [isListening, setIsListening] = useState(false)
+	const { transcript, resetTranscript } = useSpeechRecognition()
 
 	function handleStartListening() {
-		setIsListening(true);
-		SpeechRecognition.startListening({ continuous: true, language: 'en-US' });
+		setIsListening(true)
+		SpeechRecognition.startListening({ continuous: true, language: 'en-US' })
 		// SpeechRecognition.startListening();
 	}
 
 	function handleStopListening() {
-		setIsListening(false);
-		resetTranscript();
-		SpeechRecognition.stopListening();
+		setIsListening(false)
+		resetTranscript()
+		SpeechRecognition.stopListening()
 	}
 
 	useEffect(() => {
 		if (isListening) {
-			handleStartListening();
+			handleStartListening()
 		} else {
-			handleStopListening();
+			handleStopListening()
 		}
-	}, [isListening]);
+	}, [isListening])
 
 	return {
 		isListening,
@@ -54,9 +54,7 @@ function useSpeechToText() {
 		stopListening: handleStopListening,
 		transcript,
 		resetTranscript,
-	};
+	}
 }
-
-export default useSpeechToText;
 
 // TODO research/fix

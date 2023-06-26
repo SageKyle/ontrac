@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 // React icons
 import {
 	BsCheck2,
@@ -8,65 +8,65 @@ import {
 	BsFillMicFill,
 	BsStar,
 	BsStarFill,
-} from 'react-icons/bs';
-import { MdOutlineNotificationAdd } from 'react-icons/md';
+} from 'react-icons/bs'
+import { MdOutlineNotificationAdd } from 'react-icons/md'
 // loaders
-import LoadingIcon from '../../assets/Rolling-spinner.svg';
+import LoadingIcon from '../../assets/Rolling-spinner.svg'
 // import Loading from '../../utils/Loading';
 
 // Custom hooks
-import useFetchSingleDoc from '../../hooks/db/useFetchSingleDoc';
-import useUpdateDoc from '../../hooks/db/useUpdateDoc';
-import useSpeechToText from '../../hooks/TTS/useTextToSpeech';
+import useFetchSingleDoc from '../../hooks/db/useFetchSingleDoc'
+import useUpdateDoc from '../../hooks/db/useUpdateDoc'
+import useSpeechToText from '../../hooks/TTS/useTextToSpeech'
 
 export default function EditNote() {
-	const { id } = useParams();
-	const { updateDocument, isPending, error } = useUpdateDoc('notes');
-	const { fetchSingleDoc } = useFetchSingleDoc('notes');
-	const [fetching, setFetching] = useState(true);
+	const { id } = useParams()
+	const { updateDocument, isPending, error } = useUpdateDoc('notes')
+	const { fetchSingleDoc } = useFetchSingleDoc('notes')
+	const [fetching, setFetching] = useState(true)
 
 	// Form States
-	const [formData, setFormData] = useState(null);
+	const [formData, setFormData] = useState(null)
 
 	useEffect(() => {
-		setFetching(true);
+		setFetching(true)
 
 		async function fetcDoc() {
-			const doc = await fetchSingleDoc(id);
-			setFormData(doc[0]);
-			setFetching(false);
+			const doc = await fetchSingleDoc(id)
+			setFormData(doc[0])
+			setFetching(false)
 		}
 
 		return () => {
-			fetcDoc();
-		};
-	}, []);
+			fetcDoc()
+		}
+	}, [])
 
 	// Speech to Text
 	const { listenContinuously, listening, stopListening, transcript } =
-		useSpeechToText();
+		useSpeechToText()
 
 	// Submit Form
 	const handleSubmit = async () => {
 		if (formData.note === '') {
-			toast.error('Oops! Your note is empty...');
-			return null;
+			toast.error('Oops! Your note is empty...')
+			return null
 		}
 
-		await updateDocument(id, formData);
-	};
+		await updateDocument(id, formData)
+	}
 
 	const handleSpeechToText = () => {
 		if (!listening) {
-			listenContinuously();
-			setFormData({ ...formData, note: note + transcript });
-			toast.info('mic is on');
+			listenContinuously()
+			setFormData({ ...formData, note: note + transcript })
+			toast.info('mic is on')
 		}
 		if (listening) {
-			stopListening();
-			toast.info('mic is off');
+			stopListening()
+			toast.info('mic is off')
 		}
-	};
+	}
 
 	return (
 		<>
@@ -75,7 +75,7 @@ export default function EditNote() {
 			{!fetching && (
 				<section
 					onKeyDown={(e) => {
-						if (e.key === 'Enter' && e.ctrlKey) handleSubmit();
+						if (e.key === 'Enter' && e.ctrlKey) handleSubmit()
 					}}
 					className="text-gray-200 h-4/5 max-h-[80vh] md:w-4/5 lg:w-2/4 mx-auto"
 				>
@@ -101,12 +101,12 @@ export default function EditNote() {
 								</span>
 							)}
 							{/* notification */}
-							<span
+							{/* <span
 								className="inline-block mr-4 cursor-pointer"
 								title="Enable notification"
 							>
 								<MdOutlineNotificationAdd className="text-2xl" />
-							</span>
+							</span> */}
 							{/* star */}
 							<span
 								className=" cursor-pointer"
@@ -166,5 +166,5 @@ export default function EditNote() {
 				</section>
 			)}
 		</>
-	);
+	)
 }

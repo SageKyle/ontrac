@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 // React icons
 import {
 	BsCheck2,
@@ -9,16 +9,16 @@ import {
 	BsMicMuteFill,
 	BsStar,
 	BsStarFill,
-} from 'react-icons/bs';
-import { MdOutlineNotificationAdd } from 'react-icons/md';
-import LoadingIcon from '../../assets/Rolling-spinner.svg';
+} from 'react-icons/bs'
+import { MdOutlineNotificationAdd } from 'react-icons/md'
+import LoadingIcon from '../../assets/Rolling-spinner.svg'
 
 // Custom hooks
-import useAddDoc from '../../hooks/db/useAddDoc';
-import useSpeechToText from '../../hooks/TTS/useTextToSpeech';
+import useAddDoc from '../../hooks/db/useAddDoc'
+import useSpeechToText from '../../hooks/TTS/useTextToSpeech'
 
 export default function AddNewNote() {
-	const { addDocument, error, isPending } = useAddDoc('notes');
+	const { addDocument, error, isPending } = useAddDoc('notes')
 
 	// Speech to Text
 	// const { listenContinuously, listening, stopListening, transcript } =
@@ -30,25 +30,25 @@ export default function AddNewNote() {
 		stopListening,
 		transcript,
 		resetTranscript,
-	} = useSpeechToText();
+	} = useSpeechToText()
 
 	// Form States
-	const [title, setTitle] = useState('');
-	const [note, setNote] = useState('');
-	const [starred, setStarred] = useState(false);
+	const [title, setTitle] = useState('')
+	const [note, setNote] = useState('')
+	const [starred, setStarred] = useState(false)
 
 	// Form Actions
 	const handleSubmit = async () => {
 		if (note === '') {
-			toast.error('Oops! Your note is empty...');
-			return null;
+			toast.error('Oops! Your note is empty...')
+			return null
 		}
-		const doc = { title, note, starred };
-		await addDocument(doc);
-	};
+		const doc = { title, note, starred }
+		await addDocument(doc)
+	}
 
 	const handleSpeechToText = () => {
-		setNote((prevValue) => prevValue + transcript);
+		setNote((prevValue) => prevValue + transcript)
 		// if (!isListening) {
 		// 	// listenContinuously();
 		// 	toast.info('mic is on');
@@ -56,13 +56,13 @@ export default function AddNewNote() {
 		// 	// stopListening();
 		// 	toast.info('mic is off');
 		// }
-	};
+	}
 
 	return (
 		<section
 			// submit the form when user press ctrl + Enter
 			onKeyDown={(e) => {
-				if (e.key === 'Enter' && e.ctrlKey) handleSubmit();
+				if (e.key === 'Enter' && e.ctrlKey) handleSubmit()
 			}}
 			className="text-gray-200 h-4/5 max-h-[80vh] md:w-4/5 lg:w-2/4 mx-auto"
 		>
@@ -88,12 +88,12 @@ export default function AddNewNote() {
 						</span>
 					)}
 					{/* notification */}
-					<span
+					{/* <span
 						className="inline-block mr-4 cursor-pointer"
 						title="Enable notification"
 					>
 						<MdOutlineNotificationAdd className="text-2xl" />
-					</span>
+					</span> */}
 					{/* star */}
 					<span
 						className=" cursor-pointer"
@@ -151,5 +151,5 @@ export default function AddNewNote() {
 				</label>
 			</form>
 		</section>
-	);
+	)
 }
