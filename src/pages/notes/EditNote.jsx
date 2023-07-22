@@ -129,6 +129,7 @@ export default function EditNote() {
 								type="text"
 								placeholder="Title (optional)"
 								spellCheck="true"
+								maxLength={70}
 								value={formData.title}
 								onChange={(e) =>
 									setFormData({ ...formData, title: e.target.value })

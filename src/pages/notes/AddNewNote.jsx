@@ -112,6 +112,7 @@ export default function AddNewNote() {
 						type="text"
 						placeholder="Title (optional)"
 						spellCheck="true"
+						maxLength={70}
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
 						className="bg-transparent text-gray-200 w-full caret-[#fad6a5] placeholder:text-slate-300 border-0 border-b-2 border-slate-400 focus:border-slate-300 focus:outline-0 outline-0"

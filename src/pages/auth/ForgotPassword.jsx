@@ -19,7 +19,7 @@ export default function SignUp() {
 	}
 
 	return (
-		<section className="w-full h-screen flex items-center justify-center">
+		<section className="w-full flex items-center justify-center">
 			<form
 				className="flex flex-col m-auto p-8 bg-[#252d58] shadow-sm shadow-slate-900 w-full md:w-4/5 lg:w-2/4 h-fit items-center justify-center max-w-[40rem]"
 				onSubmit={handleSubmit}
