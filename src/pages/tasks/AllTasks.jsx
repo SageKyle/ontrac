@@ -1,8 +1,8 @@
-import Tasks from '../../components/Tasks';
-import FetchTasks from '../../utils/tasks/FetchTasks';
+import Tasks from '../../components/Tasks'
+import FetchTasks from '../../utils/tasks/FetchTasks'
 
 export default function AllTasks() {
-	const { allTasks, isPending, error } = FetchTasks();
+	const { allTasks, isPending, error } = FetchTasks()
 
 	return (
 		<>
@@ -13,5 +13,5 @@ export default function AllTasks() {
 				isEmpty={''}
 			/>
 		</>
-	);
+	)
 }

@@ -1,20 +1,20 @@
-import useFetchDoc from '../../hooks/db/useFetchDoc';
+import useFetchDoc from '../../hooks/db/useFetchDoc'
 
 export default function FetchTasks() {
-	const { data: allTasks, error, isPending } = useFetchDoc('tasks');
+	const { data: allTasks, error, isPending } = useFetchDoc('tasks')
 
 	const uncompletedTasks = allTasks
 		? allTasks.filter((task) => task.completed === false)
-		: null;
+		: null
 	const completedtasks = allTasks
 		? allTasks.filter((task) => task.completed === true)
-		: null;
+		: null
 	const starredTasks = allTasks
 		? allTasks.filter((task) => task.starred === true)
-		: null;
+		: null
 	const numberOfUncompletedTasks = allTasks
 		? allTasks.filter((task) => task.completed === false).length
-		: 0;
+		: 0
 
 	return {
 		allTasks,
@@ -24,5 +24,5 @@ export default function FetchTasks() {
 		completedtasks,
 		isPending,
 		error,
-	};
+	}
 }

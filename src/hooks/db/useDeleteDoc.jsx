@@ -1,26 +1,27 @@
-import { deleteDoc, doc } from 'firebase/firestore';
-import { useState } from 'react';
-import { db } from '../../firebase/firebase.config';
+import { deleteDoc, doc } from 'firebase/firestore'
+import { useState } from 'react'
+import { db } from '../../firebase/firebase.config'
 
-export default function useDeleteDoc(collection) {
-	const [isPending, setIsPending] = useState(false);
-	const [error, setError] = useState(null);
+export default function useDeleteDoc(DBCollection) {
+	const [isPending, setIsPending] = useState(false)
+	const [error, setError] = useState(null)
 
 	async function deleteDocument(id) {
-		setIsPending(true);
-		setError(null);
+		setIsPending(true)
+		setError(null)
 
 		try {
-			await deleteDoc(doc(db, collection, id));
+			await deleteDoc(doc(db, DBCollection, id))
 
-			setIsPending(false);
-			setError(null);
+			//   update state
+			setIsPending(false)
+			setError(null)
 		} catch (err) {
-			console.error(err.message);
-			setIsPending(false);
-			setError(err);
+			console.log(err.message)
+			setError(err.message)
+			setIsPending(false)
 		}
 	}
 
-	return { deleteDocument, isPending, error };
+	return { deleteDocument, isPending, error }
 }
