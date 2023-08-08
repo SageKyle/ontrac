@@ -1,32 +1,32 @@
 // icons
-import { BiDockLeft, BiLogOut } from 'react-icons/bi';
-import { BsListCheck, BsListTask, BsStarFill } from 'react-icons/bs';
-import { FaTasks } from 'react-icons/fa';
-import { RxCaretDown } from 'react-icons/rx';
+import { BiDockLeft, BiLogOut } from 'react-icons/bi'
+import { BsListCheck, BsListTask, BsStarFill } from 'react-icons/bs'
+import { FaTasks } from 'react-icons/fa'
+import { RxCaretDown } from 'react-icons/rx'
 
-import { useRef } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { useAuthContext } from '../hooks/auth/useAuthContext';
-import useLogout from '../hooks/auth/useLogout';
-import ErrorModal from '../utils/modals/ErrorModal';
+import { useRef } from 'react'
+import { Link, NavLink } from 'react-router-dom'
+import { useAuthContext } from '../hooks/auth/useAuthContext'
+import useLogout from '../hooks/auth/useLogout'
+import ErrorModal from '../utils/modals/ErrorModal'
 
 export default function Sidebar({ hideSidebar }) {
-	const { logout, isPending, error } = useLogout();
-	const { user } = useAuthContext();
-	const taskRef = useRef();
-	const noteRef = useRef();
+	const { logout, isPending, error } = useLogout()
+	const { user } = useAuthContext()
+	const taskRef = useRef()
+	const noteRef = useRef()
 
 	function toggleRef(ref) {
-		ref.current.classList.toggle('hidden');
+		ref.current.classList.toggle('hidden')
 	}
 
 	async function handleLogout() {
-		await logout();
-		hideSidebar();
+		await logout()
+		hideSidebar()
 	}
 
 	return (
-		<aside className="fixed flex capitalize flex-col shadow right-0 top-0 bg-[#011d33] w-[50%] md:w-[30%] h-[90vh] overflow-y-auto z-50">
+		<aside className="fixed flex capitalize flex-col shadow right-0 top-0 bg-[#011d33] w-[50%] md:w-[30%] h-[calc(100%-3rem)] overflow-y-auto z-50">
 			{user && !user?.isAnonymous && (
 				<section className="flex flex-col relative items-start my-4 max-h-4/5">
 					{/* user profile */}
@@ -40,7 +40,7 @@ export default function Sidebar({ hideSidebar }) {
 						</h5>
 					</div>
 					{/* tasks */}
-					<div className="w-full px-4 pb-2">
+					<div className="w-full px-4 pb-2 mb-2">
 						<h4
 							className="flex justify-start items-center capitalize mb-2 font-semibold cursor-pointer"
 							onClick={() => toggleRef(taskRef)}
@@ -52,7 +52,7 @@ export default function Sidebar({ hideSidebar }) {
 						</h4>
 						<div
 							ref={taskRef}
-							className="hidden transition-all duration-300 ease-in-out"
+							className="hidden flex flex-col space-y-1 transition-all duration-300 ease-in-out"
 						>
 							<NavLink
 								to={'/tasks'}
@@ -137,7 +137,10 @@ export default function Sidebar({ hideSidebar }) {
 			{user && !user?.isAnonymous && (
 				<div className="w-full mb-8 mt-auto self-start p-4 border-t-[1px] border-slate-400">
 					{!isPending && (
-						<button onClick={handleLogout} className="hover:underline text-xl">
+						<button
+							onClick={handleLogout}
+							className="hover:underline transition-all duration-200 ease-in-out text-xl text-red-400"
+						>
 							<BiLogOut className="mr-2 inline-block" />
 							logout
 						</button>
@@ -156,5 +159,5 @@ export default function Sidebar({ hideSidebar }) {
 				</div>
 			)}
 		</aside>
-	);
+	)
 }
