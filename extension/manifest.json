@@ -1,0 +1,20 @@
+{
+	"name": "onTrac Xtension",
+	"version": "1.0.0",
+	"description": "onTrac web extension",
+	"manifest_version": 3,
+	"permissions": ["storage", "location"],
+	"host_permissions": [],
+	"action": {
+		"default_title": "onTrac",
+		"default_icon": "ontrac.png",
+		"default_popup": "popup/popup.jsx"
+	},
+	"icons": {
+		"16": "ontrac.png",
+		"32": "ontrac.png",
+		"64": "ontrac.png",
+		"128": "ontrac.png",
+		"512": "ontrac.png"
+	}
+}
