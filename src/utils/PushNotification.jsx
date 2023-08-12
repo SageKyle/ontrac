@@ -5,20 +5,21 @@ export default function PushNotification(notice, tag) {
 				const notification = new Notification('Reminder From OnTrac', {
 					body: notice,
 					tag: tag,
-				});
-				notification.addEventListener('click', () => {});
+				})
+				notification.addEventListener('click', () => {
+					window.location.pathname = '/'
+				})
 			}
-			// if (perm === 'denied') {
-			// 	alert('OnTrac needs your permission to send you notifications');
+			if (perm === 'denied') {
+				alert('OnTrac needs your permission to send you notifications')
 
-			// 	return Notification.requestPermission();
-			// }
+				return Notification.requestPermission()
+			}
 		})
 		.catch((err) => {
-			// alert('OnTrac needs your permission to send you notifications');
-			// return Notification.requestPermission();
-			// PushNotification(notice, tag);
-		});
+			alert('OnTrac needs your permission to send you notifications')
+			return Notification.requestPermission()
+		})
 }
 
 // TODO modify the notification function to only be called on a given date

@@ -1,8 +1,10 @@
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import useAddDoc from '../../hooks/db/useAddDoc'
 import PushNotification from '../../utils/PushNotification'
+
 // icons
 import {
 	BsCheck2,
@@ -18,11 +20,15 @@ export default function AddTask() {
 	const [task, setTask] = useState('')
 	const [dueDate, setdueDate] = useState('')
 	const [starred, setStarred] = useState(false)
-
 	const { addDocument, error, isPending } = useAddDoc('tasks')
 
 	function sendNotification() {
-		const notice = 'do more work'
+		const notice = `Remember: '${task}' is due ${formatDistanceToNow(
+			new Date(dueDate),
+			{
+				addSuffix: true,
+			}
+		)}`
 		const tag = 'task'
 		PushNotification(notice, tag)
 	}
@@ -71,13 +77,13 @@ export default function AddTask() {
 						</span>
 					)}
 					{/* notification */}
-					{/* <span
+					<span
 						className="inline-block mr-4 cursor-pointer"
 						title="Enable notification"
 						onClick={sendNotification}
 					>
 						<MdOutlineNotificationAdd className="text-2xl" />
-					</span> */}
+					</span>
 					{/* star */}
 					<span
 						className=" cursor-pointer"
@@ -101,7 +107,7 @@ export default function AddTask() {
 						autoFocus
 						spellCheck="true"
 						required
-						maxLength={60}
+						maxLength={80}
 						minLength={5}
 						value={task}
 						onChange={(e) => setTask(e.target.value)}
