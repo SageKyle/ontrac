@@ -12,7 +12,6 @@ import {
 	BsStar,
 	BsStarFill,
 } from 'react-icons/bs'
-import { MdOutlineNotificationAdd } from 'react-icons/md'
 import LoadingIcon from '../../assets/Rolling-spinner.svg'
 
 export default function AddTask() {
@@ -22,7 +21,7 @@ export default function AddTask() {
 	const [starred, setStarred] = useState(false)
 	const { addDocument, error, isPending } = useAddDoc('tasks')
 
-	function sendNotification() {
+	async function sendNotification() {
 		const notice = `Remember: '${task}' is due ${formatDistanceToNow(
 			new Date(dueDate),
 			{
@@ -30,7 +29,7 @@ export default function AddTask() {
 			}
 		)}`
 		const tag = 'task'
-		PushNotification(notice, tag)
+		await PushNotification(notice, tag, dueDate)
 	}
 
 	// Form Actions
@@ -44,6 +43,8 @@ export default function AddTask() {
 			return null
 		}
 		const doc = { task, dueDate, starred, completed: false }
+
+		await sendNotification()
 		await addDocument(doc)
 	}
 
@@ -76,14 +77,7 @@ export default function AddTask() {
 							<img src={LoadingIcon} alt="loading" className="h-6 w-6" />
 						</span>
 					)}
-					{/* notification */}
-					<span
-						className="inline-block mr-4 cursor-pointer"
-						title="Enable notification"
-						onClick={sendNotification}
-					>
-						<MdOutlineNotificationAdd className="text-2xl" />
-					</span>
+
 					{/* star */}
 					<span
 						className=" cursor-pointer"

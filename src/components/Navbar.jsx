@@ -12,7 +12,7 @@ export default function Navbar({ toggleSidebar }) {
 	}
 
 	return (
-		<nav className="py-2 px-4 w-full bg-[#011d33] border-t-amber-300 border-2 text-white flex fixed z-50 bottom-0">
+		<nav className="py-2 px-4 w-full bg-[#011d33] border-t-amber-300 border-t-2 text-white flex fixed z-50 bottom-0">
 			<ul className="flex justify-evenly align-middle w-[100%]">
 				{/* Home */}
 				<li
