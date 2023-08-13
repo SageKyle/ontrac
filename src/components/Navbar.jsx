@@ -1,13 +1,13 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
 
 // icons
-import { BiHomeCircle, BiUserCircle } from 'react-icons/bi';
-import { BsListCheck } from 'react-icons/bs';
-import { MdOutlineEditNote } from 'react-icons/md';
+import { BiHomeCircle, BiUserCircle } from 'react-icons/bi'
+import { BsListCheck } from 'react-icons/bs'
+import { MdOutlineEditNote } from 'react-icons/md'
 
 export default function Navbar({ toggleSidebar }) {
 	function displaySideBar() {
-		toggleSidebar();
+		toggleSidebar()
 		// toggleIsOpen((isOpen) => !isOpen);
 	}
 
@@ -33,7 +33,7 @@ export default function Navbar({ toggleSidebar }) {
 					title="Add A New Note"
 				>
 					<NavLink
-						to={'/new-note'}
+						to={'/?tab=new-note'}
 						className="flex flex-col items-center justify-center"
 					>
 						<MdOutlineEditNote className="text-2xl" />
@@ -46,7 +46,7 @@ export default function Navbar({ toggleSidebar }) {
 					title="Add A New Task"
 				>
 					<NavLink
-						to={'/new-task'}
+						to={'/?tab=new-task'}
 						className="flex flex-col items-center justify-center"
 					>
 						<BsListCheck className="text-2xl" />
@@ -69,5 +69,5 @@ export default function Navbar({ toggleSidebar }) {
 				</li>
 			</ul>
 		</nav>
-	);
+	)
 }

@@ -1,44 +1,43 @@
-import { Suspense, lazy, useState } from 'react';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Suspense, lazy, useState } from 'react'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 // notification
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-import './App.css';
+import './App.css'
 // components/utils
-import Navbar from './components/Navbar';
-import Sidebar from './components/Sidebar';
-import CheckIfNotFirstTime from './utils/CheckIfNotFirstTime';
-import Welcome from './utils/Welcome';
-import ErrorBoundaryWrapper from './utils/modals/ErrorBoundary';
+import Navbar from './components/Navbar'
+import Sidebar from './components/Sidebar'
+import CheckIfNotFirstTime from './utils/CheckIfNotFirstTime'
+import Welcome from './utils/Welcome'
+import ErrorBoundaryWrapper from './utils/modals/ErrorBoundary'
+// import OverlayRoute from './utils/routes/OverlayRoute'
 // pages/routes
-const Docs = lazy(() => import('./components/Docs'));
-const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'));
-const SignUp = lazy(() => import('./pages/auth/SignUp'));
-const AddNewNote = lazy(() => import('./pages/notes/AddNewNote'));
-const AddTask = lazy(() => import('./pages/tasks/AddTask'));
-const FallbackRoute = lazy(() => import('./utils/routes/FallbackRoute'));
+const Docs = lazy(() => import('./components/Docs'))
+const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'))
+const SignUp = lazy(() => import('./pages/auth/SignUp'))
+const FallbackRoute = lazy(() => import('./utils/routes/FallbackRoute'))
 
-import SignIn from './pages/auth/SignIn';
+import SignIn from './pages/auth/SignIn'
 
-const Home = lazy(() => import('./pages/home/Home'));
+const Home = lazy(() => import('./pages/home/Home'))
 // Tasks
-const AllTasks = lazy(() => import('./pages/tasks/AllTasks'));
-const StarredTasks = lazy(() => import('./pages/tasks/StarredTasks'));
-const UncompletedTasks = lazy(() => import('./pages/tasks/UncompletedTasks'));
+const AllTasks = lazy(() => import('./pages/tasks/AllTasks'))
+const StarredTasks = lazy(() => import('./pages/tasks/StarredTasks'))
+const UncompletedTasks = lazy(() => import('./pages/tasks/UncompletedTasks'))
 // notes
-const AllNotes = lazy(() => import('./pages/notes/AllNotes'));
-const EditNote = lazy(() => import('./pages/notes/EditNote'));
-const StarredNotes = lazy(() => import('./pages/notes/StarredNotes'));
+const AllNotes = lazy(() => import('./pages/notes/AllNotes'))
+const EditNote = lazy(() => import('./pages/notes/EditNote'))
+const StarredNotes = lazy(() => import('./pages/notes/StarredNotes'))
 // auth
-import { useAuthContext } from './hooks/auth/useAuthContext';
-import LoginRoute from './utils/routes/LoginRoute';
-import ProtectedRoute from './utils/routes/ProtectedRoute';
+import { useAuthContext } from './hooks/auth/useAuthContext'
+import LoginRoute from './utils/routes/LoginRoute'
+import ProtectedRoute from './utils/routes/ProtectedRoute'
 // loader
-import Logo from './assets/ontrac.png';
-import Loading from './utils/Loading';
+import Logo from './assets/ontrac.png'
+import Loading from './utils/Loading'
 // animation
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'
 
 const variants = {
 	open: {
@@ -55,22 +54,22 @@ const variants = {
 			y: { stiffness: 1, velocity: -100, duration: 1.5 },
 		},
 	},
-};
+}
 
 function App() {
 	// auth
-	const { user, authIsReady } = useAuthContext();
+	const { user, authIsReady } = useAuthContext()
 
-	const { notFirstTime, setNotFirstTime } = CheckIfNotFirstTime();
-	const [isOpen, setIsOpen] = useState(false);
+	const { notFirstTime, setNotFirstTime } = CheckIfNotFirstTime()
+	const [isOpen, setIsOpen] = useState(false)
 	// sidebar
 	// const sidebarRef = useRef();
 
 	function toggleSidebar() {
-		setIsOpen((prev) => !prev);
+		setIsOpen((prev) => !prev)
 	}
 	function hideSidebar() {
-		setIsOpen(false);
+		setIsOpen(false)
 	}
 
 	return (
@@ -96,23 +95,9 @@ function App() {
 									{/* logged in user */}
 									{/* home */}
 									<Route element={<ProtectedRoute user={user} />} path={'/'}>
-										<Route element={<Home />} path={'/'} />
+										<Route element={<Home />} path={'/'}></Route>
 									</Route>
 
-									{/* add note */}
-									<Route
-										element={<ProtectedRoute user={user} />}
-										path={'/new-note'}
-									>
-										<Route element={<AddNewNote />} path={'/new-note'} />
-									</Route>
-									{/* new Task */}
-									<Route
-										element={<ProtectedRoute user={user} />}
-										path={'/new-task'}
-									>
-										<Route element={<AddTask />} path={'/new-task'} />
-									</Route>
 									{/* uncompleted tasks */}
 									<Route
 										element={<ProtectedRoute user={user} />}
@@ -177,6 +162,8 @@ function App() {
 									{/* fallback */}
 									<Route element={<FallbackRoute />} path={'*'} />
 								</Routes>
+								{/* Add note/task shown as an overlay */}
+								{/* <OverlayRoute /> */}
 							</Suspense>
 						</main>
 						{/* sidebar */}
@@ -208,7 +195,7 @@ function App() {
 				theme="dark"
 			/>
 		</div>
-	);
+	)
 }
 
-export default ErrorBoundaryWrapper(App);
+export default ErrorBoundaryWrapper(App)
