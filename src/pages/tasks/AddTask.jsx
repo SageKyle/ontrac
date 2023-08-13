@@ -1,9 +1,8 @@
-import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import sendNotification from '../../helpers/sendNotification'
 import useAddDoc from '../../hooks/db/useAddDoc'
-import PushNotification from '../../utils/PushNotification'
 
 // icons
 import {
@@ -21,17 +20,6 @@ export default function AddTask() {
 	const [starred, setStarred] = useState(false)
 	const { addDocument, error, isPending } = useAddDoc('tasks')
 
-	async function sendNotification() {
-		const notice = `Remember: '${task}' is due ${formatDistanceToNow(
-			new Date(dueDate),
-			{
-				addSuffix: true,
-			}
-		)}`
-		const tag = 'task'
-		await PushNotification(notice, tag, dueDate)
-	}
-
 	// Form Actions
 	const handleSubmit = async () => {
 		if (task === '') {
@@ -44,7 +32,7 @@ export default function AddTask() {
 		}
 		const doc = { task, dueDate, starred, completed: false }
 
-		await sendNotification()
+		await sendNotification(task, 'task', dueDate)
 		await addDocument(doc)
 	}
 
