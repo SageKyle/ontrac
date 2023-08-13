@@ -8,6 +8,5 @@ export default async function sendNotification(task, tag, dueDate) {
 			addSuffix: true,
 		}
 	)}`
-	const tag = 'task'
 	await PushNotification(notice, tag, dueDate)
 }
