@@ -134,13 +134,13 @@ export default function EditNote() {
 								onChange={(e) =>
 									setFormData({ ...formData, title: e.target.value })
 								}
-								className="bg-transparent text-gray-200 w-full caret-[#fad6a5] placeholder:text-slate-300 border-0 border-b-2 border-slate-400 focus:border-slate-300 focus:outline-0 outline-0"
+								className="bg-transparent text-gray-200 w-full caret-[#fad6a5] placeholder:text-slate-300 border-0 border-b border-slate-500 focus:border-slate-400 focus:outline-0 outline-0"
 							/>
 						</label>
 						<label className="flex p-2 w-full relative h-[20rem]">
 							<textarea
 								id="note"
-								className="bg-transparent text-gray-200 resize-none mb-6 outline-0 w-full placeholder:text-[#fad6a5] caret-[#fad6a5] border-2 border-slate-400 focus:border-slate-300 focus:outline-0"
+								className="bg-transparent p-2 shadow-lg rounded-sm text-gray-200 resize-none mb-6 outline-0 w-full placeholder:text-[#fad6a5] caret-[#fad6a5] border border-slate-500 focus:border-slate-400 focus:outline-0"
 								placeholder="Note..."
 								title="Add Note"
 								spellCheck="true"

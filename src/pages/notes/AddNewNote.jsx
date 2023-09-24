@@ -64,7 +64,7 @@ export default function AddNewNote() {
 			onKeyDown={(e) => {
 				if (e.key === 'Enter' && e.ctrlKey) handleSubmit()
 			}}
-			className="text-gray-200 h-4/5 max-h-[80vh] md:w-4/5 lg:w-2/4 mx-auto"
+			className="text-gray-200 h-4/5 max-h-[80vh] w-[90%] md:w-4/5 lg:w-3/5 mx-auto"
 		>
 			<nav className="flex justify-between items-center mb-6">
 				{/* arrow left */}
@@ -115,13 +115,13 @@ export default function AddNewNote() {
 						maxLength={70}
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
-						className="bg-transparent text-gray-200 w-full caret-[#fad6a5] placeholder:text-slate-300 border-0 border-b-2 border-slate-400 focus:border-slate-300 focus:outline-0 outline-0"
+						className="bg-transparent text-gray-200 w-full caret-[#fad6a5] placeholder:text-slate-300 border-0 border-b border-slate-400 focus:border-slate-500 focus:outline-0 outline-0"
 					/>
 				</label>
-				<label className="flex p-2 w-full relative h-[20rem]">
+				<label className="flex p-2 w-full relative h-[20rem] lg:h-[25rem]">
 					<textarea
 						id="note"
-						className="bg-transparent relative text-gray-200 resize-none mb-6 outline-0 w-full placeholder:text-[#fad6a5] caret-[#fad6a5] border-2 border-slate-400 focus:border-slate-300 focus:outline-0"
+						className="bg-transparent p-2 rounded-sm relative text-gray-200 resize-none mb-6 outline-0 w-full placeholder:text-[#fad6a5] caret-[#fad6a5] border-2 border-slate-500 shadow-md focus:border-slate-400 focus:outline-0"
 						placeholder="Note..."
 						title="Add Note"
 						spellCheck="true"
