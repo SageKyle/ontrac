@@ -47,15 +47,15 @@ export default function Tasks({ tasks, isPending, error, isEmpty }) {
 					tasks.map((task) => (
 						<div
 							key={task.id}
-							className="m-2 p-2 border-2 relative cursor-pointer rounded sm:w-full md:w-[20rem]"
+							className="m-2 p-2 border border-slate-500 relative cursor-pointer rounded shadow-md sm:w-full md:w-[20rem]"
 							disabled={updating}
 							onClick={() => completeTask(task)}
 						>
 							<h4
 								className={
 									task.completed
-										? 'capitalize text-[#fad6a5] line-through text-2xl mt-4'
-										: 'capitalize text-2xl mt-4'
+										? 'capitalize text-[#fad6a5] line-through text-base lg:text-xl font-semibold mt-4'
+										: 'capitalize text-base lg:text-xl font-semibold mt-4'
 								}
 							>
 								{task.task}
@@ -64,10 +64,12 @@ export default function Tasks({ tasks, isPending, error, isEmpty }) {
 								{task.starred && !task.completed && (
 									<BsStarFill className="text-[#fad6a5] text-xl inline-block" />
 								)}
-								<FaTrash
-									className="text-red-500 text-xl inline-block"
-									onClick={(e) => handleDelete(task.id, e)}
-								/>
+								{task.completed && (
+									<FaTrash
+										className="text-red-500 text-xl inline-block"
+										onClick={(e) => handleDelete(task.id, e)}
+									/>
+								)}
 							</div>
 
 							{/* <p className="text-sm">{task.note}</p> */}
